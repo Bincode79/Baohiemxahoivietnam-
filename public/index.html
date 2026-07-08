@@ -5,161 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Trang chủ - CỔNG THÔNG TIN ĐIỆN TỬ BẢO HIỂM XÃ HỘI VIỆT NAM</title>
   <link rel="icon" type="image/png" href="/images/logonew.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 <style>
-/* Custom premium UI enhancements */
+/* Government portal base */
 :root {
-  --bg-color: #ffffff;
-  --text-color: #212529;
-  --primary-gradient: linear-gradient(135deg, var(--blue), var(--cyan-2));
+  --gov-blue: #00A0DC;
+  --gov-blue-2: #009EE3;
+  --gov-red: #EC3237;
+  --gov-text: #575756;
 }
-.dark-mode {
-  --bg-color: #212529;
-  --text-color: #f8f9fa;
-}
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-}
-
-/* Hero section enhancements */
-.hero-wrap {
-  background: linear-gradient(135deg, var(--blue) 0%, var(--cyan-2) 100%);
-  position: relative;
-  overflow: hidden;
-}
-.hero-bg {
-  opacity: 0.15; /* subtle background image */
-}
-.hero-content {
-  backdrop-filter: blur(8px);
-  background: rgba(255,255,255,0.12);
-  border-radius: var(--radius-md);
-  padding: 32px;
-}
-
-/* Icon cards hover effect with glassmorphism */
-.icon-card {
-  background: rgba(255,255,255,0.6);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(255,255,255,0.4);
-  backdrop-filter: blur(6px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.icon-card:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(255,255,255,0.6);
-}
-
-/* Header links button style */
-.header-actions .header-link {
-  border-radius: var(--radius-sm);
-  transition: background 0.25s ease, transform 0.15s ease;
-}
-.header-actions .header-link:hover {
-  transform: translateY(-2px);
-  background: rgba(255,255,255,0.3);
-}
-
-/* Navbar active link underline animation */
-.navbar-container .menu-left li a::after {
-  height: 3px;
-  background: var(--cyan);
-  transition: transform 0.3s ease;
-}
-
-/* Footer social icons hover */
-.footer-bottom .f-social a {
-  background: rgba(255,255,255,0.15);
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-.footer-bottom .f-social a:hover {
-  background: var(--cyan);
-  transform: translateY(-2px);
-}
-
-/* Button primary with gradient */
-.btn-primary {
-  background: linear-gradient(135deg, var(--blue), var(--cyan-2));
-  border: none;
-  color: #fff;
-  transition: background 0.3s ease, box-shadow 0.2s ease;
-}
-.btn-primary:hover {
-  background: linear-gradient(135deg, var(--cyan-2), var(--blue));
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-}
-
-/* Smooth scroll behavior */
-html {
-  scroll-behavior: smooth;
-}
+html, body { font-family: Tahoma, Geneva, Verdana, sans-serif; }
+body { background: var(--gov-page-bg, #EDEDED); color: var(--gov-text); }
 </style>
 </head>
 <body>
 
-  <div class="top-strip"></div>
-
-  <header class="site-header">
-    <div class="header-bg-pattern" aria-hidden="true">
-      <svg viewBox="0 0 800 150" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <pattern id="hex-pattern" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
-            <polygon points="30,2 56,17 56,47 30,62 4,47 4,17" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
-          </pattern>
-          <pattern id="dots-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-            <circle cx="20" cy="20" r="1.5" fill="rgba(255,255,255,0.12)"/>
-          </pattern>
-        </defs>
-        <rect width="800" height="150" fill="url(#hex-pattern)"/>
-        <rect width="800" height="150" fill="url(#dots-pattern)"/>
-        <circle cx="700" cy="30" r="80" fill="rgba(255,255,255,0.05)"/>
-        <circle cx="750" cy="80" r="50" fill="rgba(255,255,255,0.04)"/>
-        <path d="M0,120 Q200,100 400,120 T800,120" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
-        <path d="M0,135 Q200,115 400,135 T800,135" stroke="rgba(255,255,255,0.07)" stroke-width="1" fill="none"/>
-      </svg>
-    </div>
-    <div class="header-decoration">
-      <svg viewBox="0 0 100 20" preserveAspectRatio="none">
-        <path d="M0,10 Q25,0 50,10 T100,10 V20 H0Z" fill="rgba(255,255,255,0.05)"/>
-        <circle cx="10" cy="5" r="2" fill="rgba(255,255,255,0.1)"/>
-        <circle cx="30" cy="8" r="1.5" fill="rgba(255,255,255,0.08)"/>
-        <circle cx="50" cy="4" r="2" fill="rgba(255,255,255,0.1)"/>
-        <circle cx="70" cy="7" r="1.5" fill="rgba(255,255,255,0.08)"/>
-        <circle cx="90" cy="5" r="2" fill="rgba(255,255,255,0.1)"/>
-      </svg>
-    </div>
+  <!-- ===== BAND 1: UTILITY BAR ===== -->
+  <div class="utility-bar">
     <div class="container">
-      <a href="/" class="brand">
-        <div class="brand-badge">
-          <img src="/images/bhxh_logo.svg" alt="BHXH" />
-        </div>
-        <div class="brand-text">
-          <span class="brand-main">BẢO HIỂM XÃ HỘI VIỆT NAM</span>
-          <span class="brand-sub">CỔNG DỊCH VỤ CÔNG</span>
-        </div>
+      <a href="/" class="utility-brand" aria-label="Bảo hiểm xã hội Việt Nam">
+        <img class="emblem" src="/images/quoc_huy.svg" alt="Quốc huy Việt Nam" />
+        <img class="wordmark" src="https://baohiemxahoi.gov.vn/Publishing_Home/images/banner_chu.svg" alt="Bảo hiểm xã hội Việt Nam" onerror="this.style.display='none'" />
       </a>
-      <div class="header-center" aria-hidden="true">
-        <img src="/images/quoc_huy.svg" alt="Quốc huy Việt Nam" style="height:68px;width:auto;opacity:0.92;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))" />
-      </div>
-      <div class="header-actions">
-        <button class="mobile-nav-toggle" id="mobileNavToggle" onclick="toggleMobileNav()" aria-label="Mở menu">
-          <i class="bi bi-list"></i>
+      <div class="utility-tools">
+        <span class="utility-hotline"><span>Hotline:</span>1900 90 68</span>
+        <a href="#" class="utility-lang" title="Tiếng Việt">
+          <img class="flag" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2030%2020%22%3E%3Crect%20width%3D%2230%22%20height%3D%2220%22%20fill%3D%22%23DA251D%22%2F%3E%3Cpolygon%20fill%3D%22%23FFFF00%22%20points%3D%2215%2C3%2016.2%2C7%2020%2C7%2017%2C9.5%2018.2%2C13.5%2015%2C11%2011.8%2C13.5%2013%2C9.5%2010%2C7%2013.8%2C7%22%2F%3E%3C%2Fsvg%3E" alt="VN" />
+        </a>
+        <a href="#" class="utility-lang" title="English">
+          <img class="flag" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2030%2020%22%3E%3Crect%20width%3D%2230%22%20height%3D%2220%22%20fill%3D%22%23012169%22%2F%3E%3Cpath%20stroke%3D%22%23fff%22%20stroke-width%3D%223%22%20d%3D%22M5%2C0%20v20%20M10%2C0%20v20%20M15%2C0%20v20%20M20%2C0%20v20%20M25%2C0%20v20%20M0%2C5%20h30%20M0%2C10%20h30%20M0%2C15%20h30%22%2F%3E%3Cpath%20stroke%3D%22%23C8102E%22%20stroke-width%3D%221.5%22%20d%3D%22M5%2C0%20v20%20M10%2C0%20v20%20M15%2C0%20v20%20M20%2C0%20v20%20M25%2C0%20v20%20M0%2C5%20h30%20M0%2C10%20h30%20M0%2C15%20h30%22%2F%3E%3C%2Fsvg%3E" alt="EN" />
+        </a>
+        <form class="utility-search" onsubmit="event.preventDefault();showToast('Tìm: ' + this.q.value, 'info');">
+          <input type="text" name="q" placeholder="Từ khóa" aria-label="Từ khóa" />
+          <button type="submit" aria-label="Tìm kiếm"><i class="bi bi-search"></i></button>
+        </form>
+        <span class="utility-actions">
+          <a href="#" data-open-login class="header-link">Đăng nhập</a>
+          <a href="/dang-ky" class="header-link">Đăng ký</a>
+        </span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <i class="bi bi-moon"></i>
         </button>
-        <a href="#" data-open-login class="header-link">Đăng nhập</a>
-        <a href="/dang-ky" class="header-link">Đăng ký</a>
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-  <i class="bi bi-moon"></i>
-</button>
       </div>
     </div>
-  </header>
+  </div>
 
+  <!-- ===== BAND 2: NAVIGATION BAR ===== -->
+  <div class="nav-bar">
+    <div class="container">
+      <ul class="menu-left">
+        <li class="active"><a href="/">TRANG CHỦ</a></li>
+        <li><a href="#" onclick="showToast('Giới thiệu', 'info'); return false;">GIỚI THIỆU</a></li>
+        <li><a href="#" onclick="showToast('Tin tức', 'info'); return false;">TIN TỨC</a></li>
+        <li><a href="#" onclick="showToast('Văn bản', 'info'); return false;">VĂN BẢN</a></li>
+        <li><a href="#" onclick="showToast('Chỉ đạo - Điều hành', 'info'); return false;">CHỈ ĐẠO - ĐIỀU HÀNH</a></li>
+        <li><a href="#" onclick="showToast('PBGDPL', 'info'); return false;">PBGDPL</a></li>
+        <li><a href="#" onclick="showToast('Những điều cần biết', 'info'); return false;">NHỮNG ĐIỀU CẦN BIẾT</a></li>
+        <li><a href="#" onclick="showToast('Diễn đàn', 'info'); return false;">DIỄN ĐÀN</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== BAND 3: QUICK ACCESS STRIP ===== -->
+  <div class="quick-access">
+    <div class="container">
+      <ul class="quick-access-list">
+        <li><a href="#" onclick="showToast('Tra cứu mã số BHXH', 'info'); return false;">TRA CỨU MÃ SỐ BHXH</a></li>
+        <li><a href="#" onclick="showToast('Tra cứu đóng BHXH', 'info'); return false;">TRA CỨU ĐÓNG BHXH</a></li>
+        <li><a href="#" onclick="showToast('Tra cứu giám định', 'info'); return false;">TRA CỨU GIÁM ĐỊNH</a></li>
+        <li><a href="#" onclick="showToast('Góp ý kiến', 'info'); return false;">GÓP Ý KIẾN</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Legacy navbar-container kept so the mobile drawer JS (toggleMobileNav / mobileNavToggle) still works on small screens -->
   <div class="navbar-container">
+    <button class="mobile-nav-toggle" id="mobileNavToggle" onclick="toggleMobileNav()" aria-label="Mở menu">
+      <i class="bi bi-list"></i>
+    </button>
     <!-- Mobile Navigation Overlay -->
     <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
     <!-- Mobile Navigation Drawer -->
@@ -172,40 +97,16 @@ html {
       </div>
       <ul class="mobile-nav-menu">
         <li><a href="/" onclick="toggleMobileNav()"><i class="bi bi-house-door-fill"></i> Trang chủ</a></li>
-        <li class="mobile-has-sub">
-          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-file-earmark-plus-fill"></i> Kê khai hồ sơ <i class="bi bi-chevron-down float-end"></i></a>
-          <ul class="mobile-submenu">
-            <li><a href="#" onclick="showToast('Kê khai thay đổi', 'info'); toggleMobileNav(); return false;"><i class="bi bi-pencil-square"></i> Kê khai thay đổi</a></li>
-            <li><a href="#" onclick="showToast('Kê khai tăng', 'info'); toggleMobileNav(); return false;"><i class="bi bi-plus-circle"></i> Kê khai tăng</a></li>
-            <li><a href="#" onclick="showToast('Kê khai giảm', 'info'); toggleMobileNav(); return false;"><i class="bi bi-dash-circle"></i> Kê khai giảm</a></li>
-            <li><a href="#" onclick="showToast('Kê khai điều chỉnh', 'info'); toggleMobileNav(); return false;"><i class="bi bi-arrow-repeat"></i> Kê khai điều chỉnh</a></li>
-          </ul>
-        </li>
-        <li class="mobile-has-sub">
-          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-shield-check"></i> Nộp BHXH điện tử <i class="bi bi-chevron-down float-end"></i></a>
-          <ul class="mobile-submenu">
-            <li><a href="#" onclick="showToast('Nộp hồ sơ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-upload"></i> Nộp hồ sơ</a></li>
-            <li><a href="#" onclick="showToast('Tra cứu hồ sơ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-search"></i> Tra cứu hồ sơ</a></li>
-          </ul>
-        </li>
-        <li class="mobile-has-sub">
-          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-list-check"></i> Dịch vụ công <i class="bi bi-chevron-down float-end"></i></a>
-          <ul class="mobile-submenu">
-            <li><a href="#" onclick="showToast('DVC cấp sổ BHXH', 'info'); toggleMobileNav(); return false;"><i class="bi bi-card-text"></i> Cấp sổ BHXH</a></li>
-            <li><a href="#" onclick="showToast('DVC cấp thẻ BHYT', 'info'); toggleMobileNav(); return false;"><i class="bi bi-credit-card"></i> Cấp thẻ BHYT</a></li>
-            <li><a href="#" onclick="showToast('DVC giải quyết chế độ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-wallet2"></i> Giải quyết chế độ</a></li>
-          </ul>
-        </li>
-        <li><a href="#" onclick="showToast('Tra cứu', 'info'); toggleMobileNav(); return false;"><i class="bi bi-search"></i> Tra cứu</a></li>
+        <li><a href="#" onclick="showToast('Giới thiệu', 'info'); toggleMobileNav(); return false;"><i class="bi bi-info-circle-fill"></i> Giới thiệu</a></li>
+        <li><a href="#" onclick="showToast('Tin tức', 'info'); toggleMobileNav(); return false;"><i class="bi bi-newspaper"></i> Tin tức</a></li>
+        <li><a href="#" onclick="showToast('Văn bản', 'info'); toggleMobileNav(); return false;"><i class="bi bi-file-earmark-text-fill"></i> Văn bản</a></li>
+        <li><a href="#" onclick="showToast('Chỉ đạo - Điều hành', 'info'); toggleMobileNav(); return false;"><i class="bi bi-megaphone-fill"></i> Chỉ đạo - Điều hành</a></li>
+        <li><a href="#" onclick="showToast('PBGDPL', 'info'); toggleMobileNav(); return false;"><i class="bi bi-book-fill"></i> PBGDPL</a></li>
+        <li><a href="#" onclick="showToast('Những điều cần biết', 'info'); toggleMobileNav(); return false;"><i class="bi bi-lightbulb-fill"></i> Những điều cần biết</a></li>
+        <li><a href="#" onclick="showToast('Diễn đàn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-chat-square-text-fill"></i> Diễn đàn</a></li>
+        <li><a href="#" onclick="openCccdScan(); toggleMobileNav(); return false;"><i class="bi bi-credit-card-2-front"></i> Quét CCCD gắn chip</a></li>
+        <li><a href="#" onclick="openDvcQrModal(); toggleMobileNav(); return false;"><i class="bi bi-qr-code"></i> Tạo mã QR thanh toán</a></li>
         <li><a href="/dat-lich" onclick="toggleMobileNav()"><i class="bi bi-calendar-check"></i> Đặt lịch</a></li>
-        <li class="mobile-has-sub">
-          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-file-earmark-text-fill"></i> Tài liệu & ứng dụng <i class="bi bi-chevron-down float-end"></i></a>
-          <ul class="mobile-submenu">
-            <li><a href="#" onclick="showToast('Tài liệu hướng dẫn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-book"></i> Tài liệu hướng dẫn</a></li>
-            <li><a href="#" onclick="showToast('Phần mềm kê khai', 'info'); toggleMobileNav(); return false;"><i class="bi bi-download"></i> Phần mềm kê khai</a></li>
-            <li><a href="#" onclick="showToast('Video hướng dẫn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-play-circle"></i> Video hướng dẫn</a></li>
-          </ul>
-        </li>
       </ul>
       <div style="padding:16px;border-top:1px solid #eee">
         <a href="#" data-open-login class="btn btn-primary w-100 mb-2" onclick="toggleMobileNav()">
@@ -216,117 +117,190 @@ html {
         </a>
       </div>
     </div>
-    <ul class="menu-left">
-      <li class="active"><a href="/"><i class="bi bi-house-door-fill nav-icon"></i><span>Trang chủ</span></a></li>
-      <li class="has-dropdown">
-        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-file-earmark-plus-fill nav-icon"></i><span>Kê khai hồ sơ</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="#" onclick="showToast('Kê khai thay đổi', 'info')"><i class="bi bi-pencil-square me-2"></i>Kê khai thay đổi</a></li>
-          <li><a href="#" onclick="showToast('Kê khai tăng', 'info')"><i class="bi bi-plus-circle me-2"></i>Kê khai tăng</a></li>
-          <li><a href="#" onclick="showToast('Kê khai giảm', 'info')"><i class="bi bi-dash-circle me-2"></i>Kê khai giảm</a></li>
-          <li><a href="#" onclick="showToast('Kê khai điều chỉnh', 'info')"><i class="bi bi-arrow-repeat me-2"></i>Kê khai điều chỉnh</a></li>
-        </ul>
-      </li>
-      <li class="has-dropdown">
-        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-shield-check nav-icon"></i><span>Nộp BHXH điện tử</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="#" onclick="showToast('Nộp hồ sơ', 'info')"><i class="bi bi-upload me-2"></i>Nộp hồ sơ</a></li>
-          <li><a href="#" onclick="showToast('Tra cứu hồ sơ', 'info')"><i class="bi bi-search me-2"></i>Tra cứu hồ sơ</a></li>
-        </ul>
-      </li>
-      <li class="has-dropdown">
-        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-list-check nav-icon"></i><span>Dịch vụ công <i class="bi bi-chevron-down" style="font-size:10px;vertical-align:middle"></i></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#" onclick="showToast('Cấp sổ BHXH', 'info')"><i class="bi bi-card-text me-2"></i>Cấp sổ BHXH</a></li>
-          <li><a href="#" onclick="showToast('Cấp thẻ BHYT', 'info')"><i class="bi bi-credit-card me-2"></i>Cấp thẻ BHYT</a></li>
-          <li><a href="#" onclick="showToast('Giải quyết chế độ', 'info')"><i class="bi bi-wallet2 me-2"></i>Giải quyết chế độ</a></li>
-        </ul>
-      </li>
-      <li><a href="#" onclick="showToast('Tra cứu', 'info')"><i class="bi bi-search nav-icon"></i><span>Tra cứu</span></a></li>
-      <li><a href="/dat-lich"><i class="bi bi-calendar-check nav-icon"></i><span>Đặt lịch</span></a></li>
-      <li class="has-dropdown">
-        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-file-earmark-text-fill nav-icon"></i><span>Tài liệu & ứng dụng</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
-        <ul class="dropdown-menu">
-          <li><a href="#" onclick="showToast('Tài liệu hướng dẫn', 'info')"><i class="bi bi-book me-2"></i>Tài liệu hướng dẫn</a></li>
-          <li><a href="#" onclick="showToast('Phần mềm kê khai', 'info')"><i class="bi bi-download me-2"></i>Phần mềm kê khai</a></li>
-          <li><a href="#" onclick="showToast('Video hướng dẫn', 'info')"><i class="bi bi-play-circle me-2"></i>Video hướng dẫn</a></li>
-        </ul>
-      </li>
-    </ul>
   </div>
 
   <main class="bhxh-page">
     <div class="hero-wrap">
-      <img class="hero-bg" src="/images/bg_01.svg" alt="banner" onerror="this.style.display='none'" />
-      <div class="hero-dark"></div>
       <div class="hero-content">
-        <div class="menu-overlay">
-          <div class="icon-grid">
-            <a class="icon-card" title="Kê khai hồ sơ" href="#" onclick="showToast('Kê khai hồ sơ', 'info')">
-              <span class="icon"><img src="/images/kekhai.svg" alt="Kê khai hồ sơ" /></span>
-            </a>
-            <a class="icon-card" title="Tra cứu thông tin người phụ thuộc" href="#" onclick="showToast('Tra cứu thông tin', 'info')">
-              <span class="icon"><img src="/images/thanhtoanbhxhdientu-01.png" alt="Tra cứu thông tin người phụ thuộc" /></span>
-            </a>
-            <a class="icon-card" title="Dịch vụ công trực tuyến" href="#" onclick="openDvcQrModal(); return false;">
-              <span class="icon"><img src="/images/dichvucong-01.svg" alt="Dịch vụ công trực tuyến" /></span>
-            </a>
-            <a class="icon-card" title="Tra cứu hồ sơ" href="#" onclick="openCccdScan(); return false;">
-              <span class="icon"><img src="/images/tracuu.svg" alt="Tra cứu hồ sơ" /></span>
-            </a>
-            <a class="icon-card" title="Tài liệu & ứng dụng" href="#" onclick="showToast('Tài liệu & ứng dụng', 'info')">
-              <span class="icon"><img src="/images/tailieu.svg" alt="Tài liệu & ứng dụng" /></span>
-            </a>
-            <a class="icon-card" title="Đặt lịch làm việc" href="/dat-lich">
-              <span class="icon"><img src="/images/datlich.svg" alt="Đặt lịch làm việc" /></span>
-            </a>
-            <a class="icon-card" title="Nộp hồ sơ giám định" href="#" onclick="showToast('Hồ sơ giám định', 'info')">
-              <span class="icon"><img src="/images/thanhtoanbhxhdientu-01.png" alt="Hồ sơ giám định" /></span>
-            </a>
-            <a class="icon-card" title="Chi trả các chế độ" href="#" onclick="showToast('Chi trả các chế độ', 'info')">
-              <span class="icon"><img src="/images/kekhai.svg" alt="Chi trả các chế độ" /></span>
-            </a>
-            <a class="icon-card" title="Hỗ trợ trực tuyến" href="#" onclick="toggleChat(); return false;">
-              <span class="icon"><i class="bi bi-headset" style="font-size:40px;color:#fff"></i></span>
-            </a>
-          </div>
-        </div>
-        <div class="stats-wrap">
-          <div class="stats-panel">
-            <h3>Tình hình xử lý hồ sơ năm 2026</h3>
-            <div class="stats-row">
-              <div class="stats-item">
-                <div class="label">Đã tiếp nhận</div>
-                <div class="value" id="statReceived">0</div>
-                <div class="unit">Hồ sơ</div>
-              </div>
-              <div class="stats-item">
-                <div class="label">Đã giải quyết</div>
-                <div class="value" id="statProcessed">0</div>
-                <div class="unit">Hồ sơ</div>
+
+        <!-- HERO SEARCH PANEL -->
+        <section class="hero-search-panel" aria-label="Tra cứu nhanh">
+          <h2 class="hero-search-title">Tra cứu nhanh</h2>
+          <div class="hero-search-grid">
+            <div class="hero-search-field">
+              <label for="search-bhxh">Mã số BHXH / Số CCCD</label>
+              <div class="input-row">
+                <input type="text" id="search-bhxh" placeholder="Nhập mã số BHXH hoặc số CCCD" />
+                <button type="button" onclick="showToast('Tra cứu BHXH/CCCD', 'info')">
+                  <i class="bi bi-search"></i> Tra cứu
+                </button>
               </div>
             </div>
-            <div class="stats-percent">
-              <div class="value" id="statPercent">0%</div>
-              <div class="label">Đã giải quyết trong hạn</div>
-            </div>
-          </div>
-          <div class="stats-panel">
-            <h3>Thống kê hồ sơ theo lĩnh vực năm 2026</h3>
-            <div class="stats-pie">
-              <div class="chart"></div>
-              <div class="legend">
-<div><span class="dot" style="background:#0372b6"></span>Thu BHXH, BHYT, BHTN</div>
-      <div><span class="dot" style="background:#58a7f7"></span>Thực hiện chính sách BHYT</div>
-      <div><span class="dot" style="background:#5ed6fc"></span>Cấp sổ BHXH, thẻ BHYT</div>
-      <div><span class="dot" style="background:#0a7a2a"></span>Chi trả các chế độ BHXH</div>
-      <div><span class="dot" style="background:#1d70b7"></span>Thực hiện chính sách BHXH</div>
+            <div class="hero-search-field">
+              <label for="search-org">Đơn vị tham gia BHXH</label>
+              <div class="input-row">
+                <input type="text" id="search-org" placeholder="Nhập tên hoặc mã đơn vị" />
+                <button type="button" onclick="showToast('Tra cứu đơn vị', 'info')">
+                  <i class="bi bi-search"></i> Tra cứu
+                </button>
               </div>
             </div>
           </div>
-        </div>
+        </section>
+
+        <!-- NEWS GRID -->
+        <section class="news-grid" aria-label="Tin nổi bật">
+          <a class="news-grid-hero" href="#" onclick="showToast('Tin nổi bật', 'info'); return false;">
+            <div class="thumb">
+              <span class="ph-label">TIN NỔI BẬT</span>
+            </div>
+            <div class="body">
+              <h3 class="title">Bảo hiểm xã hội Việt Nam triển khai hàng loạt giải pháp chuyển đổi số phục vụ người dân và doanh nghiệp</h3>
+              <span class="date">09/07/2026</span>
+            </div>
+          </a>
+          <div class="news-grid-side">
+            <a class="news-card-sm" href="#" onclick="showToast('Tin tức', 'info'); return false;">
+              <div class="thumb"><span class="ph-label">•</span></div>
+              <div class="body">
+                <h4 class="title">Hướng dẫn tra cứu mã số BHXH nhanh chóng qua CCCD gắn chip</h4>
+                <span class="date">08/07/2026</span>
+              </div>
+            </a>
+            <a class="news-card-sm" href="#" onclick="showToast('Tin tức', 'info'); return false;">
+              <div class="thumb"><span class="ph-label">•</span></div>
+              <div class="body">
+                <h4 class="title">Nâng cao hiệu quả giải quyết chế độ BHXH qua hệ thống dịch vụ công trực tuyến</h4>
+                <span class="date">07/07/2026</span>
+              </div>
+            </a>
+            <a class="news-card-sm" href="#" onclick="showToast('Tin tức', 'info'); return false;">
+              <div class="thumb"><span class="ph-label">•</span></div>
+              <div class="body">
+                <h4 class="title">Phát động chiến dịch truyền thông về chính sách BHXH tự nguyện năm 2026</h4>
+                <span class="date">06/07/2026</span>
+              </div>
+            </a>
+            <a class="news-card-sm" href="#" onclick="showToast('Tin tức', 'info'); return false;">
+              <div class="thumb"><span class="ph-label">•</span></div>
+              <div class="body">
+                <h4 class="title">Hội nghị trực tuyến toàn ngành BHXH về đẩy mạnh cải cách thủ tục hành chính</h4>
+                <span class="date">05/07/2026</span>
+              </div>
+            </a>
+          </div>
+        </section>
+
+        <!-- 4-COLUMN INFO GRID -->
+        <section class="info-grid" aria-label="Hỗ trợ và thông tin">
+          <div class="info-col">
+            <div class="info-col-head tone-blue">
+              HỖ TRỢ TRỰC TUYẾN
+              <a href="#">Xem thêm</a>
+            </div>
+            <div class="info-col-body">
+              <ul class="info-col-list">
+                <li><a href="#" onclick="toggleChat(); return false;">Hỗ trợ qua chat trực tuyến</a></li>
+                <li><a href="#" onclick="showToast('Tổng đài 1900 90 68', 'info'); return false;">Tổng đài 1900 90 68</a></li>
+                <li><a href="#" onclick="openDvcQrModal(); return false;">Tạo mã QR thanh toán BHXH</a></li>
+                <li><a href="#" onclick="openCccdScan(); return false;">Đọc CCCD gắn chip</a></li>
+                <li><a href="#" onclick="showToast('Câu hỏi thường gặp', 'info'); return false;">Câu hỏi thường gặp</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-col">
+            <div class="info-col-head tone-cyan">
+              TIN HOẠT ĐỘNG
+              <a href="#">Xem thêm</a>
+            </div>
+            <div class="info-col-body">
+              <ul class="info-col-list">
+                <li>
+                  <a href="#" onclick="showToast('Tin hoạt động', 'info'); return false;">BHXH Việt Nam tổ chức hội nghị sơ kết 6 tháng đầu năm 2026</a>
+                  <span class="date">09/07/2026</span>
+                </li>
+                <li>
+                  <a href="#" onclick="showToast('Tin hoạt động', 'info'); return false;">Ký kết thỏa thuận hợp tác với các ngân hàng về thanh toán điện tử</a>
+                  <span class="date">08/07/2026</span>
+                </li>
+                <li>
+                  <a href="#" onclick="showToast('Tin hoạt động', 'info'); return false;">Đoàn công tác BHXH Việt Nam làm việc tại các tỉnh phía Nam</a>
+                  <span class="date">07/07/2026</span>
+                </li>
+                <li>
+                  <a href="#" onclick="showToast('Tin hoạt động', 'info'); return false;">Tập huấn nghiệp vụ giải quyết chế độ BHXH cho cán bộ cơ sở</a>
+                  <span class="date">06/07/2026</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-col">
+            <div class="info-col-head tone-navy">
+              VĂN BẢN MỚI
+              <a href="#">Xem thêm</a>
+            </div>
+            <div class="info-col-body">
+              <ul class="info-col-list">
+                <li>
+                  <a href="#" onclick="showToast('Văn bản mới', 'info'); return false;">Quyết định số 888/QĐ-BHXH về công tác chi trả BHXH năm 2026</a>
+                  <span class="date">08/07/2026</span>
+                </li>
+                <li>
+                  <a href="#" onclick="showToast('Văn bản mới', 'info'); return false;">Công văn hướng dẫn triển khai dịch vụ công trực tuyến mức độ 4</a>
+                  <span class="date">07/07/2026</span>
+                </li>
+                <li>
+                  <a href="#" onclick="showToast('Văn bản mới', 'info'); return false;">Thông tư liên tịch sửa đổi về thủ tục cấp sổ BHXH, thẻ BHYT</a>
+                  <span class="date">05/07/2026</span>
+                </li>
+                <li>
+                  <a href="#" onclick="showToast('Văn bản mới', 'info'); return false;">Kế hoạch ứng dụng CNTT trong quản lý hồ sơ BHXH năm 2026</a>
+                  <span class="date">03/07/2026</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-col">
+            <div class="info-col-head tone-red">
+              CÂU HỎI THƯỜNG GẶP
+              <a href="#">Xem thêm</a>
+            </div>
+            <div class="info-col-body">
+              <ul class="info-col-list">
+                <li><a href="#" onclick="showToast('FAQ', 'info'); return false;">Điều kiện hưởng lương hưu hàng tháng như thế nào?</a></li>
+                <li><a href="#" onclick="showToast('FAQ', 'info'); return false;">Cách tra cứu mã số BHXH bằng CCCD gắn chip</a></li>
+                <li><a href="#" onclick="showToast('FAQ', 'info'); return false;">Thủ tục đăng ký tham gia BHXH tự nguyện</a></li>
+                <li><a href="#" onclick="showToast('FAQ', 'info'); return false;">Mức đóng BHXH, BHYT, BHTN năm 2026</a></li>
+                <li><a href="#" onclick="showToast('FAQ', 'info'); return false;">Cách tính trợ cấp thai sản cho người lao động</a></li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
       </div>
     </div>
+
+    <!-- STATISTICS BAR (dark #333333) -->
+    <section class="stats-bar" aria-label="Thống kê">
+      <div class="container">
+        <div class="stats-bar-item">
+          <div class="value">17.800.000</div>
+          <div class="label">Người tham gia BHXH</div>
+        </div>
+        <div class="stats-bar-item">
+          <div class="value">93.500.000</div>
+          <div class="label">Người tham gia BHYT</div>
+        </div>
+        <div class="stats-bar-item">
+          <div class="value">14.200.000</div>
+          <div class="label">Người tham gia BHTN</div>
+        </div>
+        <div class="stats-bar-item">
+          <div class="value">100%</div>
+          <div class="label">Cơ sở đã kết nối dịch vụ công</div>
+        </div>
+      </div>
+    </section>
 
     <!-- IVAN PROVIDERS -->
     <section class="providers-section">
@@ -669,65 +643,9 @@ html {
   <div id="toast" class="toast-notification"></div>
 
   <footer class="site-footer">
-    <div class="footer-main">
-      <div class="container">
-        <div>
-          <div class="f-brand">
-            <div class="f-brand-logo">
-              <img src="/images/bhxh_logo.svg" alt="BHXH Việt Nam">
-            </div>
-            <div>
-              <div class="f-brand-name">Bảo hiểm xã hội việt nam</div>
-              <div class="f-brand-sub">Vietnam Social Security</div>
-            </div>
-          </div>
-          <div class="f-contact-item">
-            <i class="bi bi-geo-alt-fill"></i>
-            <span>Số 6, Phố Cương Kiên, Phường Đại Mỗ, TP. Hà Nội</span>
-          </div>
-          <div class="f-contact-item">
-            <i class="bi bi-telephone-fill"></i>
-            <a href="tel:19009068">1900 9068</a>
-          </div>
-          <div class="f-contact-item">
-            <i class="bi bi-envelope-fill"></i>
-            <a href="mailto:hotro@bhxh.gov.vn">hotro@bhxh.gov.vn</a>
-          </div>
-        </div>
-        <div>
-          <div class="f-section-title">Dịch vụ công</div>
-          <ul class="f-links">
-            <li><a href="/dang-ky">Đăng ký tài khoản</a></li>
-            <li><a href="/lich-su">Tra cứu hồ sơ</a></li>
-            <li><a href="/dat-lich">Đặt lịch hẹn</a></li>
-            <li><a href="/thong-bao">Thông báo</a></li>
-            <li><a href="/quy-trinh">Quy trình thủ tục</a></li>
-          </ul>
-        </div>
-        <div>
-          <div class="f-section-title">Hỗ trợ</div>
-          <ul class="f-links">
-            <li><a href="#">Hướng dẫn sử dụng</a></li>
-            <li><a href="#">Câu hỏi thường gặp</a></li>
-            <li><a href="#">Chính sách bảo mật</a></li>
-            <li><a href="#">Điều khoản sử dụng</a></li>
-            <li><a href="/quan-tri">Quản trị hệ thống</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="f-text">
-          &copy; 2014 – 2026 Bản quyền thuộc về <strong>Bảo Hiểm Xã Hội Việt Nam</strong>.
-          Khi sử dụng lại thông tin, xin ghi rõ nguồn "Bảo hiểm xã hội Việt Nam".
-        </div>
-        <div class="f-social">
-          <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
-          <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
-          <a href="#" title="Zalo"><i class="bi bi-chat-dots-fill"></i></a>
-        </div>
-      </div>
+    <div class="footer-text">
+      <div class="line-1">CỔNG THÔNG TIN ĐIỆN TỬ BẢO HIỂM XÃ HỘI VIỆT NAM</div>
+      <div class="line-2">&copy;2016 – 2017 — Bản quyền thuộc về Bảo hiểm xã hội Việt Nam.</div>
     </div>
   </footer>
 
