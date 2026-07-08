@@ -16,16 +16,6 @@ function maskCccd(value: string): string {
   return digits.slice(0, 3) + "*".repeat(digits.length - 6) + digits.slice(-3);
 }
 
-/**
- * Che SĐT, giữ 3 số đầu + 2 số cuối. Ví dụ: "0912345678" → "091***78"
- */
-function maskPhone(value: string): string {
-  if (!value) return "";
-  const digits = String(value).replace(/\D/g, "");
-  if (digits.length < 5) return "*".repeat(digits.length);
-  return digits.slice(0, 3) + "*".repeat(digits.length - 5) + digits.slice(-2);
-}
-
 // Supported banks
 const SUPPORTED_BANKS: Record<string, { bin: string; name: string; fullName: string }> = {
   "970436": { bin: "970436", name: "VCB", fullName: "Ngân hàng TMCP Ngoại Thương Việt Nam" },
