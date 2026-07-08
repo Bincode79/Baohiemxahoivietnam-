@@ -140,47 +140,74 @@ button, input, select, textarea { font-family: inherit; font-size: inherit; colo
 }
 .brand:hover { text-decoration: none; }
 .brand-badge {
-    width: 64px; 
+    position: relative;
+    width: 64px;
     height: 64px;
     border-radius: 50%;
     background: #ffffff; /* Clean white background circle for logo */
-    display: grid; 
+    display: grid;
     place-items: center;
-    flex-shrink: 0; 
+    flex-shrink: 0;
     overflow: hidden;
-    border: 2px solid rgba(255,255,255,0.9);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    border: 2px solid rgba(255,255,255,0.95);
+    box-shadow:
+        0 0 0 2px var(--gold, #D4A437),
+        0 4px 10px rgba(0,0,0,0.28);
 }
-.brand-badge img { 
-    width: 82%; 
-    height: 82%; 
-    object-fit: contain; 
-    display: block; 
+.brand-badge-ring {
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px dashed rgba(212,164,55,0.55);
+    pointer-events: none;
+}
+.brand-badge img {
+    width: 78%;
+    height: 78%;
+    object-fit: contain;
+    display: block;
 }
 .brand-text {
     color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    gap: 1px;
+    line-height: 1.2;
+}
+.brand-eyebrow {
+    color: var(--gold, #FFEB3B);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    line-height: 1.1;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
 }
 .brand-main {
     color: #ffffff;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    line-height: 1.25;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
-.brand-sub {
-    color: #FFEB3B; /* Bright official gold/yellow */
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.4px;
+    line-height: 1.2;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+.brand-sub {
+    color: rgba(255,255,255,0.86);
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
     line-height: 1.25;
-    margin-top: 1px;
+    text-transform: none;
     text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.brand-underline {
+    margin-top: 4px;
+    height: 2px;
+    width: 132px;
+    background: linear-gradient(90deg, var(--gold, #D4A437) 0%, rgba(212,164,55,0) 100%);
+    border-radius: 2px;
 }
 
 .header-center {
@@ -3293,7 +3320,10 @@ body.lm-open { overflow: hidden; }
     .brand-badge { width: 44px; height: 44px; flex-shrink: 0; padding: 3px; border-radius: 8px; }
     .brand-badge img { width: 100%; height: 100%; }
     .brand-text { font-size: 11px; font-weight: 700; line-height: 1.2; letter-spacing: 0.3px; white-space: nowrap; }
-    .brand-text .brand-sub { font-size: 9px; white-space: nowrap; }
+    .brand-text .brand-eyebrow { font-size: 8.5px; letter-spacing: 1px; }
+    .brand-text .brand-main { font-size: 14px; }
+    .brand-text .brand-sub { font-size: 8.5px; letter-spacing: 0.1px; white-space: nowrap; }
+    .brand-underline { width: 88px; }
     .header-actions { gap: 4px; }
     .header-actions .header-link { padding: 5px 10px !important; font-size: 11px !important; border-radius: 5px !important; }
 
@@ -3640,7 +3670,10 @@ body.lm-open { overflow: hidden; }
     /* Very Small Devices */
     .brand-badge { width: 42px; height: 42px; }
     .brand-text { font-size: 11px; }
+    .brand-text .brand-eyebrow { font-size: 7.5px; letter-spacing: 0.8px; }
+    .brand-text .brand-main { font-size: 12px; }
     .brand-text .brand-sub { display: none; }
+    .brand-underline { display: none; }
 
     .icon-card { padding: 10px 10px; min-height: 68px; }
 
