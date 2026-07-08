@@ -1,0 +1,5 @@
+
+> baohiemxh@1.0.0 dev
+> ts-node --files -r dotenv/config src/index.ts
+
+[Server] Running at http://0.0.0.0:3001

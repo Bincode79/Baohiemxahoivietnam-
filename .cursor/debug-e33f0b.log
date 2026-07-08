@@ -1,0 +1,5 @@
+{"sessionId":"e33f0b","location":"index.ts:302","message":"Transaction started for registration","data":{"bodyHasBhxh":true,"bodyHasIdNumber":true},"timestamp":1783280544616}
+{"sessionId":"e33f0b","location":"index.ts:368","message":"User ID captured from INSERT","data":{"userId":18},"timestamp":1783280544894}
+{"sessionId":"e33f0b","location":"index.ts:386","message":"Returning userId from transaction","data":{"userId":18},"timestamp":1783280544942}
+{"sessionId":"e33f0b","location":"index.ts:388","message":"Sending success response","data":{"userId":18,"hasUserId":true},"timestamp":1783280544989}
+{"sessionId":"e33f0b","location":"index.ts:302","message":"Transaction started for registration","data":{"bodyHasBhxh":true,"bodyHasIdNumber":true},"timestamp":1783280545113}
