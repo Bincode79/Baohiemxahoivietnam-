@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=2026070905">
+  <link rel="stylesheet" href="css/style.css?v=2026070906">
 <style>
 /* Custom premium UI enhancements */
 :root {
@@ -172,29 +172,53 @@ html {
 
   <div class="top-strip"></div>
 
+  <!-- Announcement strip (gov-style notice) -->
+  <div class="announce-strip">
+    <div class="container announce-inner">
+      <span class="announce-pill"><i class="bi bi-megaphone-fill"></i> THÔNG BÁO</span>
+      <div class="announce-marquee">
+        <a href="#" onclick="showToast('Thông báo BHXH', 'info'); return false;">
+          <i class="bi bi-dot"></i> BHXH Việt Nam triển khai cấp sổ BHXH điện tử trên toàn quốc từ 01/01/2026
+        </a>
+        <a href="#" onclick="showToast('Thông báo BHXH', 'info'); return false;">
+          <i class="bi bi-dot"></i> Hướng dẫn tra cứu mã số BHXH qua CCCD gắn chip — áp dụng từ quý III/2026
+        </a>
+        <a href="#" onclick="showToast('Thông báo BHXH', 'info'); return false;">
+          <i class="bi bi-dot"></i> Đặt lịch làm việc trực tuyến tại 63 tỉnh thành — giảm thời gian chờ đợi
+        </a>
+      </div>
+      <span class="announce-date">
+        <i class="bi bi-calendar3"></i>
+        <span id="announceDate">Thứ Năm, 09/07/2026</span>
+      </span>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="container">
       <a href="/" class="brand">
+        <div class="brand-emblem" aria-hidden="true">
+          <img src="/images/quoc_huy.svg" alt="Quốc huy" />
+        </div>
         <div class="brand-badge">
           <img src="/images/bhxh_logo.svg" alt="BHXH" />
         </div>
         <div class="brand-text">
-          <span class="brand-main">BẢO HIỂM XÃ HỘI VIỆT NAM</span>
-          <span class="brand-sub">CỔNG DỊCH VỤ CÔNG</span>
+          <span class="brand-eyebrow">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</span>
+          <span class="brand-main">Bảo hiểm Xã hội Việt Nam</span>
+          <span class="brand-sub">Cổng Dịch vụ Công trực tuyến</span>
         </div>
       </a>
-      <div class="header-center" aria-hidden="true">
-        <img src="/images/quoc_huy.svg" alt="Quốc huy Việt Nam" style="height:68px;width:auto;opacity:0.92;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))" />
-      </div>
+      <div class="header-center" aria-hidden="true"></div>
       <div class="header-actions">
         <button class="mobile-nav-toggle" id="mobileNavToggle" onclick="toggleMobileNav()" aria-label="Mở menu">
           <i class="bi bi-list"></i>
         </button>
-        <a href="#" data-open-login class="header-link">Đăng nhập</a>
-        <a href="/dang-ky" class="header-link">Đăng ký</a>
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-  <i class="bi bi-moon"></i>
-</button>
+        <a href="#" data-open-login class="header-link"><i class="bi bi-box-arrow-in-right me-1"></i>Đăng nhập</a>
+        <a href="/dang-ky" class="header-link header-link--primary"><i class="bi bi-person-plus me-1"></i>Đăng ký</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Chế độ tối">
+          <i class="bi bi-moon-stars"></i>
+        </button>
       </div>
     </div>
   </header>
@@ -390,13 +414,21 @@ html {
           <div class="stats-panel">
             <h3>Thống kê hồ sơ theo lĩnh vực năm 2026</h3>
             <div class="stats-pie">
-              <div class="chart"></div>
+              <div style="position:relative;flex-shrink:0">
+                <div class="chart"></div>
+                <div class="chart-center">
+                  <div style="text-align:center">
+                    <div class="chart-center-text">100%</div>
+                    <div class="chart-center-sub">Tổng hồ sơ</div>
+                  </div>
+                </div>
+              </div>
               <div class="legend">
-<div><span class="dot" style="background:#0372b6"></span>Thu BHXH, BHYT, BHTN</div>
-      <div><span class="dot" style="background:#58a7f7"></span>Thực hiện chính sách BHYT</div>
-      <div><span class="dot" style="background:#5ed6fc"></span>Cấp sổ BHXH, thẻ BHYT</div>
-      <div><span class="dot" style="background:#0a7a2a"></span>Chi trả các chế độ BHXH</div>
-      <div><span class="dot" style="background:#1d70b7"></span>Thực hiện chính sách BHXH</div>
+                <div><span class="dot" style="background:#005EB8"></span>Thu BHXH, BHYT, BHTN<span class="legend-pct">30%</span></div>
+                <div><span class="dot" style="background:#e85d04"></span>Thực hiện CS BHYT<span class="legend-pct">20%</span></div>
+                <div><span class="dot" style="background:#58a7f7"></span>Cấp sổ BHXH, thẻ BHYT<span class="legend-pct">20%</span></div>
+                <div><span class="dot" style="background:#0a7a2a"></span>Chi trả các chế độ BHXH<span class="legend-pct">18%</span></div>
+                <div><span class="dot" style="background:#1d70b7"></span>Thực hiện CS BHXH<span class="legend-pct">12%</span></div>
               </div>
             </div>
           </div>
@@ -444,6 +476,110 @@ html {
         <div class="provider-item" title="Hilo-CA"><img src="/images/hilo_ca_logo.svg" alt="Hilo-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">Hilo-CA</span></div>
         <div class="provider-item" title="One-CA"><img src="/images/OneCA_logo.svg" alt="One-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">One-CA</span></div>
         <div class="provider-item" title="ECA"><img src="/images/ECA-logo.svg" alt="ECA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">ECA</span></div>
+      </div>
+    </section>
+
+    <!-- TIN TỨC - SỰ KIỆN -->
+    <section class="news-section">
+      <div class="news-container">
+        <div class="news-head">
+          <h2><i class="bi bi-newspaper"></i> Tin tức &amp; Sự kiện</h2>
+          <a href="#" class="news-viewmore">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <div class="news-grid">
+          <a class="news-card news-card--featured" href="#" onclick="showToast('Tin tức', 'info'); return false;">
+            <div class="news-thumb">
+              <div class="news-badge">NỔI BẬT</div>
+              <div class="news-thumb-bg" style="background:linear-gradient(135deg,#00529F 0%,#003D7A 60%,#002855 100%)">
+                <i class="bi bi-megaphone-fill"></i>
+              </div>
+            </div>
+            <div class="news-body">
+              <div class="news-meta">
+                <span class="news-cat">Thông báo</span>
+                <span class="news-dot">•</span>
+                <span class="news-date">09/07/2026</span>
+              </div>
+              <h3 class="news-title">BHXH Việt Nam triển khai cấp sổ BHXH điện tử trên toàn quốc từ 01/01/2026</h3>
+              <p class="news-excerpt">Sổ BHXH điện tử có giá trị tương đương sổ BHXH giấy, giúp người tham gia tra cứu thông tin, thực hiện các thủ tục BHXH mọi lúc mọi nơi...</p>
+            </div>
+          </a>
+          <a class="news-card" href="#" onclick="showToast('Tin tức', 'info'); return false;">
+            <div class="news-thumb news-thumb--sm">
+              <div class="news-thumb-bg" style="background:linear-gradient(135deg,#0a7a2a 0%,#086320 100%)">
+                <i class="bi bi-shield-check"></i>
+              </div>
+            </div>
+            <div class="news-body">
+              <div class="news-meta">
+                <span class="news-cat">Chính sách</span>
+                <span class="news-dot">•</span>
+                <span class="news-date">07/07/2026</span>
+              </div>
+              <h3 class="news-title">Mức đóng BHXH tự nguyện năm 2026 — Những điều cần biết</h3>
+            </div>
+          </a>
+          <a class="news-card" href="#" onclick="showToast('Tin tức', 'info'); return false;">
+            <div class="news-thumb news-thumb--sm">
+              <div class="news-thumb-bg" style="background:linear-gradient(135deg,#F57C00 0%,#c25e00 100%)">
+                <i class="bi bi-credit-card-2-front"></i>
+              </div>
+            </div>
+            <div class="news-body">
+              <div class="news-meta">
+                <span class="news-cat">Hướng dẫn</span>
+                <span class="news-dot">•</span>
+                <span class="news-date">05/07/2026</span>
+              </div>
+              <h3 class="news-title">Hướng dẫn tra cứu mã số BHXH qua CCCD gắn chip</h3>
+            </div>
+          </a>
+          <a class="news-card" href="#" onclick="showToast('Tin tức', 'info'); return false;">
+            <div class="news-thumb news-thumb--sm">
+              <div class="news-thumb-bg" style="background:linear-gradient(135deg,#5e35b1 0%,#4527a0 100%)">
+                <i class="bi bi-calendar-check"></i>
+              </div>
+            </div>
+            <div class="news-body">
+              <div class="news-meta">
+                <span class="news-cat">Sự kiện</span>
+                <span class="news-dot">•</span>
+                <span class="news-date">02/07/2026</span>
+              </div>
+              <h3 class="news-title">Đặt lịch làm việc trực tuyến tại 63 tỉnh thành — Giảm thời gian chờ</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUICK LINKS BAR -->
+    <section class="quicklinks-section">
+      <div class="quicklinks-container">
+        <a class="quicklink" href="#" onclick="showToast('Tra cứu mã số BHXH', 'info'); return false;">
+          <i class="bi bi-upc-scan"></i>
+          <span>Tra cứu mã số BHXH</span>
+        </a>
+        <a class="quicklink" href="#" onclick="showToast('Tra cứu quá trình đóng BHXH', 'info'); return false;">
+          <i class="bi bi-clock-history"></i>
+          <span>Tra cứu quá trình đóng</span>
+        </a>
+        <a class="quicklink" href="#" onclick="showToast('Hưởng BHXH một lần', 'info'); return false;">
+          <i class="bi bi-wallet2"></i>
+          <span>Hưởng BHXH một lần</span>
+        </a>
+        <a class="quicklink" href="#" onclick="showToast('Cấp lại thẻ BHYT', 'info'); return false;">
+          <i class="bi bi-credit-card"></i>
+          <span>Cấp lại thẻ BHYT</span>
+        </a>
+        <a class="quicklink" href="#" onclick="showToast('Đăng ký khám chữa bệnh', 'info'); return false;">
+          <i class="bi bi-hospital"></i>
+          <span>Đăng ký KCB ban đầu</span>
+        </a>
+        <a class="quicklink" href="#" onclick="showToast('Hỗ trợ 24/7', 'info'); return false;">
+          <i class="bi bi-headset"></i>
+          <span>Hỗ trợ 24/7</span>
+        </a>
       </div>
     </section>
   </main>
@@ -749,11 +885,14 @@ html {
       <div class="container">
         <div>
           <div class="f-brand">
+            <div class="f-brand-emblem">
+              <img src="/images/quoc_huy.svg" alt="Quốc huy Việt Nam" />
+            </div>
             <div class="f-brand-logo">
-              <img src="/images/bhxh_logo.svg" alt="BHXH Việt Nam">
+              <img src="/images/bhxh_logo.svg" alt="BHXH Việt Nam" />
             </div>
             <div>
-              <div class="f-brand-name">Bảo hiểm xã hội việt nam</div>
+              <div class="f-brand-name">Bảo hiểm Xã hội Việt Nam</div>
               <div class="f-brand-sub">Vietnam Social Security</div>
             </div>
           </div>
@@ -1062,10 +1201,21 @@ html {
       var clearBtn = document.getElementById('dvcQrClearBtn');
       if (message) {
         hint.innerHTML = message;
-      } else if (state === 'idle') {
-        selectQrType(dvcQrSelectedType, document.querySelector('.dvcqr-type-card.active'));
       }
       clearBtn.hidden = !(state === 'focus' || state === 'valid' || state === 'invalid');
+    }
+
+    function resetQrHint() {
+      var hint = document.getElementById('dvcQrInputHint');
+      var input = document.getElementById('dvcQrInput');
+      if (!hint || !input) return;
+      if (dvcQrSelectedType === 'bhxh') {
+        hint.innerHTML = '<i class="bi bi-info-circle"></i> Nhập mã số BHXH của bạn';
+      } else if (dvcQrSelectedType === 'cccd') {
+        hint.innerHTML = '<i class="bi bi-info-circle"></i> Nhập số CCCD/CMND';
+      } else {
+        hint.innerHTML = '<i class="bi bi-info-circle"></i> Hỗ trợ mã BHXH hoặc CCCD';
+      }
     }
 
     function onQrInputChange(input) {
@@ -1081,22 +1231,20 @@ html {
         var detected = detectTypeByLength(len);
         var cards = document.querySelectorAll('.dvcqr-type-card');
         if (detected === 'bhxh') {
-          cards.forEach(function(c) {
-            if (c.getAttribute('data-type') === 'bhxh') selectQrType('bhxh', c);
-          });
+          var bhxhCard = document.querySelector('.dvcqr-type-card[data-type="bhxh"]');
+          if (bhxhCard && dvcQrSelectedType !== 'bhxh') selectQrType('bhxh', bhxhCard);
         } else if (detected === 'cccd') {
-          cards.forEach(function(c) {
-            if (c.getAttribute('data-type') === 'cccd') selectQrType('cccd', c);
-          });
-        } else if (len === 0) {
-          cards.forEach(function(c) {
-            if (c.getAttribute('data-type') === 'auto') selectQrType('auto', c);
-          });
+          var cccdCard = document.querySelector('.dvcqr-type-card[data-type="cccd"]');
+          if (cccdCard && dvcQrSelectedType !== 'cccd') selectQrType('cccd', cccdCard);
+        } else if (len === 0 && dvcQrSelectedType !== 'auto') {
+          var autoCard = document.querySelector('.dvcqr-type-card[data-type="auto"]');
+          if (autoCard) selectQrType('auto', autoCard);
         }
       }
 
       if (len === 0) {
         setQrInputState('idle');
+        resetQrHint();
       } else if (isValidForSelectedType(len, dvcQrSelectedType)) {
         setQrInputState('valid',
           '<i class="bi bi-check-circle-fill" style="color:#0a7a2a"></i> Mã hợp lệ — sẵn sàng tra cứu');
@@ -1450,9 +1598,37 @@ html {
     });
   </script>
 <script>
-document.getElementById('themeToggle')?.addEventListener('click', function(){
-  document.body.classList.toggle('dark-mode');
-});
+// ── Theme Toggle (persisted) ──
+(function() {
+  var KEY = 'bhxh-theme';
+  var btn = document.getElementById('themeToggle');
+  var icon = btn ? btn.querySelector('i') : null;
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  if (saved === 'dark') {
+    document.body.classList.add('dark-mode');
+    if (icon) { icon.classList.remove('bi-moon-stars'); icon.classList.add('bi-sun-fill'); }
+  }
+  if (!btn) return;
+  btn.addEventListener('click', function() {
+    var on = document.body.classList.toggle('dark-mode');
+    try { localStorage.setItem(KEY, on ? 'dark' : 'light'); } catch (e) {}
+    if (icon) {
+      icon.classList.toggle('bi-moon-stars', !on);
+      icon.classList.toggle('bi-sun-fill', on);
+    }
+  });
+})();
+
+// ── Announcement strip: live date ──
+(function() {
+  var el = document.getElementById('announceDate');
+  if (!el) return;
+  var now = new Date();
+  var days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
+  var pad = function(n) { return n < 10 ? '0' + n : '' + n; };
+  el.textContent = days[now.getDay()] + ', ' + pad(now.getDate()) + '/' + pad(now.getMonth() + 1) + '/' + now.getFullYear();
+})();
 </script>
 </body>
 </html>
