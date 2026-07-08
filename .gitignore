@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+*.tsbuildinfo
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+
+# Server logs
+*.log
+server.err
+server.err.log
+server.out.log
+server.log
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Cursor local data (do not commit)
+.cursor/projects/
+
+# Coverage
+coverage/
+*.lcov
+
+# Test output
+test-results/
+
+# Uploaded user images (P1.5)
+uploads/

@@ -1,0 +1,3661 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quản trị - CỔNG THÔNG TIN ĐIỆN TỬ BẢO HIỂM XÃ HỘI VIỆT NAM</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <style>
+    .admin-layout { display:flex; min-height:100vh; background: #f0f4f9; font-family:var(--font); }
+    .admin-sb {
+      width: 260px; 
+      background: linear-gradient(180deg, #001433 0%, #001F3F 30%, #002D5A 100%);
+      color: #fff; display:flex; flex-direction:column; flex-shrink:0;
+      box-shadow: 2px 0 12px rgba(0,0,0,0.18);
+    }
+    .admin-sb-brand {
+      padding: 20px 16px; 
+      border-bottom: 2px solid rgba(255,215,0,0.5);
+      display:flex; align-items:center; gap:10px;
+      background: rgba(0,0,0,0.2);
+    }
+    .admin-sb-brand img { width:36px; height:36px; object-fit:contain; background:#fff; border-radius:50%; padding:3px; box-shadow:0 2px 6px rgba(0,0,0,0.2); }
+    .admin-sb-brand span { font-size:11.5px; font-weight:700; line-height:1.35; color:#ffd700; letter-spacing:0.3px; }
+    .admin-sb-menu { flex:1; padding:8px 0; overflow-y:auto; }
+    .admin-sb-item {
+      display:flex; align-items:center; gap:12px; padding:11px 20px; min-height:44px;
+      color: rgba(255,255,255,0.75); font-size:13px; font-weight:500; cursor:pointer;
+      border-left: 3px solid transparent; transition:all .18s;
+      text-decoration:none !important; box-sizing:border-box;
+      position: relative;
+    }
+    .admin-sb-item:hover { background:rgba(255,255,255,0.08); color:#fff; border-left-color: rgba(255,215,0,0.4); }
+    .admin-sb-item.active { 
+      background: linear-gradient(90deg, rgba(255,215,0,0.15), rgba(255,215,0,0.03));
+      color:#ffd700; border-left-color:#ffd700;
+    }
+    .admin-sb-item i { width:18px; text-align:center; font-size:15px; }
+    .admin-sb-item .badge {
+      margin-left:auto; background:#ffd700; color:var(--navy-2); font-size:11px; font-weight:700;
+      padding:2px 7px; border-radius:var(--radius-sm);
+    }
+    .admin-main { flex:1; display:flex; flex-direction:column; min-width:0; }
+    .admin-topbar {
+      background: linear-gradient(90deg, #001F3F, #002D5A);
+      padding:14px 28px; display:flex; align-items:center;
+      justify-content:space-between;
+      border-bottom: 2px solid rgba(255,215,0,0.3);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .admin-topbar h1 { margin:0; font-size:15px; font-weight:700; color:#ffd700; letter-spacing:0.5px; }
+    .admin-topbar-right { display:flex; align-items:center; gap:14px; }
+    .admin-topbar-right .admin-user {
+      display:flex; align-items:center; gap:8px; font-size:13px; color:rgba(255,255,255,0.9); cursor:pointer;
+      padding: 6px 12px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 20px;
+      transition: background .15s;
+    }
+    .admin-topbar-right .admin-user:hover { background: rgba(255,255,255,0.18); }
+    .admin-topbar-right .admin-user img {
+      width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.2);
+      border:2px solid rgba(255,215,0,0.6);
+    }
+    .admin-content { flex:1; padding:24px 28px; overflow-y:auto; background: #f0f4f9; }
+
+    /* Stats cards */
+    .admin-stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(210px,1fr)); gap:12px; margin-bottom:20px; }
+    .admin-stat-card {
+      background:var(--bg-elevated); border-radius:12px; padding:18px 20px;
+      border: 1px solid rgba(0,82,159,0.1);
+      display:flex; align-items:center; gap:14px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 2px 8px rgba(0,82,159,0.06);
+    }
+    .admin-stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,82,159,0.12);
+    }
+    .admin-stat-card .icon {
+      width:40px; height:40px; border-radius:var(--radius-lg);
+      display:flex; align-items:center; justify-content:center;
+      font-size:18px; flex-shrink:0;
+    }
+    .admin-stat-card .info { flex:1; min-width:0; }
+    .admin-stat-card .info .label { font-size:11px; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+    .admin-stat-card .info .value { font-size:24px; font-weight:800; color:var(--navy-2); line-height:1.1; font-variant-numeric:tabular-nums; }
+
+    .admin-section { display:none; }
+    .admin-section.active { display:block; }
+
+    .admin-card {
+      background:var(--bg-elevated); border-radius:12px; border:1px solid rgba(0,82,159,0.08);
+      padding: 20px 24px; margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(0,82,159,0.05);
+      transition: box-shadow .2s;
+    }
+    .admin-card:hover {
+      box-shadow: 0 4px 16px rgba(0,82,159,0.09);
+    }
+    .admin-card h3 {
+      font-size:14px; font-weight:700; color:var(--navy-2); margin:0 0 16px;
+      padding-bottom:12px; border-bottom:2px solid rgba(0,82,159,0.08);
+      display:flex; align-items:center; gap:8px;
+      letter-spacing:0.2px;
+    }
+    .admin-card h3 i { color: var(--blue-header); }
+    .admin-table {
+      width:100%; font-size:13px; border-collapse:collapse;
+    }
+    .admin-table th {
+      background: linear-gradient(180deg, #f8f9fc, #f0f3f8); color:var(--navy-2); font-weight:700; font-size:11px;
+      text-transform:uppercase; letter-spacing:0.5px;
+      padding:11px 14px; border:1px solid #e5eaf2; text-align:left;
+    }
+    .admin-table td {
+      padding:11px 14px; border:1px solid #edf0f5; vertical-align:middle;
+      font-size:13px;
+    }
+    .admin-table tbody tr:nth-child(even) { background:#fafcff; }
+    .admin-table tbody tr:hover { background:rgba(0,82,159,0.04); }
+    .admin-table tbody tr { transition: background .12s; }
+    .admin-badge {
+      display:inline-block; padding:2px 10px; border-radius:12px;
+      font-size:11px; font-weight:600;
+    }
+    .admin-badge.approved { background:#d4edda; color:var(--success); }
+    .admin-badge.pending { background:#fff3cd; color:var(--warning); }
+    .admin-badge.rejected { background:#f8d7da; color:var(--error); }
+    .admin-badge.individual { background:#e6efff; color:#1d4dd6; }
+    .admin-badge.organization { background:#fff4e0; color:#a86600; }
+    .admin-actions { display:flex; gap:6px; flex-wrap:wrap; }
+    .admin-actions .admin-btn-sm { padding:5px 8px; font-size:11.5px; }
+@media (max-width: 768px) {
+  .admin-actions { flex-direction:column; }
+  .admin-actions .admin-btn { width:100%; }
+}
+
+/* Admin Submenu */
+.admin-has-sub { position: relative; }
+.admin-has-sub .admin-sub-arrow {
+  margin-left: auto;
+  font-size: 11px;
+  transition: transform 0.2s;
+}
+.admin-has-sub.sub-open .admin-sub-arrow {
+  transform: rotate(90deg);
+}
+.admin-submenu {
+  display: none;
+  background: rgba(0, 0, 0, 0.18);
+  padding: 4px 0;
+}
+.admin-has-sub.sub-open .admin-submenu {
+  display: block;
+}
+.admin-submenu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px 9px 46px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.12s;
+  border-left: 3px solid transparent;
+}
+.admin-submenu-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.admin-submenu-item.active {
+  background: rgba(255,215,0,0.1);
+  color: #ffd700;
+  border-left-color: #ffd700;
+}
+.admin-submenu-item i {
+  width: 16px;
+  text-align: center;
+  font-size: 14px;
+}
+.admin-sb-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 8px 0;
+}
+.spinner-border { display:inline-block; width:1rem; height:1rem; vertical-align:-0.125em; border:0.15em solid currentColor; border-right-color:transparent; border-radius:50%; animation: spin .75s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+    .admin-btn {
+      display:inline-flex; align-items:center; gap:4px; padding:7px 14px;
+      border:1px solid transparent; border-radius:var(--radius-md); font-size:13px; font-weight:600; cursor:pointer;
+      transition:all .12s;
+    }
+    .admin-btn-sm { padding:4px 9px; font-size:12px; }
+    .admin-btn-primary { background:var(--blue-header); color:#fff; }
+    .admin-btn-primary:hover { background:var(--blue-deep); }
+    .admin-btn-success { background:var(--success); color:#fff; }
+    .admin-btn-success:hover { background:#086322; }
+    .admin-btn-danger { background:var(--error); color:#fff; }
+    .admin-btn-danger:hover { background:#b71c1c; }
+    .admin-btn-ghost { background:#fff; color:var(--text-soft); border-color:var(--border); }
+    .admin-btn-ghost:hover { background:var(--surface-2); }
+    .admin-search { display:flex; gap:8px; margin-bottom:16px; }
+    .admin-search input {
+      flex:1; padding:9px 12px; border:1px solid var(--border); border-radius:var(--radius-md);
+      font-size:14px; outline:none; background:#fff;
+      transition:border-color .15s, box-shadow .15s;
+    }
+    .admin-search input:focus { border-color: var(--blue-header); box-shadow: 0 0 0 3px rgba(3, 114, 182, 0.10); }
+    .admin-filter { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+    .admin-filter select {
+      padding:8px 12px; border:1px solid var(--border); border-radius:var(--radius-md);
+      font-size:14px; outline:none; background:#fff;
+    }
+
+    /* Admin Modal */
+    .admin-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10000;
+      align-items: center;
+      justify-content: center;
+      background: rgba(4, 22, 54, 0.55);
+    }
+    .admin-modal-dialog {
+      position: relative;
+      background: var(--bg-elevated);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      animation: modalSlideUp 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalSlideUp {
+      from { opacity: 0; transform: translateY(12px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .admin-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: var(--navy-2);
+      color: #fff;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    }
+    .admin-modal-header h3 {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .admin-modal-close {
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: rgba(255,255,255,0.7);
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: background 0.15s;
+    }
+    .admin-modal-close:hover {
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+    }
+    .admin-modal-body {
+      padding: 20px;
+    }
+    .admin-form-group {
+      margin-bottom: 14px;
+    }
+    .admin-form-group label {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-soft);
+      margin-bottom: 5px;
+    }
+    .admin-form-group label .required {
+      color: var(--error);
+    }
+    .admin-form-group input,
+    .admin-form-group select,
+    .admin-form-group textarea {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 14px;
+      outline: none;
+      background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .admin-form-group input:focus,
+    .admin-form-group select:focus,
+    .admin-form-group textarea:focus {
+      border-color: var(--blue-header);
+      box-shadow: 0 0 0 3px rgba(3, 114, 182, 0.12);
+    }
+    .admin-form-group select { cursor: pointer; }
+    .admin-form-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 11px 18px;
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-size: 13.5px;
+      font-weight: 600;
+      z-index: 99999;
+      box-shadow: var(--shadow-md);
+      animation: toastSlideIn 0.25s ease;
+    }
+    @keyframes toastSlideIn {
+      from { opacity: 0; transform: translateX(100px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    .toast-success { background: var(--success); }
+    .toast-error { background: var(--error); }
+    .toast-info { background: var(--blue-header); }
+    .toast-warning { background: var(--warning); }
+
+    /* Activity list */
+    .activity-list { list-style:none; padding:0; margin:0; }
+    .activity-list li {
+      display:flex; align-items:flex-start; gap:12px;
+      padding:9px 0; border-bottom:1px solid var(--border); font-size:13px;
+    }
+    .activity-list li:last-child { border-bottom:none; }
+    .activity-list .time { color:var(--text-muted); font-size:11.5px; white-space:nowrap; flex-shrink:0; width:45px; }
+    .activity-list .dot {
+      width:7px; height:7px; border-radius:50%; flex-shrink:0; margin-top:5px;
+    }
+    .activity-list .dot.success { background:var(--success); }
+    .activity-list .dot.info { background:var(--blue-header); }
+    .activity-list .dot.warning { background:var(--warning); }
+    .activity-list .dot.error { background:var(--error); }
+
+    .admin-chart { height:180px; display:flex; align-items:flex-end; gap:5px; padding:8px 0; }
+    .admin-chart .bar {
+      flex:1; background:var(--blue-header);
+      border-radius:3px 3px 0 0; min-height:4px; position:relative; transition:height .3s;
+    }
+    .admin-chart .bar:hover { opacity:0.85; }
+    .admin-chart .bar .bar-label {
+      position:absolute; bottom:-18px; left:50%; transform:translateX(-50%);
+      font-size:10px; color:var(--text-muted); white-space:nowrap;
+    }
+
+    /* QR Payment Section */
+    .qr-payment-tabs {
+      display: flex; gap: 4px; margin-bottom: 16px; background: #f5f7fa;
+      border-radius: 8px; padding: 4px;
+    }
+    .qr-payment-tab {
+      flex: 1; padding: 10px 16px; border: none; background: transparent;
+      border-radius: 6px; font-size: 13px; font-weight: 600; color: #666;
+      cursor: pointer; transition: all .2s; display: flex; align-items: center;
+      justify-content: center; gap: 6px;
+    }
+    .qr-payment-tab:hover { color: #0372b6; }
+    .qr-payment-tab.active {
+      background: #fff; color: #0372b6; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .qr-payment-tab i { font-size: 16px; }
+    .qr-template-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;
+      margin-bottom: 16px;
+    }
+    .qr-template-card {
+      border: 2px solid #e6ebf3; border-radius: 10px; padding: 14px;
+      cursor: pointer; transition: all .2s; background: #fff;
+    }
+    .qr-template-card:hover {
+      border-color: #0372b6; transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(3,114,182,0.15);
+    }
+    .qr-template-card.selected {
+      border-color: #0372b6; background: linear-gradient(135deg, rgba(3,114,182,0.05), rgba(3,114,182,0.02));
+    }
+    .qr-template-card .icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; margin-bottom: 10px;
+    }
+    .qr-template-card .title { font-size: 14px; font-weight: 700; color: #042c6a; margin-bottom: 4px; }
+    .qr-template-card .desc { font-size: 12px; color: #7b8aa5; line-height: 1.4; }
+    .qr-preview-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border-radius: 12px;
+      border: 1px solid #dee2e6;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .qr-preview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: linear-gradient(90deg, #042c6a 0%, #0372b6 50%, #042c6a 100%);
+    }
+    .qr-preview-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.03) 10px, rgba(255,255,255,0.03) 20px);
+    }
+    .qr-card-inner {
+      position: relative;
+      z-index: 1;
+      padding-top: 50px;
+    }
+    .qr-preview-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      padding: 0 16px;
+    }
+    .qr-preview-logo {
+      width: 36px;
+      height: 36px;
+      background: #fff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      border: 2px solid #5ed6fc;
+    }
+    .qr-preview-logo img { width: 26px; height: 26px; }
+    .qr-preview-title {
+      color: #fff;
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .qr-preview-subtitle {
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    }
+    .qr-preview-qr {
+      background: #fff;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      width: fit-content;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      border: 3px solid #042c6a;
+    }
+    .qr-preview-footer {
+      text-align: center;
+      padding: 0 16px 16px;
+    }
+    .qr-preview-amount {
+      font-size: 18px;
+      font-weight: 700;
+      color: #be1e2d;
+      margin-bottom: 4px;
+    }
+    .qr-preview-method { font-size: 9px; color: #7b8aa5; letter-spacing: 0.5px; }
+    .qr-preview-info { display: none; }
+    .qr-preview-info-row {
+      display: flex; justify-content: space-between; padding: 4px 0;
+      font-size: 12px;
+    }
+    .qr-preview-info-row .label { color: rgba(255,255,255,0.5); }
+    .qr-preview-info-row .value { color: #fff; font-weight: 600; }
+    
+    /* QR Toggle Switch */
+    .qr-toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .qr-toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+    }
+    .qr-toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .qr-toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .3s;
+      border-radius: 26px;
+    }
+    .qr-toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+    .qr-toggle-switch input:checked + .qr-toggle-slider {
+      background-color: #28a745;
+    }
+    .qr-toggle-switch input:checked + .qr-toggle-slider:before {
+      transform: translateX(22px);
+    }
+    .qr-toggle-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #042c6a;
+    }
+    .qr-toggle-status {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+    .qr-toggle-status.enabled {
+      background: #d4edda;
+      color: #155724;
+    }
+    .qr-toggle-status.disabled {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    /* QR User Settings Panel */
+    .qr-user-settings {
+      background: #fff;
+      border: 1px solid #e6ebf3;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .qr-user-settings h4 {
+      margin: 0 0 16px 0;
+      color: #042c6a;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .qr-user-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .qr-user-form .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .qr-user-form label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #7b8aa5;
+    }
+    .qr-user-form input,
+    .qr-user-form select {
+      padding: 8px 12px;
+      border: 1px solid #e6ebf3;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .qr-user-form input:focus,
+    .qr-user-form select:focus {
+      outline: none;
+      border-color: #0372b6;
+    }
+    .qr-user-form.full-width {
+      grid-column: 1 / -1;
+    }
+    .qr-action-btns {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px;
+    }
+    .qr-action-btn {
+      padding: 10px 16px; border-radius: 8px; border: none;
+      font-size: 13px; font-weight: 600; cursor: pointer; display: flex;
+      align-items: center; justify-content: center; gap: 6px; transition: all .2s;
+    }
+    .qr-action-print {
+      background: rgba(255,255,255,0.15); color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .qr-action-print:hover { background: rgba(255,255,255,0.25); }
+    .qr-action-download {
+      background: #5ed6fc; color: #042c6a;
+    }
+    .qr-action-download:hover { background: #4ac4eb; }
+    .qr-action-copy {
+      grid-column: 1 / -1; background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .qr-action-copy:hover { background: rgba(255,255,255,0.15); }
+    .qr-history-table { margin-top: 16px; }
+    .qr-history-item {
+      display: flex; align-items: center; gap: 12px; padding: 10px;
+      border-bottom: 1px solid #f0f3f8; font-size: 13px;
+    }
+    .qr-history-item:last-child { border-bottom: none; }
+    .qr-history-icon {
+      width: 36px; height: 36px; border-radius: 8px; background: #e3f0fd;
+      display: flex; align-items: center; justify-content: center;
+      color: #0372b6; flex-shrink: 0;
+    }
+    .qr-history-info { flex: 1; }
+    .qr-history-title { font-weight: 600; color: #042c6a; }
+    .qr-history-meta { font-size: 11px; color: #7b8aa5; }
+
+    .admin-badge.individual { background:#e3f0fd; color:#0372b6; }
+    .admin-badge.organization { background:#fff3cd; color:#b06a00; }
+
+    /* QR Form - Admin Form Groups */
+    .admin-form-group {
+      margin-bottom: 18px;
+    }
+    .admin-form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #042c6a;
+      margin-bottom: 8px;
+      letter-spacing: 0.3px;
+    }
+    .admin-form-group .required {
+      color: #be1e2d;
+      margin-left: 2px;
+    }
+    .admin-form-group input,
+    .admin-form-group select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e6ebf3;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Roboto', 'Arial', sans-serif;
+      color: #1f2a44;
+      background: #fff;
+      transition: all 0.2s ease;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .admin-form-group input:hover,
+    .admin-form-group select:hover {
+      border-color: #c8d3e3;
+    }
+    .admin-form-group input:focus,
+    .admin-form-group select:focus {
+      border-color: #0372b6;
+      box-shadow: 0 0 0 3px rgba(3, 114, 182, 0.1);
+    }
+    .admin-form-group input::placeholder {
+      color: #96a1b4;
+      font-weight: 400;
+    }
+    .admin-form-group select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 40px;
+    }
+    .admin-form-group .field-hint {
+      font-size: 11px;
+      color: #7b8aa5;
+      margin-top: 5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .admin-form-group .field-hint i {
+      font-size: 12px;
+    }
+
+    /* Admin Mobile Navigation */
+    .admin-mobile-header {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--navy-2);
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .admin-mobile-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+    }
+    .admin-mobile-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 2px;
+    }
+    .admin-mobile-logo span {
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffd700;
+      max-width: 150px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .admin-mobile-toggle {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .admin-mobile-toggle:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .admin-mobile-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9998;
+    }
+    .admin-mobile-overlay.active {
+      display: block;
+    }
+    .admin-mobile-drawer {
+      position: fixed;
+      top: 0;
+      left: -300px;
+      width: 300px;
+      height: 100vh;
+      background: var(--navy-2);
+      z-index: 9999;
+      transition: left 0.3s ease;
+      overflow-y: auto;
+      box-shadow: 4px 0 20px rgba(0,0,0,0.3);
+    }
+    .admin-mobile-drawer.active {
+      left: 0;
+    }
+    .admin-mobile-drawer::-webkit-scrollbar {
+      width: 4px;
+    }
+    .admin-mobile-drawer::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.1);
+    }
+    .admin-mobile-drawer::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+    }
+    .admin-mobile-drawer-header {
+      padding: 16px;
+      border-bottom: 2px solid #ffd700;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .admin-mobile-drawer-header img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #fff;
+      padding: 2px;
+    }
+    .admin-mobile-drawer-header span {
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      line-height: 1.2;
+    }
+    .admin-mobile-drawer-close {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+    .admin-mobile-drawer-close:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .admin-mobile-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .admin-mobile-menu li a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 20px;
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+      transition: all 0.12s;
+    }
+    .admin-mobile-menu li a:hover,
+    .admin-mobile-menu li a.active {
+      background: rgba(255,215,0,0.1);
+      color: #ffd700;
+    }
+    .admin-mobile-menu li a.active {
+      border-left-color: #ffd700;
+    }
+    .admin-mobile-menu li a i {
+      width: 18px;
+      text-align: center;
+      font-size: 15px;
+    }
+    .admin-mobile-menu li a .badge {
+      margin-left: auto;
+      background: #ffd700;
+      color: var(--navy-2);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+    }
+    .admin-mobile-footer {
+      padding: 16px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin-top: auto;
+    }
+    .admin-mobile-footer a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #cfe1ff;
+      text-decoration: none;
+      padding: 10px 12px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .admin-mobile-footer a:hover {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    @media (max-width:768px) {
+      .admin-layout { flex-direction: column; }
+      .admin-sb { display: none; }
+      .admin-mobile-header { display: flex !important; }
+      .admin-topbar { padding: 12px 16px; }
+      .admin-topbar h1 { font-size: 16px; }
+      .admin-content { padding: 16px; }
+      .admin-stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .admin-stat-card { padding: 14px; flex-direction: column; text-align: center; }
+      .admin-stat-card .icon { width: 40px; height: 40px; }
+      .admin-stat-card .info .value { font-size: 20px; }
+      .admin-card { padding: 16px; margin-bottom: 16px; border-radius: 10px; }
+      .admin-card h3 { font-size: 14px; }
+      .admin-table { font-size: 12px; }
+      .admin-table th, .admin-table td { padding: 8px 6px; }
+      .admin-search { flex-direction: column; }
+      .admin-search input, .admin-search select { width: 100%; }
+      .admin-filter { flex-direction: column; }
+      .admin-filter select, .admin-filter button { width: 100%; }
+      .admin-modal-dialog { margin: 10px; max-width: calc(100% - 20px); }
+      .admin-modal-body { padding: 16px; }
+      .admin-form-group { margin-bottom: 14px; }
+      .admin-form-actions { flex-direction: column; }
+      .admin-form-actions button { width: 100%; justify-content: center; }
+      
+      /* Dashboard Grid */
+      .admin-section .admin-stats + div {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* Charts */
+      .admin-chart { height: 150px; }
+      
+      /* QR Code Section */
+      .qr-payment-tabs { flex-wrap: wrap; }
+      .qr-payment-tab { flex: 1 1 33%; font-size: 12px; padding: 8px; }
+      .qr-tab-content > div > div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* Reports */
+      #reportKpis { grid-template-columns: repeat(2, 1fr) !important; }
+      .admin-section > div[style*="grid-template-columns:2fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      .admin-section > div[style*="grid-template-columns:1fr 1fr"]:has(canvas) {
+        grid-template-columns: 1fr !important;
+      }
+      
+      /* Tables */
+      .admin-table-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .admin-table { min-width: 800px; }
+    }
+
+    @media (max-width:576px) {
+      .admin-mobile-logo span { display: none; }
+      .admin-stats { grid-template-columns: 1fr 1fr; }
+      .admin-stat-card { padding: 12px; }
+      .admin-stat-card .info .label { font-size: 11px; }
+      .admin-stat-card .info .value { font-size: 18px; }
+      .admin-card h3 { font-size: 13px; padding-bottom: 8px; margin-bottom: 12px; }
+      .admin-topbar h1 { font-size: 14px; }
+      .admin-topbar-right span { display: none; }
+      .admin-actions { flex-direction: column; }
+      .admin-actions .admin-btn { width: 100%; justify-content: center; }
+      
+      /* Registration stats */
+      .admin-section .admin-stats[style*="repeat(4,1fr)"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+      
+      /* Reports */
+      #reportKpis { grid-template-columns: 1fr 1fr !important; gap: 10px; }
+      
+      /* Agency */
+      #agencyTreeContainer { max-height: 300px; }
+      
+      /* QR */
+      .qr-template-grid { grid-template-columns: 1fr 1fr !important; }
+      .qr-preview-card { padding: 16px; }
+      .qr-preview-card::before { height: 40px; }
+      .qr-card-inner { padding-top: 35px; }
+    }
+
+    @media (max-width:400px) {
+      .admin-stats { grid-template-columns: 1fr; }
+      .admin-stat-card { flex-direction: row; text-align: left; }
+      .admin-stat-card .icon { margin-right: 12px; }
+      .admin-topbar { padding: 10px 12px; }
+      .admin-content { padding: 12px; }
+      .admin-card { padding: 12px; }
+      .qr-payment-tab { flex: 1 1 50%; }
+      .qr-user-form { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+<div class="admin-layout" id="adminLayout">
+  <!-- MOBILE HEADER -->
+  <div class="admin-mobile-header">
+    <div class="admin-mobile-logo">
+      <img src="/images/bhxh_logo.svg" alt="BHXH" />
+      <span>QUẢN TRỊ BHXH</span>
+    </div>
+    <button class="admin-mobile-toggle" onclick="toggleAdminMobileMenu()" aria-label="Mở menu">
+      <i class="bi bi-list"></i>
+    </button>
+  </div>
+  
+  <!-- MOBILE OVERLAY -->
+  <div class="admin-mobile-overlay" id="adminMobileOverlay" onclick="toggleAdminMobileMenu()"></div>
+  
+  <!-- MOBILE DRAWER -->
+  <div class="admin-mobile-drawer" id="adminMobileDrawer">
+    <div class="admin-mobile-drawer-header">
+      <div style="display:flex;align-items:center;gap:10px">
+        <img src="/images/bhxh_logo.svg" alt="BHXH" />
+        <span>CỔNG THÔNG TIN<br>BẢO HIỂM XÃ HỘI</span>
+      </div>
+      <button class="admin-mobile-drawer-close" onclick="toggleAdminMobileMenu()" aria-label="Đóng menu">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <ul class="admin-mobile-menu">
+      <li><a href="#" class="active" data-section="dashboard" onclick="switchAdminSection('dashboard'); toggleAdminMobileMenu(); return false;"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+      <li><a href="#" data-section="users" onclick="switchAdminSection('users'); toggleAdminMobileMenu(); return false;"><i class="bi bi-people"></i> Người dùng <span class="badge" id="userBadgeMobile">0</span></a></li>
+      <li><a href="#" data-section="registrations" onclick="switchAdminSection('registrations'); toggleAdminMobileMenu(); return false;"><i class="bi bi-file-earmark-text"></i> Đăng ký <span class="badge" id="regBadgeMobile">0</span></a></li>
+      <li><a href="#" data-section="appointments" onclick="switchAdminSection('appointments'); toggleAdminMobileMenu(); return false;"><i class="bi bi-calendar-check"></i> Lịch hẹn <span class="badge" id="apptBadgeMobile">0</span></a></li>
+      <li><a href="#" data-section="chat" onclick="switchAdminSection('chat'); toggleAdminMobileMenu(); return false;"><i class="bi bi-chat-dots"></i> Hỗ trợ <span class="badge" id="chatBadgeMobile">0</span></a></li>
+      <li><a href="#" data-section="agencies" onclick="switchAdminSection('agencies'); toggleAdminMobileMenu(); return false;"><i class="bi bi-building"></i> Đơn vị BHXH</a></li>
+      <li><a href="#" data-section="reports" onclick="switchAdminSection('reports'); toggleAdminMobileMenu(); return false;"><i class="bi bi-graph-up"></i> Báo cáo</a></li>
+      <li><a href="#" data-section="qrcode" onclick="switchAdminSection('qrcode'); toggleAdminMobileMenu(); return false;"><i class="bi bi-qr-code"></i> Mã QR</a></li>
+      <li><a href="#" data-section="settings" onclick="switchAdminSection('settings'); toggleAdminMobileMenu(); return false;"><i class="bi bi-gear"></i> Cài đặt</a></li>
+    </ul>
+    <div class="admin-mobile-footer">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,0.08)">
+        <img src="/images/quoc_huy.svg" alt="" style="width:18px;height:18px;opacity:0.4" />
+        <span style="font-size:10px;color:rgba(255,255,255,0.35)">BHXH Việt Nam</span>
+      </div>
+      <a href="/" onclick="adminLogout()"><i class="bi bi-box-arrow-left"></i> Đăng xuất</a>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="admin-sb">
+      <div class="admin-sb-brand">
+        <img src="/images/quoc_huy.svg" alt="Quốc huy" style="width:30px;height:30px;border-radius:0;background:none;padding:0" />
+        <img src="/images/bhxh_logo.svg" alt="BHXH" />
+        <span>Cổng thông tin điện tử<br>Bảo hiểm Xã hội Việt Nam</span>
+      </div>
+    <nav class="admin-sb-menu">
+      <!-- Dashboard -->
+      <a class="admin-sb-item active" data-section="dashboard" href="#"><i class="bi bi-speedometer2"></i> Dashboard</a>
+      
+      <!-- Người dùng with submenu -->
+      <div class="admin-has-sub">
+        <a class="admin-sb-item" href="javascript:void(0)" onclick="toggleAdminSubmenu(this)">
+          <i class="bi bi-people"></i> Người dùng <span class="badge" id="userBadge">0</span>
+          <i class="bi bi-chevron-right admin-sub-arrow"></i>
+        </a>
+        <div class="admin-submenu">
+          <a class="admin-submenu-item" data-section="users" href="#"><i class="bi bi-list-ul"></i> Danh sách người dùng</a>
+          <a class="admin-submenu-item" data-section="users-pending" href="#"><i class="bi bi-hourglass-split"></i> Chờ duyệt</a>
+          <a class="admin-submenu-item" data-section="users-blocked" href="#"><i class="bi bi-slash-circle"></i> Đã khóa</a>
+        </div>
+      </div>
+      
+      <!-- Đăng ký with submenu -->
+      <div class="admin-has-sub">
+        <a class="admin-sb-item" href="javascript:void(0)" onclick="toggleAdminSubmenu(this)">
+          <i class="bi bi-file-earmark-text"></i> Đăng ký <span class="badge" id="regBadge">0</span>
+          <i class="bi bi-chevron-right admin-sub-arrow"></i>
+        </a>
+        <div class="admin-submenu">
+          <a class="admin-submenu-item" data-section="registrations" href="#"><i class="bi bi-list-ul"></i> Tất cả đăng ký</a>
+          <a class="admin-submenu-item" data-section="reg-approved" href="#"><i class="bi bi-check-circle"></i> Đã duyệt</a>
+          <a class="admin-submenu-item" data-section="reg-rejected" href="#"><i class="bi bi-x-circle"></i> Từ chối</a>
+        </div>
+      </div>
+      
+      <!-- Lịch hẹn -->
+      <a class="admin-sb-item" data-section="appointments" href="#"><i class="bi bi-calendar-check"></i> Lịch hẹn <span class="badge" id="apptBadge">0</span></a>
+      
+      <!-- Hỗ trợ -->
+      <a class="admin-sb-item" data-section="chat" href="#"><i class="bi bi-chat-dots"></i> Hỗ trợ <span class="badge" id="chatBadge">0</span></a>
+      
+      <!-- Đơn vị BHXH with submenu -->
+      <div class="admin-has-sub">
+        <a class="admin-sb-item" href="javascript:void(0)" onclick="toggleAdminSubmenu(this)">
+          <i class="bi bi-building"></i> Đơn vị BHXH
+          <i class="bi bi-chevron-right admin-sub-arrow"></i>
+        </a>
+        <div class="admin-submenu">
+          <a class="admin-submenu-item" data-section="agencies" href="#"><i class="bi bi-diagram-3"></i> Cơ cấu tổ chức</a>
+          <a class="admin-submenu-item" data-section="agencies-add" href="#"><i class="bi bi-plus-circle"></i> Thêm đơn vị</a>
+        </div>
+      </div>
+      
+      <!-- Báo cáo with submenu -->
+      <div class="admin-has-sub">
+        <a class="admin-sb-item" href="javascript:void(0)" onclick="toggleAdminSubmenu(this)">
+          <i class="bi bi-graph-up"></i> Báo cáo
+          <i class="bi bi-chevron-right admin-sub-arrow"></i>
+        </a>
+        <div class="admin-submenu">
+          <a class="admin-submenu-item" data-section="reports" href="#"><i class="bi bi-bar-chart"></i> Thống kê</a>
+          <a class="admin-submenu-item" data-section="reports-export" href="#"><i class="bi bi-file-earmark-pdf"></i> Xuất báo cáo</a>
+        </div>
+      </div>
+      
+      <!-- Mã QR -->
+      <a class="admin-sb-item" data-section="qrcode" href="#"><i class="bi bi-qr-code"></i> Mã QR</a>
+      
+      <!-- Cài đặt with submenu -->
+      <div class="admin-has-sub">
+        <a class="admin-sb-item" href="javascript:void(0)" onclick="toggleAdminSubmenu(this)">
+          <i class="bi bi-gear"></i> Cài đặt
+          <i class="bi bi-chevron-right admin-sub-arrow"></i>
+        </a>
+        <div class="admin-submenu">
+          <a class="admin-submenu-item" data-section="settings" href="#"><i class="bi bi-sliders"></i> Cấu hình hệ thống</a>
+          <a class="admin-submenu-item" data-section="settings-notify" href="#"><i class="bi bi-bell"></i> Thông báo</a>
+          <a class="admin-submenu-item" data-section="settings-security" href="#"><i class="bi bi-shield-lock"></i> Bảo mật</a>
+        </div>
+      </div>
+      
+      <div class="admin-sb-divider"></div>
+      
+      <!-- Về trang chủ -->
+      <a class="admin-sb-item" href="/"><i class="bi bi-house"></i> Về trang chủ</a>
+      <div style="padding:14px 18px;border-top:1px solid rgba(255,255,255,0.08);margin-top:auto">
+        <div style="display:flex;align-items:center;gap:8px">
+          <img src="/images/quoc_huy.svg" alt="" style="width:20px;height:20px;opacity:0.5" />
+          <span style="font-size:10px;color:rgba(255,255,255,0.35);line-height:1.3">
+            BHXH Việt Nam &mdash; Hệ thống quản trị
+          </span>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <!-- MAIN -->
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <h1 id="pageTitle">Dashboard</h1>
+      <div class="admin-topbar-right">
+        <span style="font-size:13px;color:#7b8aa5" id="currentDateTime"></span>
+        <div class="admin-user" style="cursor:pointer" onclick="adminLogout()" title="Đăng xuất">
+          <img src="/images/bhxh_logo.svg" alt="Admin">
+          <span>Admin <i class="bi bi-box-arrow-right" style="font-size:11px"></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="admin-content">
+      <!-- ===== DASHBOARD ===== -->
+      <div class="admin-section active" id="section-dashboard">
+        <div class="admin-stats" id="dashboardStats">
+          <div class="admin-stat-card"><div class="icon" style="background:#e3f0fd;color:#0372b6"><i class="bi bi-people"></i></div><div class="info"><div class="label">Tổng người dùng</div><div class="value" id="statTotalUsers">0</div></div></div>
+          <div class="admin-stat-card"><div class="icon" style="background:#d4edda;color:#0a7a2a"><i class="bi bi-person-check"></i></div><div class="info"><div class="label">Đang hoạt động</div><div class="value" id="statActiveUsers">0</div></div></div>
+          <div class="admin-stat-card"><div class="icon" style="background:#fff3cd;color:#b06a00"><i class="bi bi-hourglass-split"></i></div><div class="info"><div class="label">Chờ duyệt</div><div class="value" id="statPending">0</div></div></div>
+          <div class="admin-stat-card"><div class="icon" style="background:#f8d7da;color:#be1e2d"><i class="bi bi-file-earmark"></i></div><div class="info"><div class="label">Hồ sơ hôm nay</div><div class="value" id="statToday">0</div></div></div>
+        </div>
+
+        <div class="admin-card">
+          <h3><i class="bi bi-activity"></i> Tổng quan hồ sơ</h3>
+          <div class="admin-stats" style="grid-template-columns:repeat(2,1fr)">
+            <div class="admin-stat-card" style="padding:14px"><div class="icon" style="background:#e3f0fd;color:#0372b6;width:40px;height:40px;font-size:16px"><i class="bi bi-inbox"></i></div><div class="info"><div class="label">Đã tiếp nhận</div><div class="value" id="statSubmissions">0</div></div></div>
+            <div class="admin-stat-card" style="padding:14px"><div class="icon" style="background:#d4edda;color:#0a7a2a;width:40px;height:40px;font-size:16px"><i class="bi bi-check-all"></i></div><div class="info"><div class="label">Đã giải quyết</div><div class="value" id="statProcessed">0</div></div></div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div class="admin-card">
+            <h3><i class="bi bi-bar-chart"></i> Lượt đăng ký 6 tháng</h3>
+            <div class="admin-chart" id="regChart"></div>
+          </div>
+          <div class="admin-card">
+            <h3><i class="bi bi-bell"></i> Hoạt động gần đây</h3>
+            <ul class="activity-list" id="activityList"></ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== USERS ===== -->
+      <div class="admin-section" id="section-users">
+        <div class="admin-card">
+          <h3><i class="bi bi-people"></i> Quản lý người dùng</h3>
+          <div class="admin-search">
+            <input type="text" id="userSearch" placeholder="Tìm kiếm theo tên, mã BHXH, CCCD, số điện thoại...">
+            <select id="userStatusFilter">
+              <option value="">Tất cả trạng thái</option>
+              <option value="approved">Đã duyệt</option>
+              <option value="pending">Chờ duyệt</option>
+              <option value="rejected">Từ chối</option>
+            </select>
+            <select id="userTypeFilter">
+              <option value="">Tất cả loại</option>
+              <option value="individual">Cá nhân</option>
+              <option value="organization">Tổ chức</option>
+            </select>
+            <select id="userProvinceFilter" style="min-width:140px">
+              <option value="">Tất cả tỉnh/TP</option>
+            </select>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px;font-size:13px;color:#6b7a90">
+            <div id="userCountInfo"></div>
+            <div class="pagination" id="userPagination"></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr><th>ID</th><th>Họ tên</th><th>Mã BHXH</th><th>Số CCCD</th><th>Điện thoại</th><th>Loại</th><th>Tỉnh/TP</th><th>Trạng thái</th><th>Ngày ĐK</th><th>Thao tác</th></tr>
+              </thead>
+              <tbody id="userTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== REGISTRATIONS ===== -->
+      <div class="admin-section" id="section-registrations">
+        <div class="admin-card">
+          <h3><i class="bi bi-file-earmark-text"></i> Quản lý đăng ký chờ duyệt</h3>
+          <div class="admin-stats" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px">
+            <div class="admin-stat-card" style="padding:14px"><div class="info"><div class="label">Chờ duyệt</div><div class="value" id="regPendingCount" style="color:#b06a00">0</div></div></div>
+            <div class="admin-stat-card" style="padding:14px"><div class="info"><div class="label">Đã duyệt</div><div class="value" id="regApprovedCount" style="color:#0a7a2a">0</div></div></div>
+            <div class="admin-stat-card" style="padding:14px"><div class="info"><div class="label">Từ chối</div><div class="value" id="regRejectedCount" style="color:#be1e2d">0</div></div></div>
+            <div class="admin-stat-card" style="padding:14px"><div class="info"><div class="label">Tổng số</div><div class="value" id="regTotalCount">0</div></div></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr><th>ID</th><th>Họ tên</th><th>Mã BHXH</th><th>CCCD</th><th>Điện thoại</th><th>Loại</th><th>Trạng thái</th><th>Ngày ĐK</th><th>Thao tác</th></tr>
+              </thead>
+              <tbody id="regTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== REPORTS ===== -->
+      <div class="admin-section" id="section-reports">
+        <div class="admin-card">
+          <h3><i class="bi bi-graph-up"></i> Báo cáo &amp; Thống kê</h3>
+          <div class="admin-filter">
+            <label style="display:flex;align-items:center;gap:8px;color:#1f2a44">
+              Khoảng thời gian:
+              <select id="reportRange" onchange="loadReports()">
+                <option value="7">7 ngày qua</option>
+                <option value="30" selected>30 ngày qua</option>
+                <option value="90">90 ngày qua</option>
+                <option value="365">365 ngày qua</option>
+              </select>
+            </label>
+            <button class="admin-btn admin-btn-primary" onclick="loadReports()"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+            <button class="admin-btn admin-btn-ghost" onclick="exportReportsCsv()"><i class="bi bi-download"></i> Xuất CSV</button>
+          </div>
+
+          <div id="reportKpis" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:16px"></div>
+
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-top:24px">
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid #eef1f6">
+              <h4 style="margin:0 0 14px 0;color:#1f2a44;font-size:15px"><i class="bi bi-bar-chart"></i> Đăng ký theo ngày</h4>
+              <div style="height:280px;position:relative"><canvas id="reportByDayChart"></canvas></div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid #eef1f6">
+              <h4 style="margin:0 0 14px 0;color:#1f2a44;font-size:15px"><i class="bi bi-pie-chart"></i> Trạng thái hồ sơ</h4>
+              <div style="height:280px;position:relative"><canvas id="reportByStatusChart"></canvas></div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px">
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid #eef1f6">
+              <h4 style="margin:0 0 14px 0;color:#1f2a44;font-size:15px"><i class="bi bi-geo-alt"></i> Top tỉnh/thành</h4>
+              <div style="height:320px;position:relative"><canvas id="reportByProvinceChart"></canvas></div>
+            </div>
+            <div style="background:#fff;border-radius:10px;padding:18px;border:1px solid #eef1f6">
+              <h4 style="margin:0 0 14px 0;color:#1f2a44;font-size:15px"><i class="bi bi-credit-card"></i> Hình thức thanh toán</h4>
+              <div style="height:320px;position:relative"><canvas id="reportByPaymentChart"></canvas></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== AGENCIES ===== -->
+      <div class="admin-section" id="section-agencies">
+        <div class="admin-card">
+          <h3><i class="bi bi-building"></i> Danh sách đơn vị Bảo hiểm Xã hội</h3>
+          <div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap">
+            <input type="text" id="agencySearchInput" placeholder="Tìm kiếm đơn vị..." style="flex:1;min-width:200px;padding:8px 12px;border:1px solid #d6dde8;border-radius:6px;font-size:13px;outline:none" oninput="filterAgencyTree()">
+            <button class="admin-btn admin-btn-primary" onclick="showAddAgencyForm()">
+              <i class="bi bi-plus-circle"></i> Thêm đơn vị mới
+            </button>
+          </div>
+          <div id="agencyTreeContainer" style="max-height:500px;overflow-y:auto;border:1px solid #e6ebf3;border-radius:6px;padding:8px"></div>
+        </div>
+      </div>
+
+      <!-- Add Agency Modal -->
+      <div class="admin-modal" id="addAgencyModal">
+        <div class="admin-modal-backdrop" onclick="closeAddAgencyForm()"></div>
+        <div class="admin-modal-dialog">
+          <div class="admin-modal-header">
+            <h3><i class="bi bi-building-add"></i> Thêm đơn vị BHXH mới</h3>
+            <button class="admin-modal-close" onclick="closeAddAgencyForm()"><i class="bi bi-x-lg"></i></button>
+          </div>
+          <div class="admin-modal-body">
+            <form id="addAgencyForm" onsubmit="submitAddAgency(event)">
+              <div class="admin-form-group">
+                <label>Mã đơn vị <span class="required">*</span></label>
+                <input type="text" id="agencyCode" placeholder="VD: HN-001" required>
+              </div>
+              <div class="admin-form-group">
+                <label>Tên đơn vị <span class="required">*</span></label>
+                <input type="text" id="agencyName" placeholder="VD: Bảo hiểm Xã hội TP Hà Nội" required>
+              </div>
+              <div class="admin-form-group">
+                <label>Đơn vị cha</label>
+                <select id="agencyParent">
+                  <option value="">-- Chọn đơn vị cha --</option>
+                </select>
+              </div>
+              <div class="admin-form-group">
+                <label>Cấp đơn vị <span class="required">*</span></label>
+                <select id="agencyLevel" required>
+                  <option value="1">Cấp 1 (Trung ương)</option>
+                  <option value="2">Cấp 2 (Tỉnh/Thành phố)</option>
+                  <option value="3">Cấp 3 (Quận/Huyện)</option>
+                  <option value="4">Cấp 4 (Xã/Phường)</option>
+                </select>
+              </div>
+              <div class="admin-form-group">
+                <label>Địa chỉ</label>
+                <input type="text" id="agencyAddress" placeholder="VD: Số 1, Trần Hưng Đạo, Hoàn Kiếm, Hà Nội">
+              </div>
+              <div class="admin-form-group">
+                <label>Số điện thoại</label>
+                <input type="tel" id="agencyPhone" placeholder="VD: 024 1234 5678">
+              </div>
+              <div class="admin-form-group">
+                <label>Email</label>
+                <input type="email" id="agencyEmail" placeholder="VD: info@bhxh.hanoi.vn">
+              </div>
+              <div class="admin-form-actions">
+                <button type="button" class="admin-btn admin-btn-secondary" onclick="closeAddAgencyForm()">Hủy bỏ</button>
+                <button type="submit" class="admin-btn admin-btn-primary"><i class="bi bi-check-circle"></i> Lưu đơn vị</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== QR CODE ===== -->
+      <div class="admin-section" id="section-qrcode">
+        <!-- QR Payment Tabs -->
+        <div class="qr-payment-tabs">
+          <button class="qr-payment-tab active" data-tab="create" onclick="switchQrTab('create')">
+            <i class="bi bi-plus-circle"></i> Tạo mới
+          </button>
+          <button class="qr-payment-tab" data-tab="templates" onclick="switchQrTab('templates')">
+            <i class="bi bi-collection"></i> Mẫu có sẵn
+          </button>
+          <button class="qr-payment-tab" data-tab="history" onclick="switchQrTab('history')">
+            <i class="bi bi-clock-history"></i> Lịch sử
+          </button>
+        </div>
+
+        <!-- QR Create Tab -->
+        <div class="qr-tab-content active" id="qr-tab-create">
+          <div class="admin-card">
+            <h3><i class="bi bi-qr-code-scan"></i> Tạo mã QR thanh toán BHXH</h3>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+              <div>
+                <!-- Thông tin loại thanh toán -->
+                <div class="admin-form-group">
+                  <label>Loại thanh toán</label>
+                  <select id="qrPaymentType" onchange="onPaymentTypeChange()">
+                    <option value="bhxh">Đóng BHXH tự nguyện</option>
+                    <option value="bhyt">Đóng BHYT tự nguyện</option>
+                    <option value="bhtn">Đóng BHTN</option>
+                    <option value="trocap">Nhận trợ cấp</option>
+                    <option value="other">Khác (tự nhập)</option>
+                  </select>
+                  <div class="field-hint"><i class="bi bi-info-circle"></i> Chọn loại bảo hiểm cần đóng</div>
+                </div>
+
+                <!-- Loại thanh toán tùy chỉnh -->
+                <div class="admin-form-group" id="customPaymentTypeGroup" style="display:none">
+                  <label>Loại thanh toán cụ thể <span class="required">*</span></label>
+                  <input type="text" id="qrCustomPaymentType" placeholder="VD: Đóng BHXH tự nguyện, Thanh toán khám chữa bệnh..." oninput="generateQRLive()">
+                  <div class="field-hint"><i class="bi bi-info-circle"></i> Nhập mô tả loại thanh toán cụ thể</div>
+                </div>
+
+                <!-- Mã số BHXH / CCCD -->
+                <div class="admin-form-group">
+                  <label>Mã số BHXH / CCCD <span class="required">*</span></label>
+                  <input type="text" id="qrBhxhCode" placeholder="Nhập mã BHXH hoặc số CCCD" oninput="generateQRLive()">
+                  <div class="field-hint"><i class="bi bi-info-circle"></i> Có thể nhập mã BHXH hoặc số CCCD</div>
+                </div>
+
+                <!-- Ngân hàng thụ hưởng -->
+                <div class="admin-form-group">
+                  <label>Ngân hàng thụ hưởng <span class="required">*</span></label>
+                  <select id="qrBank" onchange="generateQRLive()">
+                    <optgroup label="Ngân hàng thương mại nhà nước">
+                      <option value="VCB|Vietcombank|970436">Vietcombank - 970436</option>
+                      <option value="BIDV|BIDV|970488">BIDV - 970488</option>
+                      <option value="VTIB|VietinBank|970415">VietinBank - 970415</option>
+                      <option value="CTG|Agribank|970405">Agribank - 970405</option>
+                    </optgroup>
+                    <optgroup label="Ngân hàng thương mại cổ phần lớn">
+                      <option value="TCB|Techcombank|970407">Techcombank - 970407</option>
+                      <option value="VPB|VPBank|970432">VPBank - 970432</option>
+                      <option value="MB|MB Bank|970426">MB Bank - 970426</option>
+                      <option value="ACB|ACB|970416">ACB - 970416</option>
+                      <option value="TPB|TPBank|972643">TPBank - 972643</option>
+                      <option value="EIB|Eximbank|970468">Eximbank - 970468</option>
+                      <option value="SHB|SHB|970443">SHB - 970443</option>
+                      <option value="HDB|HDBank|970437">HDBank - 970437</option>
+                      <option value="MSB|Maritime Bank|970426">MSB - 970426</option>
+                      <option value="VIB|VIB Bank|970441">VIB - 970441</option>
+                      <option value="OCB|OCB Bank|970448">OCB - 970448</option>
+                      <option value="SCB|Sacombank|970403">Sacombank - 970403</option>
+                      <option value="PGB|PGBank|970412">PGBank - 970412</option>
+                      <option value="BVB|Bảo Việt Bank|970433">Bảo Việt Bank - 970433</option>
+                    </optgroup>
+                    <optgroup label="Ngân hàng thương mại cổ phần khác">
+                      <option value="ABB|An Bình Bank|970425">An Bình Bank - 970425</option>
+                      <option value="BAC|BAC A BANK|970484">BAC A BANK - 970484</option>
+                      <option value="BAB|BIDV - CN Long An|970488">BIDV Long An - 970488</option>
+                      <option value="KLB|Kienlongbank|970452">Kienlongbank - 970452</option>
+                      <option value="KEB|Hana Bank|970442">KEB Hana Bank - 970442</option>
+                      <option value="CEB|Central Retail Bank|970441">Central Bank - 970441</option>
+                      <option value="VCCB|Vietnam Credit Bank|970454">Vietnam Credit Bank - 970454</option>
+                      <option value="PVB|PVB Bank|970451">PVB Bank - 970451</option>
+                    </optgroup>
+                    <optgroup label="Ngân hàng liên doanh & 100% vốn nước ngoài">
+                      <option value="Citi|Citibank|533925">Citibank - 533925</option>
+                      <option value="HSBC|HSBC Vietnam|458548">HSBC - 458548</option>
+                      <option value="SCB|Shinhan Bank|970424">Shinhan Bank - 970424</option>
+                      <option value="UOB|United Overseas Bank|970427">UOB - 970427</option>
+                      <option value="ANZ|ANZ Vietnam|970439">ANZ - 970439</option>
+                      <option value="WOORI|Woori Bank|970458">Woori Bank - 970458</option>
+                    </optgroup>
+                    <optgroup label="Ngân hàng số & Fintech">
+                      <option value="TOMO|TomoChain|972643">TomoChain - 972643</option>
+                      <option value="CAKE|CAKE by VPBank|970432">CAKE - 970432</option>
+                      <option value="VPBNeo|VPBank NEO|970432">VPBank NEO - 970432</option>
+                    </optgroup>
+                  </select>
+                  <div class="field-hint"><i class="bi bi-info-circle"></i> Chọn ngân hàng nhận tiền đóng BHXH</div>
+                </div>
+
+                <!-- Số tài khoản -->
+                <div class="admin-form-group">
+                  <label>Số tài khoản <span class="required">*</span></label>
+                  <input type="text" id="qrAccount" placeholder="Nhập số tài khoản ngân hàng" value="1012345678" oninput="generateQRLive()">
+                </div>
+
+                <!-- Tên chủ tài khoản -->
+                <div class="admin-form-group">
+                  <label>Tên chủ tài khoản <span class="required">*</span></label>
+                  <input type="text" id="qrHolder" placeholder="Nhập tên chủ tài khoản (IN HOA)" value="BOI HOI XA HOI VIET NAM" oninput="generateQRLive()">
+                  <div class="field-hint"><i class="bi bi-info-circle"></i> Tên chủ tài khoản phải viết IN HOA không dấu</div>
+                </div>
+
+                <!-- Số tiền -->
+                <div class="admin-form-group">
+                  <label>Số tiền (VNĐ) <span class="required">*</span></label>
+                  <input type="text" id="qrAmount" placeholder="VD: 500,000" value="500,000" oninput="formatQrAmount(this); generateQRLive()">
+                  <div class="field-hint"><i class="bi bi-info-circle"></i> Nhập số tiền cần đóng (không có dấu phẩy)</div>
+                </div>
+
+                <!-- Kỳ thanh toán -->
+                <div class="admin-form-group">
+                  <label>Kỳ thanh toán</label>
+                  <select id="qrPeriod" onchange="generateQRLive()">
+                    <option value="thang">Theo tháng</option>
+                    <option value="quy">Theo quý</option>
+                    <option value="nam">Theo năm</option>
+                  </select>
+                  <div class="field-hint"><i class="bi bi-info-circle"></i> Chọn chu kỳ đóng BHXH phù hợp</div>
+                </div>
+
+                <!-- Nội dung chuyển khoản -->
+                <div class="admin-form-group">
+                  <label>Nội dung chuyển khoản <span class="required">*</span></label>
+                  <input type="text" id="qrContent" placeholder="VD: Nop BHXH tu nguyen thang 07/2026" value="Nop BHXH tu nguyen" oninput="generateQRLive()">
+                  <div class="field-hint"><i class="bi bi-info-circle"></i> Nội dung giúp xác định khoản đóng, không dấu</div>
+                </div>
+
+                <!-- Kích thước QR -->
+                <div class="admin-form-group">
+                  <label>Kích thước QR</label>
+                  <select id="qrSize">
+                    <option value="180">Nhỏ (180x180px)</option>
+                    <option value="240" selected>Vừa (240x240px)</option>
+                    <option value="300">Lớn (300x300px)</option>
+                  </select>
+                </div>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                  <button class="admin-btn admin-btn-primary" onclick="generateQRCode()">
+                    <i class="bi bi-qr-code"></i> Tạo mã QR
+                  </button>
+                  <button class="admin-btn admin-btn-success" onclick="saveQrTemplate()" id="btnSaveTemplate" style="display:none">
+                    <i class="bi bi-bookmark-plus"></i> Lưu mẫu
+                  </button>
+                </div>
+                <div id="qrError" style="color:#be1e2d;font-size:12px;margin-top:8px;display:none"></div>
+              </div>
+              <div>
+                <div id="qrPreviewContainer">
+                  <!-- QR Preview will be rendered here -->
+                  <div class="qr-preview-card" id="qrPreview" style="text-align:center;padding:60px 24px;color:rgba(255,255,255,0.5)">
+                    <i class="bi bi-qr-code" style="font-size:80px;display:block;margin-bottom:16px;opacity:0.3"></i>
+                    <div style="font-size:14px">Nhập thông tin và nhấn "Tạo mã QR"</div>
+                  </div>
+                </div>
+                <div id="qrPaymentInfo" style="display:none;margin-top:12px"></div>
+                <div class="qr-action-btns" id="qrActionBtns" style="display:none">
+                  <button class="qr-action-btn qr-action-print" onclick="printQR()">
+                    <i class="bi bi-printer"></i> In
+                  </button>
+                  <button class="qr-action-btn qr-action-download" onclick="downloadQR()">
+                    <i class="bi bi-download"></i> Tải PNG
+                  </button>
+                  <button class="qr-action-btn qr-action-copy" onclick="copyQrData()">
+                    <i class="bi bi-clipboard"></i> Sao chép dữ liệu QR
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR Templates Tab -->
+        <div class="qr-tab-content" id="qr-tab-templates" style="display:none">
+          <div class="admin-card">
+            <h3><i class="bi bi-collection"></i> Mẫu QR có sẵn</h3>
+            <p style="color:#7b8aa5;font-size:13px;margin-bottom:16px">Chọn một mẫu có sẵn để nhanh chóng tạo mã QR thanh toán</p>
+            <div class="qr-template-grid" id="qrTemplateGrid">
+              <div class="qr-template-card" onclick="useTemplate('monthly-bhxh')">
+                <div class="icon" style="background:#e3f0fd;color:#0372b6">
+                  <i class="bi bi-calendar-month"></i>
+                </div>
+                <div class="title">BHXH Tháng</div>
+                <div class="desc">Mẫu đóng BHXH tự nguyện hàng tháng</div>
+              </div>
+              <div class="qr-template-card" onclick="useTemplate('quarterly-bhxh')">
+                <div class="icon" style="background:#d4edda;color:#0a7a2a">
+                  <i class="bi bi-calendar3"></i>
+                </div>
+                <div class="title">BHXH Quý</div>
+                <div class="desc">Mẫu đóng BHXH tự nguyện theo quý</div>
+              </div>
+              <div class="qr-template-card" onclick="useTemplate('bhyt-yearly')">
+                <div class="icon" style="background:#fff3cd;color:#b06a00">
+                  <i class="bi bi-shield-check"></i>
+                </div>
+                <div class="title">BHYT Năm</div>
+                <div class="desc">Mẫu đóng BHYT tự nguyện cả năm</div>
+              </div>
+              <div class="qr-template-card" onclick="useTemplate('bhtn')">
+                <div class="icon" style="background:#f8d7da;color:#be1e2d">
+                  <i class="bi bi-umbrella"></i>
+                </div>
+                <div class="title">BHTN</div>
+                <div class="desc">Mẫu đóng bảo hiểm thất nghiệp</div>
+              </div>
+              <div class="qr-template-card" onclick="useTemplate('arrears')">
+                <div class="icon" style="background:#e8e9ea;color:#555">
+                  <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                <div class="title">Nợ BHXH</div>
+                <div class="desc">Mẫu thanh toán nợ BHXH</div>
+              </div>
+              <div class="qr-template-card" onclick="useTemplate('custom')">
+                <div class="icon" style="background:#d5d8f0;color:#4a4e8f">
+                  <i class="bi bi-pencil-square"></i>
+                </div>
+                <div class="title">Tùy chỉnh</div>
+                <div class="desc">Tạo mẫu QR tùy theo nhu cầu</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR History Tab -->
+        <div class="qr-tab-content" id="qr-tab-history" style="display:none">
+          <div class="admin-card">
+            <h3><i class="bi bi-clock-history"></i> Lịch sử tạo mã QR</h3>
+            <div class="admin-search" style="margin-bottom:12px">
+              <input type="text" id="qrHistorySearch" placeholder="Tìm kiếm theo mã BHXH, nội dung..." oninput="filterQrHistory()">
+              <select id="qrHistoryFilter" onchange="filterQrHistory()">
+                <option value="">Tất cả</option>
+                <option value="today">Hôm nay</option>
+                <option value="week">7 ngày qua</option>
+                <option value="month">30 ngày qua</option>
+              </select>
+            </div>
+            <div id="qrHistoryList">
+              <div style="text-align:center;padding:40px;color:#96a1b4;font-size:13px"><i class="bi bi-inbox" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>Chưa có lịch sử tạo QR</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SETTINGS ===== -->
+      <div class="admin-section" id="section-settings">
+        <div class="admin-card">
+          <h3><i class="bi bi-gear"></i> Cài đặt hệ thống</h3>
+          <div style="max-width:500px">
+            <div style="margin-bottom:16px"><label style="display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:6px">Tên hệ thống</label><input type="text" value="BẢO HIỂM XÃ HỘI VIỆT NAM" style="width:100%;padding:8px 12px;border:1px solid #d6dde8;border-radius:6px;font-size:13px"></div>
+            <div style="margin-bottom:16px"><label style="display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:6px">Email hỗ trợ</label><input type="email" value="support@baohiemxahoi.vn" style="width:100%;padding:8px 12px;border:1px solid #d6dde8;border-radius:6px;font-size:13px"></div>
+            <div style="margin-bottom:16px"><label style="display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:6px">Số điện thoại hỗ trợ</label><input type="text" value="1900 9068" style="width:100%;padding:8px 12px;border:1px solid #d6dde8;border-radius:6px;font-size:13px"></div>
+            <div style="margin-bottom:16px"><label style="display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:6px">Địa chỉ</label><input type="text" value="Số 7, Nguyễn Cảnh Hoan, Quận Cầu Giấy, Hà Nội" style="width:100%;padding:8px 12px;border:1px solid #d6dde8;border-radius:6px;font-size:13px"></div>
+            <div style="margin-bottom:16px"><label style="display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:6px">Trạng thái hệ thống</label>
+              <select style="width:100%;padding:8px 12px;border:1px solid #d6dde8;border-radius:6px;font-size:13px;background:#fff">
+                <option>Đang hoạt động</option><option>Bảo trì</option><option>Tạm dừng</option>
+              </select>
+            </div>
+            <button class="admin-btn admin-btn-primary" onclick="showToast('Đã lưu cài đặt!', 'success')"><i class="bi bi-check-lg"></i> Lưu thay đổi</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== APPOINTMENTS ===== -->
+      <div class="admin-section" id="section-appointments">
+        <div class="admin-card">
+          <h3><i class="bi bi-calendar-check"></i> Quản lý lịch hẹn</h3>
+          <div class="admin-stats" style="grid-template-columns:repeat(4,1fr);margin-bottom:16px">
+            <div class="admin-stat-card" style="padding:14px"><div class="info"><div class="label">Tổng lịch hẹn</div><div class="value" id="apptTotal" style="color:#042c6a">0</div></div></div>
+            <div class="admin-stat-card" style="padding:14px"><div class="info"><div class="label">Chờ xác nhận</div><div class="value" id="apptPending" style="color:#b06a00">0</div></div></div>
+            <div class="admin-stat-card" style="padding:14px"><div class="info"><div class="label">Đã xác nhận</div><div class="value" id="apptConfirmed" style="color:#0a7a2a">0</div></div></div>
+            <div class="admin-stat-card" style="padding:14px"><div class="info"><div class="label">Đã hủy</div><div class="value" id="apptCancelled" style="color:#be1e2d">0</div></div></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="admin-table">
+              <thead>
+                <tr><th>ID</th><th>Họ tên</th><th>Điện thoại</th><th>Ngày hẹn</th><th>Giờ</th><th>Dịch vụ</th><th>Trạng thái</th><th>Ngày tạo</th><th>Thao tác</th></tr>
+              </thead>
+              <tbody id="apptTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ADMIN FOOTER ===== -->
+      <div style="margin-top:32px;padding:20px 0 8px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <img src="/images/quoc_huy.svg" alt="Quốc huy" style="width:32px;height:32px" />
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--navy-2)">BẢO HIỂM XÃ HỘI VIỆT NAM</div>
+            <div style="font-size:11px;color:var(--text-muted)">Cổng thông tin điện tử BHXH Việt Nam</div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:var(--text-muted);text-align:right">
+          &copy; 2026 BHXH Việt Nam &mdash; Hệ thống quản trị
+        </div>
+      </div>
+
+      <!-- ===== CHAT SUPPORT ===== -->
+      <div class="admin-section" id="section-chat">
+        <div class="admin-card">
+          <h3><i class="bi bi-chat-dots"></i> Hỗ trợ trực tuyến</h3>
+          <div style="display:grid;grid-template-columns:1fr 2fr;gap:16px;min-height:400px">
+            <div style="border:1px solid #d6dde8;border-radius:8px;overflow-y:auto;max-height:500px">
+              <div style="padding:10px;background:#f5f7fa;font-weight:700;font-size:13px;border-bottom:1px solid #d6dde8;color:#042c6a">Danh sách hội thoại</div>
+              <div id="chatConversationList"></div>
+            </div>
+            <div style="border:1px solid #d6dde8;border-radius:8px;display:flex;flex-direction:column;max-height:500px">
+              <div style="padding:10px;background:#f5f7fa;font-weight:700;font-size:13px;border-bottom:1px solid #d6dde8;color:#042c6a" id="chatDetailHeader">Chọn hội thoại để xem</div>
+              <div id="chatMessagesAdmin" style="flex:1;overflow-y:auto;padding:10px;background:#fafbfc;display:flex;flex-direction:column;gap:8px"></div>
+              <div style="padding:10px;border-top:1px solid #d6dde8;display:flex;gap:8px">
+                <input type="text" id="adminChatInput" placeholder="Nhập tin nhắn..." style="flex:1;padding:8px 12px;border:1px solid #d6dde8;border-radius:6px;font-size:13px;outline:none">
+                <button class="admin-btn admin-btn-primary" onclick="adminSendReply()"><i class="bi bi-send-fill"></i> Gửi</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast-notification"></div>
+
+<!-- LOGIN MODAL -->
+<div id="adminLoginModal" style="display:none;position:fixed;inset:0;background:rgba(4,44,106,0.7);z-index:99999;display:none;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:16px;padding:40px;width:400px;max-width:90vw;box-shadow:0 20px 60px rgba(4,44,106,0.3);position:relative">
+    <div style="text-align:center;margin-bottom:24px">
+      <img src="/images/quoc_huy.svg" alt="Quốc huy" style="width:40px;height:40px;margin-bottom:6px;opacity:0.8" />
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
+        <img src="/images/bhxh_logo.svg" alt="BHXH" style="width:40px;height:40px">
+        <div style="text-align:left;font-size:11px;color:var(--navy-2);font-weight:600;line-height:1.3">BẢO HIỂM XÃ HỘI<br>VIỆT NAM</div>
+      </div>
+      <h2 style="margin:0 0 2px;font-size:17px;color:var(--navy-2)">Đăng nhập Quản trị</h2>
+      <p style="margin:0;font-size:12px;color:var(--text-muted)">Cổng thông tin điện tử BHXH Việt Nam</p>
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:6px">Tên đăng nhập</label>
+      <input type="text" id="loginUsername" placeholder="Nhập tên đăng nhập" onkeydown="if(event.key==='Enter')doAdminLogin()" style="width:100%;padding:10px 14px;border:1px solid #d6dde8;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:20px">
+      <label style="display:block;font-size:13px;font-weight:600;color:#333;margin-bottom:6px">Mật khẩu</label>
+      <input type="password" id="loginPassword" placeholder="Nhập mật khẩu" onkeydown="if(event.key==='Enter')doAdminLogin()" style="width:100%;padding:10px 14px;border:1px solid #d6dde8;border-radius:8px;font-size:14px;outline:none;box-sizing:border-box">
+    </div>
+    <div id="loginError" style="display:none;color:#be1e2d;font-size:13px;margin-bottom:12px;padding:8px 12px;background:#f8d7da;border-radius:6px"></div>
+    <button id="loginBtn" onclick="doAdminLogin()" style="width:100%;padding:12px;background:#042c6a;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .15s">
+      <i class="bi bi-box-arrow-in-right"></i> Đăng nhập
+    </button>
+    <div style="margin-top:16px;text-align:center">
+      <a href="/" style="font-size:13px;color:#0372b6;text-decoration:none">← Về trang chủ</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
+<script>
+// ===== UTILITY =====
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast-notification ' + (type || 'info');
+  t.classList.add('show');
+  setTimeout(function() { t.classList.remove('show'); }, 3000);
+}
+
+var adminToken = localStorage.getItem('adminToken') || localStorage.getItem('authToken');
+
+// Retry config
+var ADMIN_MAX_RETRIES = 3;
+var ADMIN_RETRY_DELAYS = [1000, 3000, 8000];
+
+function apiFetchWithRetry(url, options, retries) {
+  retries = retries || 0;
+  var requestOptions = Object.assign({}, options);
+  
+  return fetch(url, requestOptions)
+    .then(function(r) {
+      if (r.status === 429 && retries < ADMIN_MAX_RETRIES) {
+        var delay = ADMIN_RETRY_DELAYS[retries] || 8000;
+        console.log('[API] Rate limited. Retrying in ' + (delay/1000) + 's... (attempt ' + (retries + 1) + '/' + ADMIN_MAX_RETRIES + ')');
+        return new Promise(function(resolve) { setTimeout(function() { resolve(apiFetchWithRetry(url, options, retries + 1)); }, delay); });
+      }
+      if (r.status === 401) { redirectToLogin(); return Promise.reject(new Error('Unauthorized')); }
+      return r;
+    })
+    .catch(function(error) {
+      if (retries < ADMIN_MAX_RETRIES) {
+        var delay = ADMIN_RETRY_DELAYS[retries] || 8000;
+        console.log('[API] Network error. Retrying in ' + (delay/1000) + 's... (attempt ' + (retries + 1) + '/' + ADMIN_MAX_RETRIES + ')');
+        return new Promise(function(resolve) { setTimeout(function() { resolve(apiFetchWithRetry(url, options, retries + 1)); }, delay); });
+      }
+      throw error;
+    });
+}
+
+function apiFetch(url, options) {
+  options = options || {};
+  options.headers = Object.assign({ 'Accept': 'application/json' }, options.headers || {});
+  if (adminToken && !options.headers['Authorization']) {
+    options.headers['Authorization'] = 'Bearer ' + adminToken;
+  }
+  if (options.body && typeof options.body === 'object' && !(options.body instanceof FormData)) {
+    options.headers['Content-Type'] = 'application/json';
+  }
+  if (options.body && typeof options.body === 'object' && !(options.body instanceof FormData)) {
+    options.body = JSON.stringify(options.body);
+  }
+  return apiFetchWithRetry(url, options);
+}
+
+function checkAdminAuth(callback) {
+  if (!adminToken) { redirectToLogin(); return; }
+  apiFetch('/api/auth/check')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var d = data.data || data;
+      if (!d.authenticated || d.role !== 'admin') { redirectToLogin(); return; }
+      if (callback) callback();
+    })
+    .catch(function() { redirectToLogin(); });
+}
+
+function showLoginModal() {
+  var modal = document.getElementById('adminLoginModal');
+  if (modal) { modal.style.display = 'flex'; document.getElementById('loginUsername').focus(); }
+}
+
+function hideLoginModal() {
+  var modal = document.getElementById('adminLoginModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function doAdminLogin() {
+  var u = document.getElementById('loginUsername').value.trim();
+  var p = document.getElementById('loginPassword').value;
+  var errEl = document.getElementById('loginError');
+  var btn = document.getElementById('loginBtn');
+  if (!u || !p) { errEl.textContent = 'Vui lòng nhập tên đăng nhập và mật khẩu!'; errEl.style.display = 'block'; return; }
+  errEl.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Đang đăng nhập...';
+  fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ username: u, password: p })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> Đăng nhập';
+    var d = data.data || data;
+    if (data.success) {
+      adminToken = d.token;
+      localStorage.setItem('adminToken', d.token);
+      localStorage.setItem('authRole', 'admin');
+      hideLoginModal();
+      document.getElementById('loginUsername').value = '';
+      document.getElementById('loginPassword').value = '';
+      initAdminData();
+      showToast('Đăng nhập quản trị thành công!', 'success');
+    } else {
+      errEl.textContent = data.error || 'Sai tên đăng nhập hoặc mật khẩu!';
+      errEl.style.display = 'block';
+    }
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.innerHTML = '<i class="bi bi-box-arrow-in-right"></i> Đăng nhập';
+    errEl.textContent = 'Không thể kết nối máy chủ!';
+    errEl.style.display = 'block';
+  });
+}
+
+function redirectToLogin() {
+  showLoginModal();
+}
+
+function adminLogout() {
+  fetch('/api/auth/admin/logout', { method: 'POST' })
+    .then(function() {
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('authRole');
+      adminToken = null;
+      showToast('Đã đăng xuất!', 'info');
+      window.location.href = '/';
+    })
+    .catch(function() {
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('authRole');
+      adminToken = null;
+      window.location.href = '/';
+    });
+}
+
+function initAdminData() {
+  loadDashboard();
+  loadUsers();
+  loadRegistrations();
+  loadAppointments();
+  loadChatConversations();
+  loadAgencyTree();
+}
+
+// ===== CLOCK =====
+function updateClock() {
+  var d = new Date();
+  var opts = { year:'numeric', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false };
+  document.getElementById('currentDateTime').textContent = d.toLocaleDateString('vi-VN', opts);
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// ===== ADMIN MOBILE MENU =====
+function toggleAdminMobileMenu() {
+  var overlay = document.getElementById('adminMobileOverlay');
+  var drawer = document.getElementById('adminMobileDrawer');
+  overlay.classList.toggle('active');
+  drawer.classList.toggle('active');
+  document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+}
+
+// Sync mobile menu badges with desktop
+function syncMobileBadges() {
+  var badges = ['userBadge', 'regBadge', 'apptBadge', 'chatBadge'];
+  badges.forEach(function(id) {
+    var desktop = document.getElementById(id);
+    var mobile = document.getElementById(id + 'Mobile');
+    if (desktop && mobile) {
+      mobile.textContent = desktop.textContent;
+    }
+  });
+}
+
+// ===== ADMIN SUBMENU =====
+function toggleAdminSubmenu(link) {
+  var hasSub = link.parentElement;
+  var allSubs = document.querySelectorAll('.admin-has-sub');
+  allSubs.forEach(function(sub) {
+    if (sub !== hasSub) sub.classList.remove('sub-open');
+  });
+  hasSub.classList.toggle('sub-open');
+}
+
+// Handle submenu item clicks
+document.querySelectorAll('.admin-submenu-item[data-section]').forEach(function(item) {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    var section = item.dataset.section;
+    
+    // Update sidebar active states
+    document.querySelectorAll('.admin-sb-item').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('.admin-submenu-item').forEach(function(s) { s.classList.remove('active'); });
+    item.classList.add('active');
+    
+    // Find and activate parent item
+    var parentHasSub = item.closest('.admin-has-sub');
+    if (parentHasSub) {
+      parentHasSub.classList.add('sub-open');
+    }
+    
+    // Switch section
+    document.querySelectorAll('.admin-section').forEach(function(s) { s.classList.remove('active'); });
+    var targetSection = document.getElementById('section-' + section);
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
+    
+    // Update page title
+    document.getElementById('pageTitle').textContent = item.textContent.trim();
+    
+    if (section === 'reports') loadReports();
+    if (section === 'qrcode') loadQrHistory();
+    
+    // Sync to mobile menu
+    document.querySelectorAll('.admin-mobile-menu a').forEach(function(link) {
+      link.classList.remove('active');
+      if (link.dataset.section === section) link.classList.add('active');
+    });
+    syncMobileBadges();
+  });
+});
+
+// ===== SIDEBAR =====
+document.querySelectorAll('.admin-sb-item[data-section]').forEach(function(item) {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.admin-sb-item').forEach(function(s) { s.classList.remove('active'); });
+    document.querySelectorAll('.admin-submenu-item').forEach(function(s) { s.classList.remove('active'); });
+    item.classList.add('active');
+    var section = item.dataset.section;
+    document.querySelectorAll('.admin-section').forEach(function(s) { s.classList.remove('active'); });
+    document.getElementById('section-' + section).classList.add('active');
+    document.getElementById('pageTitle').textContent = item.textContent.trim();
+    if (section === 'reports') loadReports();
+    if (section === 'qrcode') loadQrHistory();
+    // Sync to mobile menu
+    document.querySelectorAll('.admin-mobile-menu a').forEach(function(link) {
+      link.classList.remove('active');
+      if (link.dataset.section === section) link.classList.add('active');
+    });
+    syncMobileBadges();
+  });
+});
+
+// Also handle mobile menu clicks
+document.querySelectorAll('.admin-mobile-menu a[data-section]').forEach(function(item) {
+  item.addEventListener('click', function(e) {
+    e.preventDefault();
+    var section = item.dataset.section;
+    // Update desktop sidebar
+    document.querySelectorAll('.admin-sb-item').forEach(function(s) { s.classList.remove('active'); });
+    var desktopItem = document.querySelector('.admin-sb-item[data-section="' + section + '"]');
+    if (desktopItem) desktopItem.classList.add('active');
+    // Update mobile menu
+    document.querySelectorAll('.admin-mobile-menu a').forEach(function(link) { link.classList.remove('active'); });
+    item.classList.add('active');
+    // Switch section
+    document.querySelectorAll('.admin-section').forEach(function(s) { s.classList.remove('active'); });
+    document.getElementById('section-' + section).classList.add('active');
+    document.getElementById('pageTitle').textContent = item.textContent.trim().replace(/[0-9]+$/, '').trim();
+    if (section === 'reports') loadReports();
+    if (section === 'qrcode') loadQrHistory();
+    syncMobileBadges();
+  });
+});
+
+// ===== DASHBOARD =====
+function loadDashboard() {
+  apiFetch('/api/admin/dashboard')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var d = data.data || data;
+      var s = d.stats;
+      document.getElementById('statTotalUsers').textContent = (s.totalUsers || 0).toLocaleString('vi-VN');
+      document.getElementById('statActiveUsers').textContent = (s.activeUsers || 0).toLocaleString('vi-VN');
+      document.getElementById('statPending').textContent = (s.pendingApprovals || 0).toLocaleString('vi-VN');
+      document.getElementById('statToday').textContent = s.todayRegistrations || 0;
+      document.getElementById('statSubmissions').textContent = (s.totalSubmissions || 0).toLocaleString('vi-VN');
+      document.getElementById('statProcessed').textContent = (s.processedSubmissions || 0).toLocaleString('vi-VN');
+
+      var chart = document.getElementById('regChart');
+      chart.innerHTML = '';
+      var months = d.registrationsByMonth || [];
+      var maxCount = 1;
+      months.forEach(function(m) { if (m.count > maxCount) maxCount = m.count; });
+      months.forEach(function(m) {
+        var bar = document.createElement('div');
+        bar.className = 'bar';
+        bar.style.height = Math.max(4, (m.count / maxCount) * 180) + 'px';
+        bar.innerHTML = '<div class="bar-label">' + m.month + '</div>';
+        bar.title = m.month + ': ' + m.count;
+        chart.appendChild(bar);
+      });
+
+      var list = document.getElementById('activityList');
+      list.innerHTML = '';
+      (d.recentActivity || []).forEach(function(a) {
+        var li = document.createElement('li');
+        li.innerHTML = '<span class="time">' + a.time + '</span><span class="dot ' + a.type + '"></span><span>' + a.text + '</span>';
+        list.appendChild(li);
+      });
+    });
+}
+
+// ===== USERS =====
+var allUsers = [];
+var provinceMap = {};
+var USERS_PAGE_SIZE = 25;
+var currentUserPage = 1;
+var totalUsers = 0;
+
+function loadUsers() {
+  Promise.all([
+    apiFetch('/api/admin/users?page=' + currentUserPage + '&limit=' + USERS_PAGE_SIZE).then(function(r) { return r.json(); }),
+    apiFetch('/api/provinces').then(function(r) { return r.json(); })
+  ]).then(function(results) {
+    var data = results[0];
+    var provincesData = results[1];
+    var provinces = Array.isArray(provincesData) ? provincesData : (provincesData.data || []);
+    provinces.forEach(function(p) { provinceMap[p.code] = p.name; });
+
+    var users = (data.data || data.users || []);
+    var pagination = data.pagination || { total: users.length, totalPages: 1 };
+    totalUsers = pagination.total;
+
+    allUsers = users.map(function(row) {
+      return {
+        id: row.id,
+        fullName: row.full_name || row.fullName || '',
+        bhxhCode: row.bhxh_code || row.bhxhCode || '',
+        cccd: row.cccd || '',
+        phone: row.phone || '',
+        email: row.email || '',
+        accountType: row.account_type || row.accountType || 'individual',
+        status: row.status || 'pending',
+        registeredAt: row.registered_at || row.registeredAt || '',
+        province: row.province || '',
+        taxCode: row.tax_code || ''
+      };
+    });
+    document.getElementById('userBadge').textContent = totalUsers;
+    document.getElementById('regBadge').textContent = allUsers.filter(function(u) { return u.status === 'pending'; }).length;
+
+    var sel = document.getElementById('userProvinceFilter');
+    if (sel && sel.options.length <= 1) {
+      provinces.forEach(function(p) {
+        var opt = document.createElement('option');
+        opt.value = p.code;
+        opt.textContent = p.name;
+        sel.appendChild(opt);
+      });
+    }
+    renderUserPagination(pagination.total, pagination.totalPages);
+    currentUserPage = 1;
+    applyUserFilters();
+  });
+}
+
+function debounce(fn, ms) {
+  var t;
+  return function() {
+    var args = arguments, ctx = this;
+    clearTimeout(t);
+    t = setTimeout(function() { fn.apply(ctx, args); }, ms);
+  };
+}
+
+function applyUserFilters() {
+  var q = (document.getElementById('userSearch').value || '').toLowerCase();
+  var status = document.getElementById('userStatusFilter').value;
+  var type = document.getElementById('userTypeFilter').value;
+  var province = document.getElementById('userProvinceFilter').value;
+  var filtered = allUsers.filter(function(u) {
+    if (status && u.status !== status) return false;
+    if (type && u.accountType !== type) return false;
+    if (province && u.province !== province) return false;
+    if (q) {
+      var match = u.fullName.toLowerCase().indexOf(q) > -1 ||
+                  u.bhxhCode.indexOf(q) > -1 ||
+                  u.cccd.indexOf(q) > -1 ||
+                  u.phone.indexOf(q) > -1 ||
+                  (u.taxCode || '').indexOf(q) > -1;
+      if (!match) return false;
+    }
+    return true;
+  });
+  var total = filtered.length;
+  var totalPages = Math.max(1, Math.ceil(total / USERS_PAGE_SIZE));
+  if (currentUserPage > totalPages) currentUserPage = totalPages;
+  var start = (currentUserPage - 1) * USERS_PAGE_SIZE;
+  var slice = filtered.slice(start, start + USERS_PAGE_SIZE);
+  renderUsers(slice);
+  renderUserPagination(total, totalPages);
+}
+
+function renderUserPagination(total, totalPages) {
+  var info = document.getElementById('userCountInfo');
+  var pag = document.getElementById('userPagination');
+  if (info) info.textContent = total === 0
+    ? 'Không có kết quả'
+    : 'Hiển thị ' + ((currentUserPage - 1) * USERS_PAGE_SIZE + 1) + '–' +
+      Math.min(currentUserPage * USERS_PAGE_SIZE, total) + ' / ' + total + ' người dùng';
+  if (!pag) return;
+  pag.innerHTML = '';
+  function btn(label, page, disabled, active) {
+    var b = document.createElement('button');
+    b.textContent = label;
+    if (active) { b.style.background = '#042c6a'; b.style.color = '#fff'; }
+    if (disabled) { b.disabled = true; b.style.opacity = '0.4'; b.style.cursor = 'not-allowed'; }
+    b.style.cssText += 'padding:6px 10px;border:1px solid #d8dde6;border-radius:6px;background:#fff;cursor:pointer;font-size:13px;margin:0 2px';
+    b.onclick = function() { if (!disabled) { currentUserPage = page; applyUserFilters(); } };
+    return b;
+  }
+  pag.appendChild(btn('«', 1, currentUserPage === 1));
+  var startPage = Math.max(1, currentUserPage - 2);
+  var endPage = Math.min(totalPages, currentUserPage + 2);
+  for (var i = startPage; i <= endPage; i++) {
+    pag.appendChild(btn(String(i), i, false, i === currentUserPage));
+  }
+  pag.appendChild(btn('»', totalPages, currentUserPage === totalPages));
+}
+
+document.addEventListener('DOMContentLoaded', initUserFilterListeners);
+function initUserFilterListeners() {
+  var s = document.getElementById('userSearch');
+  if (s) s.addEventListener('input', debounce(function() { currentUserPage = 1; applyUserFilters(); }, 250));
+  ['userStatusFilter', 'userTypeFilter', 'userProvinceFilter'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener('change', function() { currentUserPage = 1; applyUserFilters(); });
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initUserFilterListeners);
+} else {
+  initUserFilterListeners();
+}
+
+function filterUsers() { applyUserFilters(); }
+
+function renderUsers(users) {
+  var tbody = document.getElementById('userTableBody');
+  if (users.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#96a1b4;padding:30px">Không có người dùng nào</td></tr>';
+    return;
+  }
+  tbody.innerHTML = users.map(function(u) {
+    var statusClass = u.status === 'approved' ? 'approved' : u.status === 'pending' ? 'pending' : 'rejected';
+    var statusText = u.status === 'approved' ? 'Đã duyệt' : u.status === 'pending' ? 'Chờ duyệt' : 'Từ chối';
+    var typeText = u.accountType === 'individual' ? 'Cá nhân' : 'Tổ chức';
+    var provinceText = provinceMap[u.province] || u.province || '';
+    return '<tr>' +
+      '<td>' + u.id + '</td>' +
+      '<td><strong>' + escapeHtml(u.fullName) + '</strong></td>' +
+      '<td>' + escapeHtml(u.bhxhCode) + '</td>' +
+      '<td>' + escapeHtml(u.cccd) + '</td>' +
+      '<td>' + escapeHtml(u.phone) + '</td>' +
+      '<td><span class="admin-badge ' + (u.accountType === 'individual' ? 'individual' : 'organization') + '">' + typeText + '</span></td>' +
+      '<td>' + escapeHtml(provinceText) + '</td>' +
+      '<td><span class="admin-badge ' + statusClass + '">' + statusText + '</span></td>' +
+      '<td>' + escapeHtml(u.registeredAt) + '</td>' +
+      '<td class="admin-actions">' +
+        '<button class="admin-btn admin-btn-ghost admin-btn-sm" onclick="openUserDetailModal(' + u.id + ')" title="Xem chi tiết"><i class="bi bi-eye"></i></button> ' +
+        '<button class="admin-btn admin-btn-primary admin-btn-sm" onclick="openQrUserModal(' + u.id + ',\'' + escapeAttr(u.fullName) + '\',\'' + escapeAttr(u.bhxhCode) + '\')" title="Cài đặt QR"><i class="bi bi-qr-code"></i></button> ' +
+        (u.status === 'pending' ?
+          '<button class="admin-btn admin-btn-success admin-btn-sm" onclick="promptApprove(' + u.id + ',\'' + escapeAttr(u.fullName) + '\')" title="Duyệt"><i class="bi bi-check"></i></button> ' +
+          '<button class="admin-btn admin-btn-danger admin-btn-sm" onclick="promptReject(' + u.id + ',\'' + escapeAttr(u.fullName) + '\')" title="Từ chối"><i class="bi bi-x"></i></button>'
+          : '') +
+      '</td></tr>';
+  }).join('');
+}
+
+function escapeHtml(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+function escapeAttr(s) {
+  if (s == null) return '';
+  return String(s).replace(/['\\]/g, function(c) { return c === "'" ? "\\'" : "\\\\"; });
+}
+
+function updateUserStatus(id, status) {
+  return apiFetch('/api/admin/users/' + id + '/status', {
+    method: 'PUT',
+    body: { status: status }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.success) {
+      showToast('Cập nhật trạng thái thành công!', 'success');
+      loadUsers();
+      loadRegistrations();
+    }
+  })
+  .catch(function() { showToast('Cập nhật thất bại', 'error'); });
+}
+
+// ===== USER DETAIL MODAL =====
+function ensureUserDetailModal() {
+  if (document.getElementById('userDetailModal')) return;
+  var modal = document.createElement('div');
+  modal.id = 'userDetailModal';
+  modal.style.cssText = 'display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:1100;align-items:center;justify-content:center;padding:16px';
+  modal.innerHTML = `
+    <div style="background:#fff;border-radius:14px;width:100%;max-width:880px;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid #eef1f6;background:#042c6a;color:#fff">
+        <h3 style="margin:0;font-size:17px"><i class="bi bi-person-vcard"></i> <span id="ud-title">Chi tiết người dùng</span></h3>
+        <button onclick="closeUserDetailModal()" style="background:none;border:none;color:#fff;font-size:24px;cursor:pointer">&times;</button>
+      </div>
+      <div id="ud-body" style="padding:24px;overflow-y:auto;flex:1">Đang tải…</div>
+    </div>`;
+  document.body.appendChild(modal);
+  modal.addEventListener('click', function(e) { if (e.target === modal) closeUserDetailModal(); });
+}
+
+function openUserDetailModal(id) {
+  ensureUserDetailModal();
+  var modal = document.getElementById('userDetailModal');
+  var body = document.getElementById('ud-body');
+  body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;padding:40px;color:#6b7a90"><div class="spinner-border spinner-border-sm" role="status"></div> <span style="margin-left:10px">Đang tải thông tin…</span></div>';
+  modal.style.display = 'flex';
+  Promise.all([
+    apiFetch('/api/admin/users/' + id).then(function(r) { return r.json(); }),
+    apiFetch('/api/provinces').then(function(r) { return r.json(); })
+  ]).then(function(results) {
+    var u = results[0].data || results[0];
+    var provincesData = results[1];
+    var provinces = Array.isArray(provincesData) ? provincesData : (provincesData.data || []);
+    var pMap = {};
+    provinces.forEach(function(p) { pMap[p.code] = p.name; });
+    renderUserDetail(u, pMap);
+  }).catch(function() {
+    body.innerHTML = '<div style="color:#c0392b;padding:20px;text-align:center">Lỗi tải dữ liệu. Vui lòng thử lại.</div>';
+  });
+}
+
+function renderUserDetail(u, pMap) {
+  document.getElementById('ud-title').textContent = u.full_name || ('User #' + u.id);
+  var isOrg = u.account_type === 'organization';
+  var provinceName = pMap[u.province] || u.province || '—';
+  var wardText = u.ward || '—';
+  var bankNameText = u.bank_name || '—';
+  var bankBinText = u.bank_bin || '';
+  var paymentText = u.payment_method === 'cash' ? 'Tiền mặt' : 'Chuyển khoản';
+
+  var statusBadge = u.status === 'approved'
+    ? '<span style="background:#d4edda;color:#0a7a2a;padding:4px 12px;border-radius:14px;font-size:12px">Đã duyệt</span>'
+    : u.status === 'pending' ? '<span style="background:#fff3cd;color:#856404;padding:4px 12px;border-radius:14px;font-size:12px">Chờ duyệt</span>'
+    : '<span style="background:#f8d7da;color:#be1e2d;padding:4px 12px;border-radius:14px;font-size:12px">Từ chối</span>';
+
+  var photoBlock = '<img data-photo-field="photo" src="" alt="Ảnh chân dung" style="width:100%;border-radius:8px;display:block;background:#eef2f7;min-height:200px;object-fit:cover" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" />' +
+                   '<div data-photo-fallback="photo" style="display:none;width:100%;height:200px;align-items:center;justify-content:center;color:#94a0b3;background:#f5f7fb;border-radius:8px">Không có ảnh</div>';
+  var cccdFrontBlock = '<img data-photo-field="cccd_front" src="" alt="CCCD mặt trước" style="width:100%;border-radius:8px;display:block;background:#eef2f7;min-height:160px;object-fit:cover" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" />' +
+                       '<div data-photo-fallback="cccd_front" style="display:none;width:100%;height:160px;align-items:center;justify-content:center;color:#94a0b3;background:#f5f7fb;border-radius:8px">Không có ảnh</div>';
+  var cccdBackBlock = '<img data-photo-field="cccd_back" src="" alt="CCCD mặt sau" style="width:100%;border-radius:8px;display:block;background:#eef2f7;min-height:160px;object-fit:cover" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'" />' +
+                      '<div data-photo-fallback="cccd_back" style="display:none;width:100%;height:160px;align-items:center;justify-content:center;color:#94a0b3;background:#f5f7fb;border-radius:8px">Không có ảnh</div>';
+
+  var pendingActions = u.status === 'pending' ?
+    '<div style="margin-top:20px;padding-top:18px;border-top:1px solid #eef1f6;display:flex;gap:10px;justify-content:flex-end">' +
+      '<button onclick="closeUserDetailModal();promptReject(' + u.id + ',\'' + escapeAttr(u.full_name) + '\')" style="background:#be1e2d;color:#fff;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-weight:600"><i class="bi bi-x-circle"></i> Từ chối</button>' +
+      '<button onclick="closeUserDetailModal();promptApprove(' + u.id + ',\'' + escapeAttr(u.full_name) + '\')" style="background:#0a7a2a;color:#fff;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-weight:600"><i class="bi bi-check-circle"></i> Duyệt hồ sơ</button>' +
+    '</div>' : '';
+
+  var orgSection = isOrg ? `
+    <div style="margin-top:18px;padding:14px;background:#fff8e6;border-radius:10px;border-left:3px solid #f1a900">
+      <div style="font-weight:600;color:#7a5c00;margin-bottom:8px"><i class="bi bi-building"></i> Thông tin tổ chức</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px">
+        <div><div style="color:#6b7a90">Mã số thuế</div><div style="font-weight:600">${escapeHtml(u.tax_code) || '—'}</div></div>
+        <div><div style="color:#6b7a90">Người đại diện</div><div style="font-weight:600">${escapeHtml(u.representative_name) || '—'}</div></div>
+        <div><div style="color:#6b7a90">Chức vụ</div><div style="font-weight:600">${escapeHtml(u.representative_position) || '—'}</div></div>
+        <div><div style="color:#6b7a90">SĐT đại diện</div><div style="font-weight:600">${escapeHtml(u.representative_phone) || '—'}</div></div>
+        <div style="grid-column:1/-1"><div style="color:#6b7a90">Email đại diện</div><div style="font-weight:600">${escapeHtml(u.representative_email) || '—'}</div></div>
+      </div>
+    </div>` : '';
+
+  var personalSection = !isOrg ? `
+    <div style="margin-top:18px;padding:14px;background:#eef5fb;border-radius:10px;border-left:3px solid #042c6a">
+      <div style="font-weight:600;color:#042c6a;margin-bottom:8px"><i class="bi bi-person"></i> Thông tin cá nhân</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:14px">
+        <div><div style="color:#6b7a90">Giới tính</div><div style="font-weight:600">${escapeHtml(u.gender) || '—'}</div></div>
+        <div><div style="color:#6b7a90">Dân tộc</div><div style="font-weight:600">${escapeHtml(u.ethnicity) || '—'}</div></div>
+        <div><div style="color:#6b7a90">Ngày sinh</div><div style="font-weight:600">${escapeHtml(u.birth_date) || '—'}</div></div>
+        <div><div style="color:#6b7a90">Email</div><div style="font-weight:600">${escapeHtml(u.email) || '—'}</div></div>
+      </div>
+    </div>` : '';
+
+  document.getElementById('ud-body').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+      <div>
+        <div style="font-size:18px;font-weight:700;color:#042c6a">${escapeHtml(u.full_name) || '—'}</div>
+        <div style="font-size:13px;color:#6b7a90;margin-top:2px">Mã BHXH: <strong>${escapeHtml(u.bhxh_code) || '—'}</strong></div>
+      </div>
+      ${statusBadge}
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:20px">
+      <div>
+        <div style="font-weight:600;color:#1f2a44;margin-bottom:8px;font-size:14px">Ảnh chân dung</div>
+        ${photoBlock}
+      </div>
+      <div>
+        <div style="font-weight:600;color:#1f2a44;margin-bottom:8px;font-size:14px">CCCD mặt trước</div>
+        ${cccdFrontBlock}
+      </div>
+      <div>
+        <div style="font-weight:600;color:#1f2a44;margin-bottom:8px;font-size:14px">CCCD mặt sau</div>
+        ${cccdBackBlock}
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;font-size:14px;background:#f7f9fc;padding:18px;border-radius:10px">
+      <div><div style="color:#6b7a90;font-size:13px">Số CCCD/MST</div><div style="font-weight:600">${escapeHtml(u.cccd) || '—'}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Số điện thoại</div><div style="font-weight:600">${escapeHtml(u.phone) || '—'}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Email</div><div style="font-weight:600">${escapeHtml(u.email) || '—'}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Loại tài khoản</div><div style="font-weight:600">${isOrg ? 'Tổ chức' : 'Cá nhân'}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Tỉnh/TP</div><div style="font-weight:600">${escapeHtml(provinceName)}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Xã/Phường</div><div style="font-weight:600">${escapeHtml(wardText)}</div></div>
+      <div style="grid-column:1/-1"><div style="color:#6b7a90;font-size:13px">Địa chỉ</div><div style="font-weight:600">${escapeHtml(u.street) || '—'}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Ngày đăng ký</div><div style="font-weight:600">${escapeHtml(u.registered_at) || '—'}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Cơ quan tiếp nhận</div><div style="font-weight:600">${escapeHtml(u.receiving_agency) || '—'}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Hình thức nhận tiền</div><div style="font-weight:600">${paymentText}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Ngân hàng (BIN)</div><div style="font-weight:600">${escapeHtml(bankNameText)}${bankBinText ? ' <span style="color:#6b7a90;font-weight:400">(' + escapeHtml(bankBinText) + ')</span>' : ''}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Số tài khoản</div><div style="font-weight:600">${escapeHtml(u.bank_account_number) || '—'}</div></div>
+      <div><div style="color:#6b7a90;font-size:13px">Chủ tài khoản</div><div style="font-weight:600">${escapeHtml(u.bank_account_name) || '—'}</div></div>
+    </div>
+
+    ${personalSection}
+    ${orgSection}
+    ${pendingActions}
+  `;
+
+  ['photo', 'cccd_front', 'cccd_back'].forEach(function(field) {
+    var img = document.querySelector('[data-photo-field="' + field + '"]');
+    if (img) {
+      img.src = '/api/admin/users/' + u.id + '/photo/' + field;
+    }
+  });
+}
+
+function closeUserDetailModal() {
+  var m = document.getElementById('userDetailModal');
+  if (m) m.style.display = 'none';
+}
+
+// ===== CONFIRM APPROVE / REJECT (TYPED NAME) =====
+function ensureConfirmModal() {
+  if (document.getElementById('typedConfirmModal')) return;
+  var modal = document.createElement('div');
+  modal.id = 'typedConfirmModal';
+  modal.style.cssText = 'display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.55);z-index:1200;align-items:center;justify-content:center;padding:16px';
+  modal.innerHTML = `
+    <div style="background:#fff;border-radius:12px;width:100%;max-width:460px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)">
+      <div id="tc-header" style="padding:16px 20px;color:#fff;font-weight:600;font-size:16px;display:flex;align-items:center;gap:8px"></div>
+      <div style="padding:20px">
+        <div id="tc-user-line" style="margin-bottom:14px;font-size:14px;color:#1f2a44"></div>
+        <div id="tc-hint" style="font-size:13px;color:#6b7a90;margin-bottom:10px"></div>
+        <input id="tc-input" type="text" placeholder="Nhập tên để xác nhận" style="width:100%;padding:10px 12px;border:1px solid #d8dde6;border-radius:8px;font-size:14px;box-sizing:border-box" />
+        <div id="tc-error" style="color:#be1e2d;font-size:13px;margin-top:8px;display:none"></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
+          <button id="tc-cancel" style="background:#eef1f6;color:#1f2a44;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-weight:600">Hủy</button>
+          <button id="tc-confirm" style="color:#fff;border:none;padding:10px 18px;border-radius:8px;cursor:pointer;font-weight:600">Xác nhận</button>
+        </div>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+  document.getElementById('tc-cancel').onclick = closeTypedConfirm;
+  modal.addEventListener('click', function(e) { if (e.target === modal) closeTypedConfirm(); });
+}
+
+function openTypedConfirm(opts) {
+  ensureConfirmModal();
+  var modal = document.getElementById('typedConfirmModal');
+  var header = document.getElementById('tc-header');
+  var userLine = document.getElementById('tc-user-line');
+  var hint = document.getElementById('tc-hint');
+  var input = document.getElementById('tc-input');
+  var errorEl = document.getElementById('tc-error');
+  var confirmBtn = document.getElementById('tc-confirm');
+
+  if (opts.action === 'approve') {
+    header.style.background = '#0a7a2a';
+    header.innerHTML = '<i class="bi bi-check-circle"></i> Xác nhận DUYỆT hồ sơ';
+    confirmBtn.style.background = '#0a7a2a';
+  } else {
+    header.style.background = '#be1e2d';
+    header.innerHTML = '<i class="bi bi-x-circle"></i> Xác nhận TỪ CHỐI hồ sơ';
+    confirmBtn.style.background = '#be1e2d';
+  }
+  userLine.innerHTML = 'Bạn đang thao tác với hồ sơ: <strong>' + escapeHtml(opts.userName) + '</strong>';
+  hint.innerHTML = 'Để xác nhận, hãy gõ chính xác tên: <code style="background:#eef1f6;padding:2px 6px;border-radius:4px;font-weight:700">' + escapeHtml(opts.userName) + '</code>';
+  input.value = '';
+  errorEl.style.display = 'none';
+  modal.style.display = 'flex';
+  setTimeout(function() { input.focus(); }, 50);
+
+  confirmBtn.onclick = function() {
+    if (input.value.trim() !== opts.userName) {
+      errorEl.textContent = 'Tên gõ chưa khớp với tên người dùng!';
+      errorEl.style.display = 'block';
+      input.focus();
+      return;
+    }
+    closeTypedConfirm();
+    opts.onConfirm();
+  };
+  input.onkeydown = function(e) {
+    if (e.key === 'Enter') { e.preventDefault(); confirmBtn.click(); }
+    if (e.key === 'Escape') { closeTypedConfirm(); }
+  };
+}
+
+function closeTypedConfirm() {
+  var m = document.getElementById('typedConfirmModal');
+  if (m) m.style.display = 'none';
+}
+
+function promptApprove(id, userName) {
+  openTypedConfirm({
+    action: 'approve',
+    userName: userName,
+    onConfirm: function() { updateUserStatus(id, 'approved'); }
+  });
+}
+
+function promptReject(id, userName) {
+  openTypedConfirm({
+    action: 'reject',
+    userName: userName,
+    onConfirm: function() { updateUserStatus(id, 'rejected'); }
+  });
+}
+
+// ===== QR USER MANAGEMENT =====
+var currentQrUserId = null;
+
+function openQrUserModal(userId, userName, bhxhCode) {
+  currentQrUserId = userId;
+  var modal = document.getElementById('qrUserModal');
+  if (!modal) {
+    createQrUserModal();
+    modal = document.getElementById('qrUserModal');
+  }
+  document.getElementById('qrUserName').textContent = userName;
+  document.getElementById('qrUserBhxh').textContent = 'Mã BHXH: ' + (bhxhCode || 'Chưa có');
+  loadQrUserSettings(userId);
+  modal.style.display = 'flex';
+}
+
+function createQrUserModal() {
+  var modalHtml = `
+  <div id="qrUserModal" class="modal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center">
+    <div class="modal-content" style="background:#fff;border-radius:12px;padding:24px;width:90%;max-width:600px;max-height:90vh;overflow-y:auto">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <h3 style="margin:0;color:#042c6a"><i class="bi bi-qr-code"></i> Cài đặt QR cho người dùng</h3>
+        <button onclick="closeQrUserModal()" style="background:none;border:none;font-size:24px;cursor:pointer;color:#7b8aa5">&times;</button>
+      </div>
+      <div id="qrUserInfo" style="background:#f5f7fa;border-radius:8px;padding:12px;margin-bottom:16px">
+        <div id="qrUserName" style="font-weight:600;color:#042c6a;font-size:14px"></div>
+        <div id="qrUserBhxh" style="font-size:12px;color:#7b8aa5"></div>
+      </div>
+      <div class="qr-toggle-container">
+        <label class="qr-toggle-switch">
+          <input type="checkbox" id="qrEnabledToggle" onchange="toggleQrEnabled()">
+          <span class="qr-toggle-slider"></span>
+        </label>
+        <span class="qr-toggle-label">Kích hoạt mã QR</span>
+        <span id="qrToggleStatus" class="qr-toggle-status disabled">TẮT</span>
+      </div>
+      <div id="qrSettingsPanel" style="display:none">
+        <div class="qr-user-settings">
+          <h4><i class="bi bi-gear"></i> Thông tin thanh toán</h4>
+          <div class="qr-user-form">
+            <div class="form-group">
+              <label>Loại thanh toán</label>
+              <select id="qrPaymentType">
+                <option value="bhxh">BHXH tự nguyện</option>
+                <option value="bhyt">BHYT tự nguyện</option>
+                <option value="bhtn">BHTN</option>
+                <option value="trocap">Nhận trợ cấp</option>
+                <option value="other">Khác (tự nhập)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Kỳ thanh toán</label>
+              <select id="qrPeriod">
+                <option value="">Chọn kỳ</option>
+                <option value="monthly">Hàng tháng</option>
+                <option value="quarterly">Hàng quý</option>
+                <option value="yearly">Hàng năm</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Số tiền (VNĐ)</label>
+              <input type="text" id="qrAmount" placeholder="VD: 500,000" oninput="formatQrAmountInput(this)">
+            </div>
+            <div class="form-group">
+              <label>Nội dung chuyển khoản</label>
+              <input type="text" id="qrContent" placeholder="VD: Nop BHXH tu nguyen">
+            </div>
+          </div>
+        </div>
+        <div class="qr-user-settings">
+          <h4><i class="bi bi-bank"></i> Thông tin tài khoản nhận</h4>
+          <div class="qr-user-form">
+            <div class="form-group">
+              <label>Ngân hàng</label>
+              <select id="qrBank" onchange="updateQrBankInfo()">
+                <option value="">Chọn ngân hàng…</option>
+                <optgroup label="Ngân hàng thương mại nhà nước">
+                  <option value="VCB|Vietcombank|970436">Vietcombank - 970436</option>
+                  <option value="BIDV|BIDV|970488">BIDV - 970488</option>
+                  <option value="VTIB|VietinBank|970415">VietinBank - 970415</option>
+                  <option value="CTG|Agribank|970405">Agribank - 970405</option>
+                </optgroup>
+                <optgroup label="Ngân hàng thương mại cổ phần lớn">
+                  <option value="TCB|Techcombank|970407">Techcombank - 970407</option>
+                  <option value="VPB|VPBank|970432">VPBank - 970432</option>
+                  <option value="MB|MB Bank|970426">MB Bank - 970426</option>
+                  <option value="ACB|ACB|970416">ACB - 970416</option>
+                  <option value="TPB|TPBank|972643">TPBank - 972643</option>
+                  <option value="EIB|Eximbank|970468">Eximbank - 970468</option>
+                  <option value="SHB|SHB|970443">SHB - 970443</option>
+                  <option value="HDB|HDBank|970437">HDBank - 970437</option>
+                  <option value="MSB|Maritime Bank|970426">MSB - 970426</option>
+                  <option value="VIB|VIB Bank|970441">VIB - 970441</option>
+                  <option value="OCB|OCB Bank|970448">OCB - 970448</option>
+                  <option value="SCB|Sacombank|970403">Sacombank - 970403</option>
+                  <option value="PGB|PGBank|970412">PGBank - 970412</option>
+                  <option value="BVB|Bảo Việt Bank|970433">Bảo Việt Bank - 970433</option>
+                </optgroup>
+                <optgroup label="Ngân hàng thương mại cổ phần khác">
+                  <option value="ABB|An Bình Bank|970425">An Bình Bank - 970425</option>
+                  <option value="BAC|BAC A BANK|970484">BAC A BANK - 970484</option>
+                  <option value="KLB|Kienlongbank|970452">Kienlongbank - 970452</option>
+                  <option value="KEB|Hana Bank|970442">KEB Hana Bank - 970442</option>
+                  <option value="CEB|Central Retail Bank|970441">Central Bank - 970441</option>
+                  <option value="VCCB|Vietnam Credit Bank|970454">Vietnam Credit Bank - 970454</option>
+                  <option value="PVB|PVB Bank|970451">PVB Bank - 970451</option>
+                </optgroup>
+                <optgroup label="Ngân hàng liên doanh & 100% vốn nước ngoài">
+                  <option value="Citi|Citibank|533925">Citibank - 533925</option>
+                  <option value="HSBC|HSBC Vietnam|458548">HSBC - 458548</option>
+                  <option value="SCB|Shinhan Bank|970424">Shinhan Bank - 970424</option>
+                  <option value="UOB|United Overseas Bank|970427">UOB - 970427</option>
+                  <option value="ANZ|ANZ Vietnam|970439">ANZ - 970439</option>
+                  <option value="WOORI|Woori Bank|970458">Woori Bank - 970458</option>
+                </optgroup>
+                <optgroup label="Ngân hàng số & Fintech">
+                  <option value="TOMO|TomoChain|972643">TomoChain - 972643</option>
+                  <option value="CAKE|CAKE by VPBank|970432">CAKE - 970432</option>
+                  <option value="VPBNeo|VPBank NEO|970432">VPBank NEO - 970432</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Số tài khoản</label>
+              <input type="text" id="qrAccount" placeholder="Nhập số tài khoản">
+            </div>
+            <div class="form-group full-width">
+              <label>Tên chủ tài khoản</label>
+              <input type="text" id="qrHolder" placeholder="Nhập tên chủ tài khoản" style="text-transform:uppercase">
+            </div>
+          </div>
+        </div>
+        <div id="qrPreviewAdmin" style="background:#f5f7fa;border-radius:12px;padding:16px;text-align:center;margin-bottom:16px">
+          <div style="font-size:12px;color:#7b8aa5;margin-bottom:8px">Xem trước mã QR</div>
+          <div class="qr-preview-card" id="qrPreviewAdminCard" style="display:inline-block;text-align:center">
+            <div class="qr-card-inner">
+              <div class="qr-preview-header">
+                <div class="qr-preview-logo"><img src="/images/bhxh_logo.svg" alt="BHXH"></div>
+                <div><div class="qr-preview-title">CỔNG THÔNG TIN ĐIỆN TỬ</div><div class="qr-preview-subtitle">BẢO HIỂM XÃ HỘI VIỆT NAM</div></div>
+              </div>
+              <div class="qr-preview-qr" id="qrPreviewArea" style="min-height:150px;display:flex;align-items:center;justify-content:center">
+                <span style="color:#7b8aa5;font-size:12px">Nhập thông tin để xem trước</span>
+              </div>
+              <div class="qr-preview-footer">
+                <div class="qr-preview-amount" id="qrPreviewAmount">0 VNĐ</div>
+                <div class="qr-preview-method">QUÉT MÃ QR THANH TOÁN</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:flex-end">
+          <button class="admin-btn admin-btn-ghost" onclick="closeQrUserModal()">Đóng</button>
+          <button class="admin-btn admin-btn-primary" onclick="saveQrUserSettings()"><i class="bi bi-check"></i> Lưu cài đặt</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  document.body.insertAdjacentHTML('beforeend', modalHtml);
+}
+
+var qrBanksCache = null;
+function loadQrBanksDropdown(preselectedBin, callback) {
+  var sel = document.getElementById('qrBank');
+  if (qrBanksCache) {
+    populateQrBankSelect(qrBanksCache, preselectedBin);
+    if (callback) callback();
+    return;
+  }
+  apiFetch('/api/vietqr/banks')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      qrBanksCache = (data && data.banks) || [];
+      populateQrBankSelect(qrBanksCache, preselectedBin);
+      if (callback) callback();
+    })
+    .catch(function() {
+      sel.innerHTML = '<option value="">Lỗi tải danh sách ngân hàng</option>';
+      if (callback) callback();
+    });
+}
+
+function populateQrBankSelect(banks, preselectedBin) {
+  var sel = document.getElementById('qrBank');
+  sel.innerHTML = '<option value="">-- Chọn ngân hàng --</option>';
+  banks.forEach(function(b) {
+    var opt = document.createElement('option');
+    opt.value = b.bin + '|' + b.name + '|' + b.fullName;
+    opt.textContent = b.name + ' — ' + b.bin;
+    opt.dataset.bin = b.bin;
+    sel.appendChild(opt);
+  });
+  if (preselectedBin) {
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].dataset.bin === preselectedBin) {
+        sel.selectedIndex = i;
+        break;
+      }
+    }
+  }
+}
+
+function loadQrUserSettings(userId) {
+  Promise.all([
+    apiFetch('/api/admin/user-qr/' + userId).then(function(r) { return r.json(); }),
+    apiFetch('/api/admin/users/' + userId).then(function(r) { return r.json(); })
+  ]).then(function(results) {
+    var data = (results[0].data || results[0] || {});
+    var user = (results[1].data || results[1] || {});
+    var defaultBin = data.qr_bank_bin || user.bank_bin || '';
+    var defaultAccount = data.qr_account || user.bank_account_number || '';
+    var defaultHolder = data.qr_holder || user.bank_account_name || user.full_name || '';
+
+    loadQrBanksDropdown(defaultBin);
+
+    document.getElementById('qrEnabledToggle').checked = data.qr_enabled === true || data.qr_enabled === 'true';
+    updateQrToggleDisplay();
+
+    if (data.qr_enabled) {
+      document.getElementById('qrSettingsPanel').style.display = 'block';
+    }
+    document.getElementById('qrPaymentType').value = data.qr_payment_type || 'bhxh';
+    document.getElementById('qrPeriod').value = data.qr_period || '';
+    document.getElementById('qrAmount').value = formatVnd(data.qr_amount);
+    document.getElementById('qrContent').value = data.qr_content || '';
+    document.getElementById('qrAccount').value = defaultAccount;
+    document.getElementById('qrHolder').value = defaultHolder;
+
+    if (data.qr_enabled) {
+      refreshQrPreview(userId);
+    } else {
+      var area = document.getElementById('qrPreviewArea');
+      if (area) area.innerHTML = '<span style="color:#7b8aa5;font-size:12px">Bật kích hoạt QR để xem trước</span>';
+    }
+  }).catch(function() {
+    showToast('Lỗi tải cài đặt QR', 'error');
+  });
+}
+
+function formatVnd(v) {
+  if (!v) return '';
+  var n = String(v).replace(/[^0-9]/g, '');
+  if (!n) return '';
+  return parseInt(n, 10).toLocaleString('vi-VN');
+}
+
+function toggleQrEnabled() {
+  updateQrToggleDisplay();
+  var enabled = document.getElementById('qrEnabledToggle').checked;
+  document.getElementById('qrSettingsPanel').style.display = enabled ? 'block' : 'none';
+  if (enabled) {
+    refreshQrPreview(currentQrUserId);
+  } else {
+    apiFetch('/api/admin/user-qr/' + currentQrUserId + '/toggle', {
+      method: 'PUT',
+      body: { enabled: false }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function() { showToast('Đã tắt mã QR cho người dùng', 'success'); })
+    .catch(function() { showToast('Lỗi cập nhật trạng thái QR', 'error'); });
+  }
+}
+
+function updateQrToggleDisplay() {
+  var enabled = document.getElementById('qrEnabledToggle').checked;
+  var statusEl = document.getElementById('qrToggleStatus');
+  statusEl.textContent = enabled ? 'BẬT' : 'TẮT';
+  statusEl.className = 'qr-toggle-status ' + (enabled ? 'enabled' : 'disabled');
+}
+
+function formatQrAmountInput(input) {
+  input.value = formatVnd(input.value);
+}
+
+function updateQrBankInfo() {}
+
+function refreshQrPreview(userId) {
+  var area = document.getElementById('qrPreviewArea');
+  if (!area) return;
+  area.innerHTML = '<div class="spinner-border spinner-border-sm" role="status"></div> <span style="margin-left:8px;color:#7b8aa5">Đang tải QR…</span>';
+  apiFetch('/api/vietqr/user/' + userId)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (!data.success || !data.data || !data.data.qrData) {
+        var msg = (data && (data.error || data.message)) || 'Không thể tạo QR (chưa đủ thông tin ngân hàng)';
+        area.innerHTML = '<span style="color:#c0392b;font-size:12px">' + escapeHtml(msg) + '<br><small>Vui lòng nhập ngân hàng + số tài khoản + chủ tài khoản, rồi bấm "Lưu cài đặt".</small></span>';
+        return;
+      }
+      renderQrInto(area, data.data.qrData);
+      var amtEl = document.getElementById('qrPreviewAmount');
+      if (amtEl && data.data.amount) {
+        var n = parseInt(String(data.data.amount).replace(/[^0-9]/g, ''), 10);
+        amtEl.textContent = isNaN(n) ? '0 VNĐ' : n.toLocaleString('vi-VN') + ' VNĐ';
+      }
+    })
+    .catch(function() {
+      area.innerHTML = '<span style="color:#c0392b;font-size:12px">Lỗi tải QR. Vui lòng thử lại.</span>';
+    });
+}
+
+function renderQrInto(container, payload) {
+  container.innerHTML = '';
+  if (typeof QRCode === 'undefined') {
+    container.innerHTML = '<span style="color:#c0392b;font-size:12px">Thư viện QR chưa sẵn sàng. Vui lòng tải lại trang.</span>';
+    return;
+  }
+  new QRCode(container, {
+    text: payload,
+    width: 200,
+    height: 200,
+    colorDark: '#042c6a',
+    colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+}
+
+function validateQrForm() {
+  var enabled = document.getElementById('qrEnabledToggle').checked;
+  if (!enabled) return true;
+  var bankVal = document.getElementById('qrBank').value;
+  var account = document.getElementById('qrAccount').value.trim();
+  var holder = document.getElementById('qrHolder').value.trim();
+  if (!bankVal) { showToast('Vui lòng chọn ngân hàng!', 'error'); return false; }
+  if (!/^\d{6,19}$/.test(account)) { showToast('Số tài khoản phải gồm 6-19 chữ số!', 'error'); return false; }
+  if (!holder || holder.length < 3) { showToast('Vui lòng nhập tên chủ tài khoản!', 'error'); return false; }
+  var amount = document.getElementById('qrAmount').value.replace(/[^0-9]/g, '');
+  if (amount && parseInt(amount, 10) <= 0) { showToast('Số tiền phải lớn hơn 0!', 'error'); return false; }
+  return true;
+}
+
+function saveQrUserSettings() {
+  if (!validateQrForm()) return;
+  var bankVal = document.getElementById('qrBank').value;
+  var bankParts = bankVal.split('|');
+  var settings = {
+    qr_enabled: document.getElementById('qrEnabledToggle').checked,
+    qr_payment_type: document.getElementById('qrPaymentType').value,
+    qr_period: document.getElementById('qrPeriod').value,
+    qr_amount: document.getElementById('qrAmount').value.replace(/[^0-9]/g, ''),
+    qr_content: document.getElementById('qrContent').value.trim(),
+    qr_bank_bin: bankParts[0] || '',
+    qr_bank_name: bankParts[1] || '',
+    qr_account: document.getElementById('qrAccount').value.trim(),
+    qr_holder: document.getElementById('qrHolder').value.trim()
+  };
+  var saveBtn = event && event.target ? event.target : null;
+  if (saveBtn) { saveBtn.disabled = true; saveBtn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Đang lưu…'; }
+  apiFetch('/api/admin/user-qr/' + currentQrUserId, {
+    method: 'POST',
+    body: settings
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (saveBtn) { saveBtn.disabled = false; saveBtn.innerHTML = '<i class="bi bi-check"></i> Lưu cài đặt'; }
+    if (data.success) {
+      showToast('Đã lưu cài đặt QR cho người dùng!', 'success');
+      refreshQrPreview(currentQrUserId);
+    } else {
+      showToast(data.error || 'Lỗi lưu cài đặt QR', 'error');
+    }
+  })
+  .catch(function() {
+    if (saveBtn) { saveBtn.disabled = false; saveBtn.innerHTML = '<i class="bi bi-check"></i> Lưu cài đặt'; }
+    showToast('Không thể kết nối máy chủ!', 'error');
+  });
+}
+
+function closeQrUserModal() {
+  var modal = document.getElementById('qrUserModal');
+  if (modal) {
+    modal.style.display = 'none';
+  }
+  currentQrUserId = null;
+}
+
+// ===== REGISTRATIONS =====
+function loadRegistrations() {
+  apiFetch('/api/admin/stats')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var s = data.data || data;
+      document.getElementById('regPendingCount').textContent = s.pending || '0';
+      document.getElementById('regApprovedCount').textContent = s.approved || '0';
+      document.getElementById('regRejectedCount').textContent = s.rejected || '0';
+      document.getElementById('regTotalCount').textContent = s.total || '0';
+    });
+  apiFetch('/api/admin/users')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var users = data.data || [];
+      var rows = users.map(function(row) {
+        return {
+          id: row.id,
+          fullName: row.full_name || row.fullName || '',
+          bhxhCode: row.bhxh_code || row.bhxhCode || '',
+          cccd: row.cccd || '',
+          phone: row.phone || '',
+          accountType: row.account_type || row.accountType || 'individual',
+          status: row.status || 'pending',
+          registeredAt: row.registered_at || row.registeredAt || ''
+        };
+      });
+      var pending = rows.filter(function(u) { return u.status === 'pending'; });
+      var tbody = document.getElementById('regTableBody');
+      if (pending.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#96a1b4;padding:30px">Không có đăng ký chờ duyệt</td></tr>';
+        return;
+      }
+      tbody.innerHTML = pending.map(function(u) {
+        return '<tr>' +
+          '<td>' + u.id + '</td>' +
+          '<td><strong>' + escapeHtml(u.fullName) + '</strong></td>' +
+          '<td>' + escapeHtml(u.bhxhCode) + '</td>' +
+          '<td>' + escapeHtml(u.cccd) + '</td>' +
+          '<td>' + escapeHtml(u.phone) + '</td>' +
+          '<td>' + (u.accountType === 'individual' ? 'Cá nhân' : 'Tổ chức') + '</td>' +
+          '<td><span class="admin-badge pending">Chờ duyệt</span></td>' +
+          '<td>' + escapeHtml(u.registeredAt) + '</td>' +
+          '<td class="admin-actions">' +
+            '<button class="admin-btn admin-btn-ghost admin-btn-sm" onclick="openUserDetailModal(' + u.id + ')" title="Xem chi tiết"><i class="bi bi-eye"></i></button> ' +
+            '<button class="admin-btn admin-btn-success admin-btn-sm" onclick="promptApprove(' + u.id + ',\'' + escapeAttr(u.fullName) + '\')"><i class="bi bi-check"></i></button> ' +
+            '<button class="admin-btn admin-btn-danger admin-btn-sm" onclick="promptReject(' + u.id + ',\'' + escapeAttr(u.fullName) + '\')"><i class="bi bi-x"></i></button>' +
+          '</td></tr>';
+      }).join('');
+    });
+}
+
+// ===== APPOINTMENTS =====
+function loadAppointments() {
+  apiFetch('/api/appointments')
+    .then(function(r) { return r.json(); })
+    .then(function(res) {
+      var data = res.data || res;
+      var s = data.stats || {};
+      document.getElementById('apptTotal').textContent = s.total || '0';
+      document.getElementById('apptPending').textContent = s.pending || '0';
+      document.getElementById('apptConfirmed').textContent = s.confirmed || '0';
+      document.getElementById('apptCancelled').textContent = s.cancelled || '0';
+      document.getElementById('apptBadge').textContent = s.pending || '0';
+
+      var tbody = document.getElementById('apptTableBody');
+      var appointments = data.appointments || [];
+      if (appointments.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:#96a1b4;padding:30px">Không có lịch hẹn nào</td></tr>';
+        return;
+      }
+      var svcLabels = { kekhai: 'Kê khai BHXH', nop: 'Nộp BHXH điện tử', 'tra-cuu': 'Tra cứu', 'cap-so': 'Cấp sổ/thẻ', 'huong-dan': 'Hướng dẫn', khac: 'Khác' };
+      tbody.innerHTML = appointments.map(function(a) {
+        var sc = a.status === 'confirmed' ? 'approved' : a.status === 'pending' ? 'pending' : 'rejected';
+        var st = a.status === 'confirmed' ? 'Đã xác nhận' : a.status === 'pending' ? 'Chờ xác nhận' : 'Đã hủy';
+        return '<tr>' +
+          '<td>' + a.id + '</td>' +
+          '<td><strong>' + (a.full_name || a.fullName || '') + '</strong></td>' +
+          '<td>' + (a.phone || '') + '</td>' +
+          '<td>' + (a.date || '') + '</td>' +
+          '<td>' + (a.time_slot || a.timeSlot || '') + '</td>' +
+          '<td>' + (svcLabels[a.service] || a.service || '') + '</td>' +
+          '<td><span class="admin-badge ' + sc + '">' + st + '</span></td>' +
+          '<td>' + (a.created_at || a.createdAt || '') + '</td>' +
+          '<td>' +
+            (a.status === 'pending' ? '<button class="admin-btn admin-btn-success admin-btn-sm" onclick="updateApptStatus(' + a.id + ',\'confirmed\')"><i class="bi bi-check"></i> Xác nhận</button> <button class="admin-btn admin-btn-danger admin-btn-sm" onclick="updateApptStatus(' + a.id + ',\'cancelled\')"><i class="bi bi-x"></i> Hủy</button>' : '<button class="admin-btn admin-btn-ghost admin-btn-sm" onclick="showToast(\'Xem chi tiết lịch hẹn\',\'info\')"><i class="bi bi-eye"></i> Xem</button>') +
+          '</td></tr>';
+      }).join('');
+    });
+}
+
+function updateApptStatus(id, status) {
+  apiFetch('/api/appointments/' + id + '/status', {
+    method: 'PUT',
+    body: { status: status }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.success) { showToast('Cập nhật trạng thái lịch hẹn thành công!', 'success'); loadAppointments(); }
+  });
+}
+
+// ===== CHAT =====
+var currentConvId = null;
+function loadChatConversations() {
+  apiFetch('/api/chat/conversations')
+    .then(function(r) { return r.json(); })
+    .then(function(res) {
+      var convs = res.data || res;
+      if (!convs || !Array.isArray(convs)) return;
+      var active = convs.filter(function(c) { return c.status === 'active'; });
+      document.getElementById('chatBadge').textContent = active.length;
+
+      var list = document.getElementById('chatConversationList');
+      if (convs.length === 0) {
+        list.innerHTML = '<div style="padding:20px;text-align:center;color:#96a1b4;font-size:13px">Chưa có hội thoại nào</div>';
+        return;
+      }
+      list.innerHTML = convs.map(function(c) {
+        var msgs = c.messages || [];
+        var lastMsg = msgs.length > 0 ? msgs[msgs.length - 1].text : '';
+        var name = c.user_name || c.userName || 'Khách';
+        return '<div class="chat-conv-item" data-id="' + c.id + '" style="padding:10px 12px;border-bottom:1px solid #f0f3f8;cursor:pointer;font-size:13px;background:' + (c.id === currentConvId ? '#e3f0fd' : '') + '">' +
+          '<div style="font-weight:700;color:#042c6a">' + name + (c.unread > 0 ? ' <span style="color:#c62828">(' + c.unread + ')</span>' : '') + '</div>' +
+          '<div style="color:#7b8aa5;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + lastMsg.substring(0, 50) + '</div>' +
+          '</div>';
+      }).join('');
+
+      document.querySelectorAll('.chat-conv-item').forEach(function(el) {
+        el.addEventListener('click', function() {
+          var id = parseInt(this.dataset.id);
+          showChatConversation(id, convs);
+        });
+      });
+    });
+}
+
+function showChatConversation(id, convs) {
+  currentConvId = id;
+  var conv = convs.find(function(c) { return c.id === id; });
+  if (!conv) return;
+  document.getElementById('chatDetailHeader').textContent = 'Hội thoại với: ' + (conv.user_name || conv.userName || 'Khách') + ' (CCCD: ' + (conv.id_card || conv.idCard || 'N/A') + ', ĐT: ' + (conv.phone || 'N/A') + ')';
+  var container = document.getElementById('chatMessagesAdmin');
+  var msgs = conv.messages || [];
+  container.innerHTML = msgs.map(function(m) {
+    var isAdmin = m.from === 'admin' || m.from_user === 'admin';
+    return '<div style="max-width:80%;padding:8px 12px;border-radius:12px;font-size:13px;line-height:1.4;align-self:' + (isAdmin ? 'flex-start' : 'flex-end') + ';background:' + (isAdmin ? '#042c6a;color:#fff;border-bottom-left-radius:4px' : '#e3f0fd;color:#042c6a;border-bottom-right-radius:4px') + '">' + (m.text || '') + '<span style="font-size:10px;opacity:0.6;display:block;margin-top:4px">' + (m.time || '') + '</span></div>';
+  }).join('');
+  container.scrollTop = container.scrollHeight;
+
+  document.querySelectorAll('.chat-conv-item').forEach(function(el) {
+    el.style.background = parseInt(el.dataset.id) === id ? '#e3f0fd' : '';
+  });
+}
+
+function adminSendReply() {
+  if (!currentConvId) { showToast('Vui lòng chọn hội thoại!', 'error'); return; }
+  var input = document.getElementById('adminChatInput');
+  var text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  apiFetch('/api/chat/admin/reply', {
+    method: 'POST',
+    body: { conversationId: currentConvId, text: text }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.success) {
+      showToast('Tin nhắn đã được gửi!', 'success');
+      loadChatConversations();
+    }
+  });
+}
+
+document.getElementById('adminChatInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') adminSendReply();
+});
+
+// ===== AGENCY TREE =====
+var agencyTreeData = [];
+function loadAgencyTree() {
+  apiFetch('/api/agencies/tree')
+    .then(function(r) { return r.json(); })
+    .then(function(res) {
+      agencyTreeData = res.data || res || [];
+      renderAgencyTree(agencyTreeData, '');
+    });
+}
+function renderAgencyTree(nodes, filterText) {
+  var container = document.getElementById('agencyTreeContainer');
+  if (!nodes || nodes.length === 0) {
+    container.innerHTML = '<div style="text-align:center;padding:24px;color:#96a1b4;font-size:13px"><i class="bi bi-inbox" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>Không có dữ liệu</div>';
+    return;
+  }
+  var html = '<ul style="list-style:none;padding:0;margin:0">';
+  nodes.forEach(function(n) {
+    var match = !filterText || (n.name && n.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1) || (n.code && n.code.toLowerCase().indexOf(filterText.toLowerCase()) > -1);
+    var hasVisibleChild = n.children && n.children.some(function(c) { return !filterText || (c.name && c.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1) || (c.code && c.code.toLowerCase().indexOf(filterText.toLowerCase()) > -1); });
+    if (filterText && !match && !hasVisibleChild) return;
+    var expandIcon = n.children && n.children.length ? '<i class="bi bi-chevron-down" style="font-size:10px;margin-right:4px;cursor:pointer" onclick="toggleAgencyNode(this)"></i>' : '<i class="bi bi-dot" style="font-size:10px;margin-right:4px;color:#96a1b4"></i>';
+    html += '<li style="padding:4px 0;display:flex;align-items:center;gap:4px">' + expandIcon + '<span style="' + (n.children && n.children.length ? 'font-weight:600' : '') + ';font-size:13px;color:' + (n.children && n.children.length ? '#042c6a' : '#333') + ';flex:1">' + (n.name || '') + '</span>' + (n.code ? ' <span style="font-size:11px;color:#96a1b4">(' + n.code + ')</span>' : '') + (!n.isStatic ? '<button class="admin-btn admin-btn-sm admin-btn-ghost" onclick="deleteAgency(\'' + n.id + '\')" title="Xóa" style="padding:2px 6px;font-size:11px"><i class="bi bi-trash"></i></button>' : '') + '</li>';
+    if (n.children && n.children.length && (!filterText || hasVisibleChild)) {
+      html += '<ul style="list-style:none;padding-left:20px;margin:0">';
+      html += renderChildrenHtml(n.children, filterText);
+      html += '</ul>';
+    }
+  });
+  html += '</ul>';
+  container.innerHTML = html;
+}
+function renderChildrenHtml(children, filterText) {
+  var h = '';
+  children.forEach(function(c) {
+    var cmatch = !filterText || (c.name && c.name.toLowerCase().indexOf(filterText.toLowerCase()) > -1) || (c.code && c.code.toLowerCase().indexOf(filterText.toLowerCase()) > -1);
+    if (filterText && !cmatch) return;
+    var expandIcon = c.children && c.children.length ? '<i class="bi bi-chevron-down" style="font-size:10px;margin-right:4px;cursor:pointer" onclick="toggleAgencyNode(this)"></i>' : '<i class="bi bi-dot" style="font-size:10px;margin-right:4px;color:#96a1b4"></i>';
+    h += '<li style="padding:3px 0">' + expandIcon + '<span style="font-size:13px' + (c.children && c.children.length ? ';font-weight:600;color:#042c6a' : ';color:#555') + '">' + (c.name || '') + '</span>' + (c.code ? ' <span style="font-size:11px;color:#96a1b4">(' + c.code + ')</span>' : '') + '</li>';
+    if (c.children && c.children.length && !filterText) {
+      h += '<ul style="list-style:none;padding-left:20px;margin:0">';
+      h += renderChildrenHtml(c.children, filterText);
+      h += '</ul>';
+    }
+  });
+  return h;
+}
+function toggleAgencyNode(el) {
+  var ul = el.parentElement.querySelector('ul');
+  if (ul) {
+    var hidden = ul.style.display === 'none';
+    ul.style.display = hidden ? '' : 'none';
+    el.className = hidden ? 'bi bi-chevron-down' : 'bi bi-chevron-right';
+  }
+}
+function filterAgencyTree() {
+  var q = document.getElementById('agencySearchInput').value.trim();
+  renderAgencyTree(agencyTreeData, q);
+}
+
+// ===== AGENCY MANAGEMENT =====
+function showAddAgencyForm() {
+  var modal = document.getElementById('addAgencyModal');
+  var parentSelect = document.getElementById('agencyParent');
+  
+  // Populate parent dropdown with existing agencies
+  parentSelect.innerHTML = '<option value="">-- Không có đơn vị cha --</option>';
+  
+  // Add existing agencies as options
+  agencyTreeData.forEach(function(province) {
+    var opt = document.createElement('option');
+    opt.value = province.id;
+    opt.textContent = province.name + ' (Cấp ' + (province.level || 2) + ')';
+    parentSelect.appendChild(opt);
+    
+    if (province.children) {
+      province.children.forEach(function(district) {
+        var opt2 = document.createElement('option');
+        opt2.value = district.id;
+        opt2.textContent = '  ├ ' + district.name + ' (Cấp ' + (district.level || 3) + ')';
+        parentSelect.appendChild(opt2);
+        
+        if (district.children) {
+          district.children.forEach(function(ward) {
+            var opt3 = document.createElement('option');
+            opt3.value = ward.id;
+            opt3.textContent = '    └ ' + ward.name + ' (Cấp ' + (ward.level || 4) + ')';
+            parentSelect.appendChild(opt3);
+          });
+        }
+      });
+    }
+  });
+  
+  // Reset form
+  document.getElementById('addAgencyForm').reset();
+  modal.style.display = 'flex';
+}
+
+function closeAddAgencyForm() {
+  document.getElementById('addAgencyModal').style.display = 'none';
+}
+
+function submitAddAgency(event) {
+  event.preventDefault();
+  
+  var code = document.getElementById('agencyCode').value.trim();
+  var name = document.getElementById('agencyName').value.trim();
+  var parent = document.getElementById('agencyParent').value;
+  var level = parseInt(document.getElementById('agencyLevel').value);
+  var address = document.getElementById('agencyAddress').value.trim();
+  var phone = document.getElementById('agencyPhone').value.trim();
+  var email = document.getElementById('agencyEmail').value.trim();
+  
+  if (!code || !name) {
+    showToast('Vui lòng nhập mã và tên đơn vị', 'error');
+    return;
+  }
+  
+  apiFetch('/api/admin/agencies', {
+    method: 'POST',
+    body: { code: code, name: name, parentId: parent || null, level: level, address: address, phone: phone, email: email }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(resp) {
+    if (resp.success) {
+      closeAddAgencyForm();
+      showToast('Đã thêm đơn vị "' + name + '" thành công!', 'success');
+      loadAgencyTree();
+    } else {
+      showToast(resp.error || 'Lỗi thêm đơn vị', 'error');
+    }
+  })
+  .catch(function() { showToast('Không thể kết nối máy chủ!', 'error'); });
+}
+
+function deleteAgency(agencyId) {
+  if (!confirm('Bạn có chắc muốn xóa đơn vị này?')) return;
+  
+  apiFetch('/api/admin/agencies/' + encodeURIComponent(agencyId), { method: 'DELETE' })
+    .then(function(r) { return r.json(); })
+    .then(function(resp) {
+      if (resp.success) {
+        showToast('Đã xóa đơn vị thành công!', 'success');
+        loadAgencyTree();
+      } else {
+        showToast(resp.error || 'Lỗi xóa đơn vị', 'error');
+      }
+    })
+    .catch(function() { showToast('Không thể kết nối máy chủ!', 'error'); });
+}
+
+function showToast(message, type) {
+  var toast = document.getElementById('toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'toast';
+    toast.className = 'toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = message;
+  toast.className = 'toast toast-' + (type || 'info');
+  toast.style.display = 'block';
+  setTimeout(function() {
+    toast.style.display = 'none';
+  }, 3000);
+}
+
+// ===== QR PAYMENT SYSTEM =====
+var qrCodeInstance = null;
+var currentQrData = null;
+
+function switchQrTab(tab) {
+  document.querySelectorAll('.qr-payment-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelector('.qr-payment-tab[data-tab="' + tab + '"]').classList.add('active');
+  document.querySelectorAll('.qr-tab-content').forEach(function(c) { c.style.display = 'none'; });
+  document.getElementById('qr-tab-' + tab).style.display = '';
+  if (tab === 'history') loadQrHistory();
+}
+
+function formatQrAmount(input) {
+  var v = input.value.replace(/[^0-9]/g, '');
+  if (v) input.value = parseInt(v).toLocaleString('vi-VN');
+  else input.value = '';
+}
+
+function onPaymentTypeChange() {
+  var type = document.getElementById('qrPaymentType').value;
+  var contentField = document.getElementById('qrContent');
+  var amountField = document.getElementById('qrAmount');
+  var customTypeGroup = document.getElementById('customPaymentTypeGroup');
+  var customTypeField = document.getElementById('qrCustomPaymentType');
+  var bhxhCode = document.getElementById('qrBhxhCode').value || '________';
+  var month = new Date().getMonth() + 1;
+  var year = new Date().getFullYear();
+  
+  // Hiển/ẩn trường loại thanh toán tùy chỉnh
+  if (type === 'other') {
+    customTypeGroup.style.display = 'block';
+  } else {
+    customTypeGroup.style.display = 'none';
+    customTypeField.value = '';
+  }
+  
+  var templates = {
+    'bhxh': { amount: '500,000', content: 'Nop BHXH tu nguyen thang ' + month + '/' + year + ' - ' + bhxhCode },
+    'bhyt': { amount: '1,200,000', content: 'Nop BHYT tu nguyen nam ' + year + ' - ' + bhxhCode },
+    'bhtn': { amount: '300,000', content: 'Nop BHTN quy ' + Math.ceil(month/3) + '/' + year + ' - ' + bhxhCode },
+    'trocap': { amount: '0', content: 'Nhan tro cap BHXH - ' + bhxhCode },
+    'other': { amount: '0', content: '' }
+  };
+  var tpl = templates[type] || templates['other'];
+  amountField.value = tpl.amount;
+  contentField.value = tpl.content;
+  generateQRLive();
+}
+
+function useTemplate(templateId) {
+  var templates = {
+    'monthly-bhxh': { type: 'bhxh', amount: '500,000', content: 'Nop BHXH tu nguyen thang ' + (new Date().getMonth() + 1) + '/' + new Date().getFullYear() },
+    'quarterly-bhxh': { type: 'bhxh', amount: '1,500,000', content: 'Nop BHXH tu nguyen quy ' + Math.ceil((new Date().getMonth() + 1)/3) + '/' + new Date().getFullYear() },
+    'bhyt-yearly': { type: 'bhyt', amount: '1,200,000', content: 'Nop BHYT tu nguyen nam ' + new Date().getFullYear() },
+    'bhtn': { type: 'bhtn', amount: '300,000', content: 'Nop BHTN' },
+    'trocap': { type: 'trocap', amount: '0', content: 'Nhan tro cap BHXH' },
+    'arrears': { type: 'bhxh', amount: '0', content: 'Thanh toan no BHXH' },
+    'custom': { type: 'other', amount: '0', content: '' }
+  };
+  var tpl = templates[templateId];
+  if (!tpl) return;
+  document.getElementById('qrPaymentType').value = tpl.type;
+  document.getElementById('qrAmount').value = tpl.amount;
+  document.getElementById('qrContent').value = tpl.content;
+  document.querySelectorAll('.qr-template-card').forEach(function(c) { c.classList.remove('selected'); });
+  if (event && event.currentTarget) event.currentTarget.classList.add('selected');
+  onPaymentTypeChange(); // Cập nhật hiển thị custom type field
+  switchQrTab('create');
+  generateQRCode();
+}
+
+function generateQRLive() {
+  var bhxhCode = document.getElementById('qrBhxhCode').value.trim();
+  var account = document.getElementById('qrAccount').value.trim();
+  var amount = document.getElementById('qrAmount').value.trim();
+  var content = document.getElementById('qrContent').value.trim();
+  if (bhxhCode && account && amount && content) { generateQRCode(); }
+}
+
+function generateQRCode(useApi) {
+  var bankVal = document.getElementById('qrBank').value;
+  var parts = bankVal.split('|');
+  var bankBin = parts[0];
+  var bankName = parts[1];
+  var account = document.getElementById('qrAccount').value.trim();
+  var holder = document.getElementById('qrHolder').value.trim();
+  var amountRaw = document.getElementById('qrAmount').value.replace(/[^0-9]/g, '');
+  var content = document.getElementById('qrContent').value.trim();
+  var size = parseInt(document.getElementById('qrSize').value);
+  var paymentType = document.getElementById('qrPaymentType').value;
+  var errorEl = document.getElementById('qrError');
+  errorEl.style.display = 'none';
+  if (!account || !holder || !content) {
+    errorEl.textContent = 'Vui lòng nhập đầy đủ thông tin bắt buộc!';
+    errorEl.style.display = 'block';
+    return;
+  }
+  if (!amountRaw) amountRaw = '0';
+
+  var preview = document.getElementById('qrPreview');
+  var amountDisplay = amountRaw ? parseInt(amountRaw).toLocaleString('vi-VN') + ' <span style="font-size:14px">VNĐ</span>' : '<span style="font-size:16px">QUÉT ĐỂ THANH TOÁN</span>';
+
+  preview.outerHTML =
+    '<div class="qr-preview-card" id="qrPreview">' +
+    '  <div class="qr-card-inner">' +
+    '    <div class="qr-preview-header">' +
+    '      <div class="qr-preview-logo"><img src="/images/bhxh_logo.svg" alt="BHXH"></div>' +
+    '      <div><div class="qr-preview-title">CỔNG THÔNG TIN ĐIỆN TỬ</div><div class="qr-preview-subtitle">BẢO HIỂM XÃ HỘI VIỆT NAM</div></div>' +
+    '    </div>' +
+    '    <div class="qr-preview-qr"><canvas id="qrCanvas"></canvas></div>' +
+    '    <div class="qr-preview-footer">' +
+    '      <div class="qr-preview-amount">' + amountDisplay + '</div>' +
+    '      <div class="qr-preview-method">QUÉT MÃ QR THANH TOÁN</div>' +
+    '    </div>' +
+    '  </div>' +
+    '</div>';
+
+  var cb = function(qrData) {
+    if (qrCodeInstance) { qrCodeInstance.clear(); qrCodeInstance = null; }
+    try {
+      qrCodeInstance = new QRCode(document.getElementById('qrCanvas'), {
+        text: qrData, width: size, height: size,
+        colorDark: '#042c6a', colorLight: '#ffffff', correctLevel: QRCode.CorrectLevel.H,
+      });
+      document.getElementById('qrActionBtns').style.display = 'grid';
+      document.getElementById('btnSaveTemplate').style.display = 'inline-flex';
+      var infoEl = document.getElementById('qrPaymentInfo');
+      infoEl.style.display = 'block';
+      infoEl.innerHTML =
+        '<div style="background:#d4edda;border-radius:8px;padding:8px 12px;border:1px solid #c3e6cb;margin-top:12px">' +
+        '  <span style="color:#155724;font-size:12px"><i class="bi bi-check-circle" style="color:#28a745;margin-right:4px"></i>Mã QR hợp lệ - Định dạng VietQR chuẩn EMVCo</span>' +
+        '</div>';
+      showToast('Đã tạo mã QR thanh toán BHXH!', 'success');
+    } catch (e) {
+      errorEl.textContent = 'Lỗi tạo mã QR: ' + e.message;
+      errorEl.style.display = 'block';
+    }
+  };
+
+  apiFetch('/api/vietqr/generate', {
+    method: 'POST',
+    body: {
+      bankBin: bankBin,
+      accountNumber: account,
+      accountName: holder,
+      amount: amountRaw,
+      content: content
+    }
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.success && data.data && data.data.qrData) {
+      currentQrData = data.data.qrData;
+      cb(data.data.qrData);
+      var bankParts = document.getElementById('qrBank').value.split('|');
+      apiFetch('/api/admin/qr-history', { method: 'POST', body: {
+        bankBin: bankParts[0] || '',
+        bankName: bankParts[1] || '',
+        accountNumber: document.getElementById('qrAccount').value.trim(),
+        accountName: document.getElementById('qrHolder').value.trim(),
+        amount: document.getElementById('qrAmount').value.replace(/[^0-9]/g, ''),
+        content: document.getElementById('qrContent').value.trim(),
+        bhxhCode: document.getElementById('qrBhxhCode').value.trim(),
+        qrData: data.data.qrData,
+      }}).catch(function() {});
+    } else {
+      errorEl.textContent = data.error || 'Lỗi tạo mã QR từ máy chủ';
+      errorEl.style.display = 'block';
+    }
+  })
+  .catch(function(err) {
+    errorEl.textContent = 'Không thể kết nối máy chủ: ' + (err.message || '');
+    errorEl.style.display = 'block';
+  });
+}
+
+function saveQrTemplate() {
+  var bankParts = document.getElementById('qrBank').value.split('|');
+  var payload = {
+    bankBin: bankParts[0] || '',
+    bankName: bankParts[1] || '',
+    accountNumber: document.getElementById('qrAccount').value.trim(),
+    accountName: document.getElementById('qrHolder').value.trim(),
+    amount: document.getElementById('qrAmount').value.replace(/[^0-9]/g, ''),
+    content: document.getElementById('qrContent').value.trim(),
+    bhxhCode: document.getElementById('qrBhxhCode').value.trim(),
+    qrData: currentQrData || '',
+  };
+  apiFetch('/api/admin/qr-history', { method: 'POST', body: payload })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.success) {
+        showToast('Đã lưu lịch sử QR!', 'success');
+        loadQrHistory();
+      } else {
+        showToast(data.error || 'Lỗi lưu lịch sử', 'error');
+      }
+    })
+    .catch(function() { showToast('Không thể kết nối máy chủ!', 'error'); });
+}
+
+function loadQrHistory() {
+  var q = (document.getElementById('qrHistorySearch').value || '').trim();
+  var list = document.getElementById('qrHistoryList');
+  list.innerHTML = '<div style="text-align:center;padding:20px;color:#96a1b4"><div class="spinner-border spinner-border-sm"></div> Đang tải…</div>';
+  var url = '/api/admin/qr-history?limit=50';
+  if (q) url += '&search=' + encodeURIComponent(q);
+  apiFetch(url)
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var items = Array.isArray(data) ? data : (data.data || []);
+      if (items.length === 0) {
+        list.innerHTML = '<div style="text-align:center;padding:40px;color:#96a1b4;font-size:13px"><i class="bi bi-inbox" style="font-size:32px;display:block;margin-bottom:8px;opacity:0.4"></i>Chưa có lịch sử tạo QR</div>';
+        return;
+      }
+      list.innerHTML = items.map(function(item) {
+        var title = 'QR thanh toán BHXH' + (item.bhxh_code ? ' - ' + item.bhxh_code : '');
+        var meta = (item.amount ? parseInt(item.amount).toLocaleString('vi-VN') + ' VNĐ' : '0 VNĐ') + ' | ' + (item.bank_name || '') + ' | ' + formatDateTime(item.created_at);
+        return '<div class="qr-history-item">' +
+          '<div class="qr-history-icon"><i class="bi bi-qr-code"></i></div>' +
+          '<div class="qr-history-info"><div class="qr-history-title">' + escapeHtml(title) + '</div>' +
+          '  <div class="qr-history-meta">' + escapeHtml(meta) + '</div></div>' +
+          '</div>';
+      }).join('');
+    })
+    .catch(function() {
+      list.innerHTML = '<div style="text-align:center;padding:20px;color:#c0392b;font-size:13px">Lỗi tải lịch sử QR</div>';
+    });
+}
+
+function formatDateTime(dt) {
+  if (!dt) return '';
+  var d = new Date(dt);
+  return d.toLocaleDateString('vi-VN') + ' ' + d.toLocaleTimeString('vi-VN');
+}
+
+function downloadQR() {
+  var canvas = document.getElementById('qrCanvas');
+  if (!canvas) return;
+  var link = document.createElement('a');
+  link.download = 'QR_BHXH_' + document.getElementById('qrBhxhCode').value.trim() + '_' + new Date().toISOString().slice(0,10) + '.png';
+  link.href = canvas.toDataURL('image/png');
+  link.click();
+  showToast('Đã tải mã QR thành công!', 'success');
+}
+
+function printQR() {
+  var canvas = document.getElementById('qrCanvas');
+  if (!canvas) return;
+  var bankVal = document.getElementById('qrBank').value;
+  var parts = bankVal.split('|');
+  var bankName = parts[1];
+  var printWindow = window.open('', '_blank');
+  printWindow.document.write(
+    '<html><head><title>In mã QR BHXH</title>' +
+    '<style>body{margin:20px;font-family:Arial,sans-serif;text-align:center}' +
+    '.header{text-align:center;margin-bottom:20px}' +
+    '.logo{width:60px;height:60px}' +
+    '.qr-img{margin:20px auto;border:4px solid #042c6a;padding:10px;display:inline-block}' +
+    '.info{text-align:left;max-width:300px;margin:20px auto;border:1px solid #ddd;padding:15px;border-radius:8px}' +
+    '.row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid #eee}' +
+    '.row:last-child{border:none}.label{color:#666}.value{font-weight:600;color:#042c6a}' +
+    '.footer{margin-top:20px;font-size:12px;color:#999}' +
+    '@media print{.noprint{display:none}}' +
+    '.btn{background:#042c6a;color:#fff;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;margin-top:20px}' +
+    '</style></head><body>' +
+    '<div class="header"><img src="/images/bhxh_logo.svg" class="logo" alt="BHXH">' +
+    '<h2 style="color:#042c6a;margin:10px 0 5px">CỔNG THÔNG TIN ĐIỆN TỬ BẢO HIỂM XÃ HỘI</h2>' +
+    '<p style="color:#0372b6;margin:0;font-size:14px">Mã QR thanh toán BHXH tự nguyện</p></div>' +
+    '<div class="qr-img"><img src="' + canvas.toDataURL('image/png') + '" width="200" height="200"></div>' +
+    '<div class="info">' +
+    '<div class="row"><span class="label">Ngân hàng:</span><span class="value">' + bankName + '</span></div>' +
+    '<div class="row"><span class="label">Số tài khoản:</span><span class="value">' + document.getElementById('qrAccount').value.trim() + '</span></div>' +
+    '<div class="row"><span class="label">Chủ tài khoản:</span><span class="value">' + document.getElementById('qrHolder').value.trim().toUpperCase() + '</span></div>' +
+    '<div class="row"><span class="label">Số tiền:</span><span class="value" style="color:#be1e2d;font-size:18px">' + document.getElementById('qrAmount').value.trim() + ' VNĐ</span></div>' +
+    '<div class="row"><span class="label">Nội dung:</span><span class="value" style="font-size:12px">' + document.getElementById('qrContent').value.trim() + '</span></div>' +
+    '</div><div class="footer">Quét mã QR để thanh toán qua ứng dụng ngân hàng hoặc ví điện tử<br>Hỗ trợ: 1900 9068</div>' +
+    '<button class="btn noprint" onclick="window.print()"><i class="bi bi-printer"></i> In mã QR</button>' +
+    '<button class="btn noprint" onclick="window.close()" style="background:#666;margin-left:10px">Đóng</button>' +
+    '</body></html>'
+  );
+  printWindow.document.close();
+}
+
+function copyQrData() {
+  if (!currentQrData) { showToast('Vui lòng tạo mã QR trước!', 'error'); return; }
+  navigator.clipboard.writeText(currentQrData).then(function() {
+    showToast('Đã sao chép dữ liệu QR vào bộ nhớ tạm!', 'success');
+  }).catch(function() { showToast('Không thể sao chép dữ liệu!', 'error'); });
+}
+
+function filterQrHistory() {
+  loadQrHistory();
+}
+
+function reloadQrHistory() { loadQrHistory(); showToast('Đang tải lại lịch sử QR...', 'info'); }
+
+// ===== REPORTS =====
+var reportCharts = {};
+var lastReportData = null;
+
+function loadReports() {
+  var days = (document.getElementById('reportRange') || {}).value || '30';
+  var kpiEl = document.getElementById('reportKpis');
+  if (kpiEl) kpiEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:18px;color:#6b7a90"><div class="spinner-border spinner-border-sm"></div> Đang tải báo cáo…</div>';
+  apiFetch('/api/admin/reports?days=' + encodeURIComponent(days))
+    .then(function(r) { return r.json(); })
+    .then(function(data) { renderReports(data.data || data); })
+    .catch(function() {
+      if (kpiEl) kpiEl.innerHTML = '<div style="color:#c0392b;padding:14px">Lỗi tải báo cáo. Vui lòng thử lại.</div>';
+    });
+}
+
+function renderReports(data) {
+  lastReportData = data;
+  var s = data.summary || {};
+  var kpis = [
+    { label: 'Tổng người dùng', value: s.total || 0, color: '#042c6a', icon: 'people' },
+    { label: 'Đã duyệt', value: s.approved || 0, color: '#0a7a2a', icon: 'check-circle' },
+    { label: 'Chờ duyệt', value: s.pending || 0, color: '#b58900', icon: 'hourglass-split' },
+    { label: 'Từ chối', value: s.rejected || 0, color: '#be1e2d', icon: 'x-circle' },
+    { label: 'Cá nhân', value: s.individual || 0, color: '#1d4dd6', icon: 'person' },
+    { label: 'Tổ chức', value: s.org || 0, color: '#a86600', icon: 'building' },
+    { label: 'QR đang hoạt động', value: s.qr_active || 0, color: '#6610f2', icon: 'qr-code' }
+  ];
+  document.getElementById('reportKpis').innerHTML = kpis.map(function(k) {
+    return '<div style="background:#f7f9fc;border-radius:10px;padding:14px 16px;border-left:3px solid ' + k.color + '">' +
+      '<div style="font-size:12px;color:#6b7a90;margin-bottom:4px"><i class="bi bi-' + k.icon + '"></i> ' + k.label + '</div>' +
+      '<div style="font-size:22px;font-weight:700;color:' + k.color + '">' + (k.value || 0).toLocaleString('vi-VN') + '</div>' +
+    '</div>';
+  }).join('');
+
+  var byDay = data.byDay || [];
+  var dayLabels = byDay.map(function(d) { return d.day; });
+  var daySeries = [
+    { label: 'Tổng đăng ký', data: byDay.map(function(d) { return d.total; }), color: '#042c6a', fill: false },
+    { label: 'Đã duyệt', data: byDay.map(function(d) { return d.approved; }), color: '#0a7a2a', fill: false },
+    { label: 'Từ chối', data: byDay.map(function(d) { return d.rejected; }), color: '#be1e2d', fill: false }
+  ];
+  drawLineChart('reportByDayChart', dayLabels, daySeries);
+
+  drawDoughnut('reportByStatusChart',
+    ['Đã duyệt', 'Chờ duyệt', 'Từ chối'],
+    [s.approved || 0, s.pending || 0, s.rejected || 0],
+    ['#0a7a2a', '#f1c40f', '#be1e2d']
+  );
+
+  var prov = (data.byProvince || []).slice(0, 10);
+  drawBarChart('reportByProvinceChart',
+    prov.map(function(p) { return provinceMap[p.code] || p.code; }),
+    prov.map(function(p) { return p.count; })
+  );
+
+  drawDoughnut('reportByPaymentChart',
+    ['Tiền mặt', 'Chuyển khoản'],
+    [s.payment_cash || 0, s.payment_transfer || 0],
+    ['#1abc9c', '#3498db']
+  );
+}
+
+function chartReady(cb) {
+  if (typeof Chart !== 'undefined') return cb();
+  var t = setInterval(function() {
+    if (typeof Chart !== 'undefined') { clearInterval(t); cb(); }
+  }, 60);
+  setTimeout(function() { clearInterval(t); if (typeof Chart === 'undefined') cb(); }, 5000);
+}
+
+function drawLineChart(id, labels, series) {
+  chartReady(function() {
+    if (typeof Chart === 'undefined') return;
+    if (reportCharts[id]) reportCharts[id].destroy();
+    var ctx = document.getElementById(id).getContext('2d');
+    reportCharts[id] = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: series.map(function(s) {
+          return {
+            label: s.label, data: s.data, borderColor: s.color,
+            backgroundColor: s.color + '22', tension: 0.25, fill: s.fill !== false,
+            pointRadius: 2, borderWidth: 2
+          };
+        })
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        scales: {
+          y: { beginAtZero: true, ticks: { precision: 0 } },
+          x: { ticks: { autoSkip: true, maxTicksLimit: 12 } }
+        }
+      }
+    });
+  });
+}
+
+function drawBarChart(id, labels, values) {
+  chartReady(function() {
+    if (typeof Chart === 'undefined') return;
+    if (reportCharts[id]) reportCharts[id].destroy();
+    var ctx = document.getElementById(id).getContext('2d');
+    reportCharts[id] = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Số lượng', data: values,
+          backgroundColor: '#042c6acc', borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false, indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: { x: { beginAtZero: true, ticks: { precision: 0 } } }
+      }
+    });
+  });
+}
+
+function drawDoughnut(id, labels, values, colors) {
+  chartReady(function() {
+    if (typeof Chart === 'undefined') return;
+    if (reportCharts[id]) reportCharts[id].destroy();
+    var ctx = document.getElementById(id).getContext('2d');
+    reportCharts[id] = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: [{ data: values, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { position: 'bottom' } },
+        cutout: '60%'
+      }
+    });
+  });
+}
+
+function exportReportsCsv() {
+  if (!lastReportData) { showToast('Chưa có dữ liệu báo cáo!', 'error'); return; }
+  var byDay = lastReportData.byDay || [];
+  var header = ['Ngay','Tong dang ky','Da duyet','Cho duyet','Tu choi'];
+  var rows = byDay.map(function(d) {
+    return [d.day, d.total, d.approved, d.pending, d.rejected];
+  });
+  var csv = header.join(',') + '\n' + rows.map(function(r) { return r.join(','); }).join('\n');
+  var blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'bao_cao_' + new Date().toISOString().slice(0, 10) + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+}
+
+// ===== START =====
+checkAdminAuth();</script>
+
+</body>
+</html>

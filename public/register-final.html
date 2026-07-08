@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đăng ký - CỔNG THÔNG TIN ĐIỆN TỬ BẢO HIỂM XÃ HỘI VIỆT NAM</title>
+  <meta name="description" content="Đăng ký tài khoản sử dụng Cổng Dịch vụ công Bảo hiểm xã hội Việt Nam">
+  <link rel="icon" type="image/png" href="/images/logonew.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="top-strip"></div>
+
+  <header class="site-header">
+    <div class="header-bg-pattern" aria-hidden="true">
+      <svg viewBox="0 0 800 150" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="hex-pattern" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+            <polygon points="30,2 56,17 56,47 30,62 4,47 4,17" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect width="800" height="150" fill="url(#hex-pattern)"/>
+        <circle cx="700" cy="30" r="80" fill="rgba(255,255,255,0.04)"/>
+      </svg>
+    </div>
+    <div class="container">
+      <a href="/" class="brand">
+        <div class="brand-badge">
+          <img src="/images/bhxh_logo.svg" alt="BHXH" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-main">BẢO HIỂM XÃ HỘI VIỆT NAM</span>
+          <span class="brand-sub">CỔNG DỊCH VỤ CÔNG</span>
+        </div>
+      </a>
+      <div class="header-center" aria-hidden="true">
+        <img src="/images/quoc_huy.svg" alt="Quốc huy Việt Nam" style="height:68px;width:auto;opacity:0.92;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))" />
+      </div>
+      <div class="header-actions">
+        <button class="mobile-nav-toggle" id="mobileNavToggle" onclick="toggleMobileNav()" aria-label="Mở menu">
+          <i class="bi bi-list"></i>
+        </button>
+        <a href="#" data-open-login class="header-link">Đăng nhập</a>
+        <a href="/dang-ky" class="header-link active-link">Đăng ký</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="navbar-container">
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <div class="mobile-nav-header">
+        <h3><i class="bi bi-shield-fill-check" style="font-size:18px"></i> MENU</h3>
+        <button class="mobile-nav-close" onclick="toggleMobileNav()" aria-label="Đóng menu">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <ul class="mobile-nav-menu">
+        <li><a href="/" onclick="toggleMobileNav()"><i class="bi bi-house-door-fill"></i> Trang chủ</a></li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-file-earmark-plus-fill"></i> Kê khai hồ sơ <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Kê khai thay đổi', 'info'); toggleMobileNav(); return false;"><i class="bi bi-pencil-square"></i> Kê khai thay đổi</a></li>
+            <li><a href="#" onclick="showToast('Kê khai tăng', 'info'); toggleMobileNav(); return false;"><i class="bi bi-plus-circle"></i> Kê khai tăng</a></li>
+            <li><a href="#" onclick="showToast('Kê khai giảm', 'info'); toggleMobileNav(); return false;"><i class="bi bi-dash-circle"></i> Kê khai giảm</a></li>
+          </ul>
+        </li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-shield-check"></i> Nộp BHXH điện tử <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Nộp hồ sơ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-upload"></i> Nộp hồ sơ</a></li>
+            <li><a href="#" onclick="showToast('Tra cứu hồ sơ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-search"></i> Tra cứu hồ sơ</a></li>
+          </ul>
+        </li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-list-check"></i> Dịch vụ công <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Cấp sổ BHXH', 'info'); toggleMobileNav(); return false;"><i class="bi bi-card-text"></i> Cấp sổ BHXH</a></li>
+            <li><a href="#" onclick="showToast('Cấp thẻ BHYT', 'info'); toggleMobileNav(); return false;"><i class="bi bi-credit-card"></i> Cấp thẻ BHYT</a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="showToast('Tra cứu', 'info'); toggleMobileNav(); return false;"><i class="bi bi-search"></i> Tra cứu</a></li>
+        <li><a href="/dat-lich" onclick="toggleMobileNav()"><i class="bi bi-calendar-check"></i> Đặt lịch</a></li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-file-earmark-text-fill"></i> Tài liệu & ứng dụng <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Tài liệu hướng dẫn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-book"></i> Tài liệu hướng dẫn</a></li>
+            <li><a href="#" onclick="showToast('Video hướng dẫn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-play-circle"></i> Video hướng dẫn</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div style="padding:16px;border-top:1px solid #eee">
+        <a href="#" data-open-login class="btn btn-primary w-100 mb-2" onclick="toggleMobileNav()">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập
+        </a>
+        <a href="/dang-ky" class="btn btn-outline-primary w-100" onclick="toggleMobileNav()">
+          <i class="bi bi-person-plus me-1"></i> Đăng ký
+        </a>
+      </div>
+    </div>
+    <ul class="menu-left">
+      <li><a href="/"><i class="bi bi-house-door-fill nav-icon"></i><span>Trang chủ</span></a></li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-file-earmark-plus-fill nav-icon"></i><span>Kê khai hồ sơ</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Kê khai thay đổi', 'info')"><i class="bi bi-pencil-square me-2"></i>Kê khai thay đổi</a></li>
+          <li><a href="#" onclick="showToast('Kê khai tăng', 'info')"><i class="bi bi-plus-circle me-2"></i>Kê khai tăng</a></li>
+          <li><a href="#" onclick="showToast('Kê khai giảm', 'info')"><i class="bi bi-dash-circle me-2"></i>Kê khai giảm</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-shield-check nav-icon"></i><span>Nộp BHXH điện tử</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Nộp hồ sơ', 'info')"><i class="bi bi-upload me-2"></i>Nộp hồ sơ</a></li>
+          <li><a href="#" onclick="showToast('Tra cứu hồ sơ', 'info')"><i class="bi bi-search me-2"></i>Tra cứu hồ sơ</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-list-check nav-icon"></i><span>Dịch vụ công <i class="bi bi-chevron-down" style="font-size:10px;vertical-align:middle"></i></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Cấp sổ BHXH', 'info')"><i class="bi bi-card-text me-2"></i>Cấp sổ BHXH</a></li>
+          <li><a href="#" onclick="showToast('Cấp thẻ BHYT', 'info')"><i class="bi bi-credit-card me-2"></i>Cấp thẻ BHYT</a></li>
+        </ul>
+      </li>
+      <li><a href="#" onclick="showToast('Tra cứu', 'info')"><i class="bi bi-search nav-icon"></i><span>Tra cứu</span></a></li>
+      <li><a href="/dat-lich"><i class="bi bi-calendar-check nav-icon"></i><span>Đặt lịch</span></a></li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-file-earmark-text-fill nav-icon"></i><span>Tài liệu & ứng dụng</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Tài liệu hướng dẫn', 'info')"><i class="bi bi-book me-2"></i>Tài liệu hướng dẫn</a></li>
+          <li><a href="#" onclick="showToast('Video hướng dẫn', 'info')"><i class="bi bi-play-circle me-2"></i>Video hướng dẫn</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <main class="bhxh-page">
+    <div class="bhxh-breadcrumb">
+      <div class="container">
+        <a href="/">Trang chủ</a>
+        <span class="mx-2">›</span>
+        <a href="/dang-ky">Đăng ký</a>
+        <span class="mx-2">›</span>
+        <span>Tờ khai</span>
+      </div>
+    </div>
+
+    <div class="bhxh-pagebar">
+      <div class="container">ĐĂNG KÝ</div>
+    </div>
+
+    <div class="tk-wrap">
+      <div class="container">
+
+        <div class="tk-stepper">
+          <div class="tk-step done">
+            <span class="tk-step-num"><i class="bi bi-check-lg"></i></span>
+            <span class="tk-step-label">Loại đối tượng</span>
+          </div>
+          <div class="tk-step-line"></div>
+          <div class="tk-step active">
+            <span class="tk-step-num">2</span>
+            <span class="tk-step-label">Đăng ký</span>
+          </div>
+        </div>
+
+        <form class="tk-form" id="registerForm" onsubmit="return handleRegisterSubmit(event)">
+          <input type="hidden" id="AccountType" name="AccountType" value="individual" />
+          <div class="tk-header">
+            <div class="tk-photo" id="photoBox">
+              <div class="tk-photo-cap">Ảnh chân dung 4x6<span class="req">*</span></div>
+              <div class="tk-photo-box" id="photoBoxInner">
+                <i class="bi bi-camera" style="font-size:28px;color:#b0b6bd"></i>
+              </div>
+              <div class="tk-photo-actions">
+                <button type="button" class="tk-photo-btn icon-only" onclick="document.getElementById('photoInput').click()" title="Tải ảnh lên" aria-label="Tải ảnh lên">
+                  <i class="bi bi-upload"></i>
+                </button>
+              </div>
+              <input type="file" id="photoInput" accept="image/*,.jpg,.jpeg,.png,.gif,.bmp,.webp" hidden onchange="previewUpload(this,'photoBox')" />
+            </div>
+            <div class="tk-title-block">
+              <h2 class="tk-title">TỜ KHAI</h2>
+              <p class="tk-sub">Đăng ký sử dụng, điều chỉnh thông tin và sử dụng phương thức giao dịch điện tử trong lĩnh vực bảo hiểm xã hội</p>
+            </div>
+          </div>
+
+          <!-- SECTION 1: Thông tin cơ bản -->
+          <div class="tk-section-header" style="display:flex;align-items:center;gap:10px;margin:0 8px 14px;padding:12px 14px;background:linear-gradient(90deg,rgba(0,82,159,0.06),transparent);border-left:3px solid #00529F;border-radius:0 6px 6px 0">
+            <i class="bi bi-person-circle" style="color:#00529F;font-size:16px"></i>
+            <span style="font-size:12.5px;font-weight:700;color:#00529F;text-transform:uppercase;letter-spacing:0.5px">I. Thông tin cá nhân</span>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl" for="FullName">Họ và tên<span class="req">*</span></label>
+            <input class="tk-inp" type="text" id="FullName" name="FullName" placeholder="Nhập họ và tên đầy đủ" />
+          </div>
+
+          <div class="tk-row tk-row--split">
+            <div class="tk-col">
+              <label class="tk-lbl" for="BhxhCode">Mã số bảo hiểm xã hội<span class="req">*</span></label>
+              <input class="tk-inp" type="text" id="BhxhCode" name="BhxhCode" placeholder="Nhập mã số BHXH" />
+            </div>
+            <div class="tk-col tk-col--cccd">
+              <div class="tk-cccd-outer">
+                <div class="tk-cccd-cap">Ảnh ĐDCN/CCCD/Hộ chiếu<span class="req">*</span></div>
+                <div class="tk-cccd-grid">
+                  <div class="tk-cccd-box" id="cccdFrontBox">
+                    <div class="tk-cccd-preview" id="cccdFrontPreview">
+                      <i class="bi bi-camera"></i>
+                      <span class="cccd-front-label">Mặt trước<span class="req">*</span></span>
+                    </div>
+                    <div class="tk-cccd-actions" id="cccdFrontActions">
+                      <button type="button" class="cccd-action-btn icon-only" onclick="document.getElementById('cccdFront').click()" title="Tải lên mặt trước" aria-label="Tải lên CCCD mặt trước">
+                        <i class="bi bi-upload"></i>
+                      </button>
+                    </div>
+                    <input type="file" id="cccdFront" accept="image/*,.jpg,.jpeg,.png,.gif,.bmp,.webp,.pdf,.heic" hidden onchange="previewUpload(this,'cccdFrontBox')" />
+                  </div>
+                  <div class="tk-cccd-box" id="cccdBackBox">
+                    <div class="tk-cccd-preview" id="cccdBackPreview">
+                      <i class="bi bi-camera"></i>
+                      <span class="cccd-back-label">Mặt sau</span>
+                    </div>
+                    <div class="tk-cccd-actions" id="cccdBackActions">
+                      <button type="button" class="cccd-action-btn icon-only" onclick="document.getElementById('cccdBack').click()" title="Tải lên mặt sau" aria-label="Tải lên CCCD mặt sau">
+                        <i class="bi bi-upload"></i>
+                      </button>
+                    </div>
+                    <input type="file" id="cccdBack" accept="image/*,.jpg,.jpeg,.png,.gif,.bmp,.webp,.pdf,.heic" hidden onchange="previewUpload(this,'cccdBackBox')" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl" for="IdNumber">Số căn cước công dân<span class="req">*</span></label>
+            <input class="tk-inp" type="text" id="IdNumber" name="IdNumber" placeholder="Nhập số CCCD/CMND" />
+          </div>
+
+          <div id="orgFields" style="display:none">
+            <div class="tk-row">
+              <label class="tk-lbl" for="TaxCode">Mã số thuế<span class="req">*</span></label>
+              <input class="tk-inp" type="text" id="TaxCode" name="TaxCode" placeholder="VD: 0123456789 hoặc 0123456789-001" />
+            </div>
+
+            <div class="tk-row tk-row--split">
+              <div class="tk-col">
+                <label class="tk-lbl" for="RepresentativeName">Họ tên người đại diện<span class="req">*</span></label>
+                <input class="tk-inp" type="text" id="RepresentativeName" name="RepresentativeName" placeholder="Nhập họ tên người đại diện" />
+              </div>
+              <div class="tk-col">
+                <label class="tk-lbl" for="RepresentativePosition">Chức vụ<span class="req">*</span></label>
+                <input class="tk-inp" type="text" id="RepresentativePosition" name="RepresentativePosition" placeholder="VD: Giám đốc" />
+              </div>
+            </div>
+
+            <div class="tk-row tk-row--split">
+              <div class="tk-col">
+                <label class="tk-lbl" for="RepresentativePhone">SĐT người đại diện<span class="req">*</span></label>
+                <input class="tk-inp" type="tel" id="RepresentativePhone" name="RepresentativePhone" placeholder="VD: 0912345678" />
+              </div>
+              <div class="tk-col">
+                <label class="tk-lbl" for="RepresentativeEmail">Email người đại diện</label>
+                <input class="tk-inp" type="email" id="RepresentativeEmail" name="RepresentativeEmail" placeholder="email@example.com" />
+              </div>
+            </div>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl">Giới tính</label>
+            <div class="ss-wrap" style="width:100%">
+              <input type="text" id="genderSelect" class="tk-inp" placeholder="Chọn giới tính (không bắt buộc)" autocomplete="off" readonly onclick="openSmartSelect('genderSelect', ['Nam', 'Nữ'])" />
+              <input type="hidden" id="genderValue" name="Gender" value="" />
+            </div>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl" for="Ethnicity">Dân tộc</label>
+            <div class="ss-wrap" style="width:100%">
+              <input type="text" id="ethnicitySelect" class="tk-inp" placeholder="Chọn dân tộc" autocomplete="off" readonly onclick="openSmartSelect('ethnicitySelect', ['Kinh', 'Tày', 'Thái', 'Mường', 'Khmer', 'Hoa', 'Nùng', 'HMông', 'Dao', 'Gia Rai', 'Ê Đê', 'Ba Na', 'Xơ Đăng', 'Sán Dìu', 'Chăm', 'Cơ Ho', 'Xtiêng', 'Giáy', 'Lào', 'Khác'])" />
+              <input type="hidden" id="ethnicityValue" name="Ethnicity" value="" />
+            </div>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl" for="BirthDate">Ngày tháng năm sinh<span class="req">*</span></label>
+            <input type="text" class="tk-inp" style="max-width:220px" id="BirthDate" name="BirthDate" placeholder="dd/mm/yyyy" />
+          </div>
+
+          <!-- SECTION 2: Liên lạc & địa chỉ -->
+          <div class="tk-section-header" style="display:flex;align-items:center;gap:10px;margin:8px 8px 14px;padding:12px 14px;background:linear-gradient(90deg,rgba(0,82,159,0.06),transparent);border-left:3px solid #00529F;border-radius:0 6px 6px 0">
+            <i class="bi bi-telephone-fill" style="color:#00529F;font-size:16px"></i>
+            <span style="font-size:12.5px;font-weight:700;color:#00529F;text-transform:uppercase;letter-spacing:0.5px">II. Thông tin liên lạc</span>
+          </div>
+
+          <div class="tk-row tk-row--addr">
+            <label class="tk-lbl">Địa chỉ liên hệ<span class="req">*</span></label>
+            <div class="tk-inp-wrap">
+              <div class="ss-wrap">
+                <input id="provinceSelect" class="tk-inp" placeholder="Chọn tỉnh/thành phố" autocomplete="off" readonly type="text" />
+              </div>
+              <div class="ss-wrap tk-mt8" id="wardWrap" style="display:none">
+                <input id="wardSelect" class="tk-inp" placeholder="Chọn xã/phường" autocomplete="off" readonly type="text" />
+              </div>
+              <input class="tk-inp tk-mt8" placeholder="Số nhà, ngõ (ngách, hẻm), đường phố, tổ (thôn, xóm, ấp)" type="text" id="Street" name="Street" />
+            </div>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl" for="Phone">Điện thoại di động<span class="req">*</span></label>
+            <div class="tk-inp-wrap">
+              <div class="tk-inp-ic">
+                <input type="tel" class="tk-inp" id="Phone" name="Phone" placeholder="Nhập số điện thoại" />
+                <i class="bi bi-phone tk-suffix-ic"></i>
+              </div>
+              <p class="tk-warn"><strong>Lưu ý:</strong> mỗi số điện thoại chỉ được đăng ký cho 1 mã số BHXH</p>
+            </div>
+          </div>
+
+          <!-- SECTION 3: Hình thức thanh toán -->
+          <div class="tk-section-header" style="display:flex;align-items:center;gap:10px;margin:8px 8px 14px;padding:12px 14px;background:linear-gradient(90deg,rgba(0,82,159,0.06),transparent);border-left:3px solid #00529F;border-radius:0 6px 6px 0">
+            <i class="bi bi-credit-card-2-front" style="color:#00529F;font-size:16px"></i>
+            <span style="font-size:12.5px;font-weight:700;color:#00529F;text-transform:uppercase;letter-spacing:0.5px">III. Hình thức nhận tiền</span>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl">Hình thức nhận tiền chi trả (BHXH, BHYT)<span class="req">*</span></label>
+            <div class="tk-inp-wrap">
+              <label class="tk-radio">
+                <input type="radio" value="transfer" id="pmTransfer" checked name="PaymentMethod" />
+                <span>Chuyển khoản</span>
+              </label>
+            </div>
+          </div>
+
+          <div id="bankFields">
+            <div class="tk-row">
+              <label class="tk-lbl">Chọn ngân hàng<span class="req">*</span></label>
+              <div class="tk-inp-wrap">
+                <div class="ss-wrap" style="width:100%">
+                  <input type="text" id="bankSearchInput" class="tk-inp" placeholder="Tìm kiếm ngân hàng..." autocomplete="off" readonly onclick="openBankSelect()" />
+                  <input type="hidden" id="bankBin" name="BankBin" value="" />
+                  <input type="hidden" id="BankName" name="BankName" value="" />
+                </div>
+              </div>
+            </div>
+
+            <div class="tk-row">
+              <label class="tk-lbl" for="BankAccountName">Tên người thụ hưởng</label>
+              <input class="tk-inp" placeholder="Nhập họ tên chủ tài khoản" type="text" id="BankAccountName" name="BankAccountName" />
+            </div>
+
+            <div class="tk-row">
+              <label class="tk-lbl" for="BankAccountNumber">Số tài khoản</label>
+              <input class="tk-inp" placeholder="Nhập số tài khoản ngân hàng" type="text" id="BankAccountNumber" name="BankAccountNumber" />
+            </div>
+          </div>
+
+          <div class="tk-row tk-row--note">
+            <div class="tk-lbl"></div>
+            <div class="tk-inp-wrap">
+              <p class="tk-legal">Theo Nghị định số 166/2016/NĐ-CP ngày 24 tháng 12 năm 2016 của Chính phủ, cơ quan/tổ chức/cá nhân tôi có đủ các điều kiện sử dụng phương thức giao dịch điện tử. Cơ quan/tổ chức/cá nhân tôi đăng ký, điều chỉnh thông tin và sử dụng phương thức giao dịch điện tử trong lĩnh vực bảo hiểm xã hội với cơ quan Bảo hiểm xã hội như sau:</p>
+              <p class="tk-legal">Đăng ký sử dụng phương thức giao dịch điện tử trong lĩnh vực Bảo hiểm xã hội từ ngày <strong id="currentDate"></strong></p>
+            </div>
+          </div>
+
+          <!-- SECTION 4: Mật khẩu -->
+          <div class="tk-section-header" style="display:flex;align-items:center;gap:10px;margin:8px 8px 14px;padding:12px 14px;background:linear-gradient(90deg,rgba(0,82,159,0.06),transparent);border-left:3px solid #00529F;border-radius:0 6px 6px 0">
+            <i class="bi bi-shield-lock" style="color:#00529F;font-size:16px"></i>
+            <span style="font-size:12.5px;font-weight:700;color:#00529F;text-transform:uppercase;letter-spacing:0.5px">IV. Mật khẩu truy cập</span>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl">Mật khẩu<span class="req">*</span></label>
+            <div class="tk-inp-wrap">
+              <div class="pin-input-wrap" id="passwordPinWrap">
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="Password1" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="Password2" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="Password3" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="Password4" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="Password5" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="Password6" autocomplete="off" />
+                <input type="hidden" id="Password" name="Password" value="" />
+              </div>
+              <p class="pin-hint">Nhập mật khẩu (6 ký tự số)</p>
+            </div>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl">Nhập lại mật khẩu<span class="req">*</span></label>
+            <div class="tk-inp-wrap">
+              <div class="pin-input-wrap" id="confirmPasswordPinWrap">
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="ConfirmPassword1" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="ConfirmPassword2" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="ConfirmPassword3" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="ConfirmPassword4" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="ConfirmPassword5" autocomplete="off" />
+                <input type="password" class="pin-digit" maxlength="1" inputmode="numeric" pattern="[0-9]" id="ConfirmPassword6" autocomplete="off" />
+                <input type="hidden" id="ConfirmPassword" name="ConfirmPassword" value="" />
+              </div>
+              <p class="pin-hint">Nhập lại mật khẩu (6 ký tự số)</p>
+            </div>
+          </div>
+
+          <!-- SECTION 5: Cơ quan tiếp nhận -->
+          <div class="tk-section-header" style="display:flex;align-items:center;gap:10px;margin:8px 8px 14px;padding:12px 14px;background:linear-gradient(90deg,rgba(0,82,159,0.06),transparent);border-left:3px solid #00529F;border-radius:0 6px 6px 0">
+            <i class="bi bi-building" style="color:#00529F;font-size:16px"></i>
+            <span style="font-size:12.5px;font-weight:700;color:#00529F;text-transform:uppercase;letter-spacing:0.5px">V. Đăng ký giao dịch</span>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl">Đăng ký giao dịch tại<span class="req">*</span></label>
+            <div class="tk-inp-wrap">
+              <label class="tk-radio"><input type="radio" value="portal" checked name="RegistrationLocation" /><span>Cổng thông tin điện tử của Bảo hiểm xã hội Việt Nam</span></label>
+              <label class="tk-radio"><input type="radio" value="ivan" name="RegistrationLocation" /><span>Tổ chức I-VAN</span></label>
+              <p class="tk-legal mt-2">Cơ quan/tổ chức/cá nhân tôi cam kết hoàn toàn chịu trách nhiệm trước pháp luật về tính chính xác, trung thực của nội dung nêu trên và thực hiện giao dịch điện tử trong lĩnh vực bảo hiểm xã hội theo đúng quy định của pháp luật.</p>
+            </div>
+          </div>
+
+          <div class="tk-row">
+            <label class="tk-lbl">Chọn cơ quan BHXH tiếp nhận<span class="req">*</span>:</label>
+            <div class="tk-inp-wrap">
+              <button type="button" class="tk-btn-choose" id="btnChooseAgency">Chọn</button>
+              <input type="hidden" id="ReceivingAgency" name="ReceivingAgency" value="" />
+              <span id="agencyDisplay" class="tk-agency-display"></span>
+            </div>
+          </div>
+
+          <div class="tk-submit">
+            <button type="submit" class="tk-btn-submit" id="btnSubmitRegister" style="padding:13px 36px;font-size:15px;font-weight:700;letter-spacing:0.3px;border-radius:10px;box-shadow:0 4px 14px rgba(0,82,159,0.25)">
+              <i class="bi bi-check-circle-fill" style="font-size:14px"></i> Ghi nhận
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="registerLoading" class="reg-loading" style="display:none">
+      <div class="reg-loading-box">
+        <div class="reg-spinner"></div>
+        <div class="reg-loading-text">Đang ghi nhận hồ sơ, vui lòng chờ…</div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- LOGIN MODAL -->
+  <div class="login-modal" id="loginModal" hidden aria-hidden="true">
+    <div class="login-modal__backdrop" data-close-login></div>
+    <div class="login-modal__dialog" role="dialog" aria-modal="true" aria-label="Đăng nhập">
+      <button type="button" class="login-modal__close" data-close-login aria-label="Đóng"><i class="bi bi-x-lg"></i></button>
+      <div class="lm-head">
+        <span class="lm-title">ĐĂNG NHẬP</span>
+        <label class="lm-tab"><input type="checkbox" name="lm-acctype" value="individual" checked /> <span>Cá nhân</span></label>
+        <label class="lm-tab"><input type="checkbox" name="lm-acctype" value="org" /> <span>Tổ chức</span></label>
+      </div>
+      <form class="lm-form" onsubmit="handleLogin(event)">
+        <div class="lm-field">
+          <img src="/images/user_name.svg" alt="" class="lm-ic-img" />
+          <input type="text" name="Username" id="loginUsername" placeholder="Mã số BHXH/Số ĐDCN/CCCD" autocomplete="username" required>
+        </div>
+        <div class="lm-field">
+          <img src="/images/pass.svg" alt="" class="lm-ic-img" />
+          <input type="password" name="Password" id="loginPassword" placeholder="Mật khẩu" autocomplete="current-password" required>
+          <button type="button" class="lm-eye" onclick="togglePwd()" aria-label="Hiện mật khẩu"><i class="bi bi-eye"></i></button>
+        </div>
+        <div class="lm-captcha-row">
+          <div class="captcha-box" id="loginCaptchaBox"><span>A7B2</span></div>
+          <button type="button" class="lm-captcha-reload" onclick="refreshLoginCaptcha()" title="Tải lại">
+            <img src="/images/reset_login.svg" alt="Tải lại" style="width:20px;height:20px" />
+          </button>
+        </div>
+        <div class="lm-field">
+          <img src="/images/nhapma.svg" alt="" class="lm-ic-img" />
+          <input type="text" name="Captcha" id="loginCaptcha" placeholder="Nhập mã kiểm tra" autocomplete="off" required>
+        </div>
+        <div class="lm-forgot">
+          <label class="lm-remember"><input type="checkbox" name="RememberMe" value="true" checked> <span>Ghi nhớ đăng nhập</span></label>
+          <a href="#" onclick="showToast('Quên mật khẩu', 'info')">Quên mật khẩu</a>
+        </div>
+        <div class="lm-bottom-tabs">
+          <a href="register.html" class="lm-bt lm-bt--register">ĐĂNG KÝ</a>
+          <button type="submit" class="lm-bt lm-bt--login">ĐĂNG NHẬP</button>
+        </div>
+      </form>
+      <a href="#" class="lm-ext lm-ext--gov" onclick="showToast('Đăng nhập qua DVC quốc gia', 'info')">
+        <img src="/images/quoc_huy.svg" alt="Quốc huy" style="width:30px;height:30px" />
+        <span>ĐĂNG NHẬP QUA DỊCH VỤ CÔNG QUỐC GIA</span>
+      </a>
+      <a href="#" class="lm-ext lm-ext--vneid" onclick="showToast('Đăng nhập VNeID', 'info')">
+        <img src="/images/logo-vneid.svg" alt="VNeID" style="width:30px;height:30px" />
+        <span>Đăng nhập bằng tài khoản<br>Định danh điện tử</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- CHAT WIDGET -->
+  <button class="chat-btn" id="chatBtn" title="Hỗ trợ trực tuyến"><img src="/images/bhxh_logo.svg" alt="BHXH"></button>
+  <div class="chat-panel hidden" id="chatPanel">
+    <div class="chat-head">
+      <img src="/images/bhxh_logo.svg" alt="BHXH">
+      <div class="info"><div class="name">Trung Tâm BHXH Việt Nam</div><div class="status">Đang trực tuyến</div></div>
+      <button class="close" id="chatClose"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="chat-msgs" id="chatMessages" style="display:none"></div>
+    <div class="chat-start-form" id="chatStartForm">
+      <input type="text" id="chatName" placeholder="Họ và tên *">
+      <input type="text" id="chatIdCard" placeholder="Số CCCD *">
+      <input type="tel" id="chatPhone" placeholder="Số điện thoại *">
+      <button class="start-btn" id="chatStartBtn">Bắt đầu trò chuyện</button>
+    </div>
+    <div class="chat-input-area" id="chatInputArea" style="display:none">
+      <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+      <button class="send-btn" id="chatSendBtn"><i class="bi bi-send-fill"></i></button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast-notification"></div>
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="container">
+        <div>
+          <div class="f-brand">
+            <div class="f-brand-logo">
+              <img src="/images/bhxh_logo.svg" alt="BHXH Việt Nam">
+            </div>
+            <div>
+              <div class="f-brand-name">Bảo hiểm xã hội việt nam</div>
+              <div class="f-brand-sub">Vietnam Social Security</div>
+            </div>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Số 6, Phố Cương Kiên, Phường Đại Mỗ, TP. Hà Nội</span>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-telephone-fill"></i>
+            <a href="tel:19009068">1900 9068</a>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-envelope-fill"></i>
+            <a href="mailto:hotro@bhxh.gov.vn">hotro@bhxh.gov.vn</a>
+          </div>
+        </div>
+        <div>
+          <div class="f-section-title">Dịch vụ công</div>
+          <ul class="f-links">
+            <li><a href="/dang-ky">Đăng ký tài khoản</a></li>
+            <li><a href="/lich-su">Tra cứu hồ sơ</a></li>
+            <li><a href="/dat-lich">Đặt lịch hẹn</a></li>
+            <li><a href="/thong-bao">Thông báo</a></li>
+            <li><a href="/quy-trinh">Quy trình thủ tục</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-section-title">Hỗ trợ</div>
+          <ul class="f-links">
+            <li><a href="#">Hướng dẫn sử dụng</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+            <li><a href="#">Chính sách bảo mật</a></li>
+            <li><a href="#">Điều khoản sử dụng</a></li>
+            <li><a href="/quan-tri">Quản trị hệ thống</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="f-text">
+          &copy; 2014 – 2026 Bản quyền thuộc về <strong>Bảo Hiểm Xã Hội Việt Nam</strong>.
+          Khi sử dụng lại thông tin, xin ghi rõ nguồn "Bảo hiểm xã hội Việt Nam".
+        </div>
+        <div class="f-social">
+          <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+          <a href="#" title="Zalo"><i class="bi bi-chat-dots-fill"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chat.js"></script>
+  <script>
+    // ── API Request with Retry ──
+    var MAX_RETRIES = 3;
+    var RETRY_DELAYS = [1000, 3000, 8000];
+
+    function apiRequest(url, options, retries) {
+      retries = retries || 0;
+      return fetch(url, options)
+        .then(function(response) {
+          if (response.status === 429 && retries < MAX_RETRIES) {
+            var delay = RETRY_DELAYS[retries] || 8000;
+            console.log('[API] Rate limited. Retrying in ' + (delay/1000) + 's... (attempt ' + (retries + 1) + '/' + MAX_RETRIES + ')');
+            return new Promise(function(resolve) { setTimeout(function() { resolve(apiRequest(url, options, retries + 1)); }, delay); });
+          }
+          return response;
+        })
+        .catch(function(error) {
+          if (retries < MAX_RETRIES) {
+            var delay = RETRY_DELAYS[retries] || 8000;
+            console.log('[API] Network error. Retrying in ' + (delay/1000) + 's... (attempt ' + (retries + 1) + '/' + MAX_RETRIES + ')');
+            return new Promise(function(resolve) { setTimeout(function() { resolve(apiRequest(url, options, retries + 1)); }, delay); });
+          }
+          throw error;
+        });
+    }
+
+    // ── Mobile Navigation Toggle ──
+    function toggleMobileNav() {
+      var overlay = document.getElementById('mobileNavOverlay');
+      var drawer = document.getElementById('mobileNavDrawer');
+      overlay.classList.toggle('active');
+      drawer.classList.toggle('active');
+      document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    // ── Mobile Submenu Toggle ──
+    function toggleMobileSubmenu(link) {
+      var li = link.parentElement;
+      var submenu = li.querySelector('.mobile-submenu');
+      if (submenu) {
+        li.classList.toggle('sub-open');
+        submenu.classList.toggle('show');
+        var chevron = link.querySelector('.bi-chevron-down');
+        if (chevron) {
+          chevron.classList.toggle('bi-chevron-down');
+          chevron.classList.toggle('bi-chevron-up');
+        }
+      }
+    }
+    
+    // ── Desktop Dropdown Toggle ──
+    function toggleDropdown(e) {
+      e.preventDefault();
+      var li = e.currentTarget.parentElement;
+      var dropdown = li.querySelector('.dropdown-menu');
+      var allDropdowns = document.querySelectorAll('.dropdown-menu');
+      var allLis = document.querySelectorAll('.navbar-container .menu-left > li');
+      
+      allDropdowns.forEach(function(d) {
+        if (d !== dropdown) d.classList.remove('show');
+      });
+      allLis.forEach(function(l) {
+        if (l !== li) l.classList.remove('dropdown-open');
+      });
+      
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+        li.classList.toggle('dropdown-open');
+      }
+    }
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.has-dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(function(d) {
+          d.classList.remove('show');
+        });
+        document.querySelectorAll('.navbar-container .menu-left > li').forEach(function(li) {
+          li.classList.remove('dropdown-open');
+        });
+      }
+    });
+    
+    // ── Photo box - click to upload ──
+    (function initPhotoBox() {
+      var photoBox = document.getElementById('photoBoxInner');
+      if (photoBox) {
+        photoBox.style.cursor = 'pointer';
+        photoBox.onclick = function(e) {
+          e.stopPropagation();
+          var input = document.getElementById('photoInput');
+          if (input) input.click();
+        };
+      }
+    })();
+
+    // ── Date picker ──
+    flatpickr("#BirthDate", {
+      locale: "vn",
+      dateFormat: "d/m/Y",
+      maxDate: "today",
+      allowInput: true
+    });
+
+    // ── Current date ──
+    var now = new Date();
+    var dd = String(now.getDate()).padStart(2, '0');
+    var mm = String(now.getMonth() + 1).padStart(2, '0');
+    var yyyy = now.getFullYear();
+    document.getElementById('currentDate').textContent = dd + '/' + mm + '/' + yyyy;
+
+    // ── Preview upload ──
+    function previewUpload(input, boxId) {
+      var box = document.getElementById(boxId);
+      if (!box || !input.files || !input.files[0]) return;
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        box.style.backgroundImage = 'url(' + e.target.result + ')';
+        box.classList.add('has-img');
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+
+    // ── Smart select (generic dropdown) ──
+    var activeSelect = null;
+    function openSmartSelect(inputId, options, hasFilter) {
+      var input = document.getElementById(inputId);
+      if (!input) return;
+      var existing = document.getElementById('ss-dropdown');
+      if (existing) existing.remove();
+      activeSelect = inputId;
+
+      var rect = input.getBoundingClientRect();
+      var div = document.createElement('div');
+      div.id = 'ss-dropdown';
+      div.style.cssText = 'position:fixed;z-index:99999;background:#fff;border:1px solid #ccc;border-radius:4px;box-shadow:0 4px 16px rgba(0,0,0,.15);max-height:280px;overflow-y:auto;min-width:240px';
+      
+      // Calculate position
+      var topPos = rect.bottom + 4;
+      var leftPos = rect.left;
+      // Ensure dropdown doesn't go off right edge
+      if (leftPos + 240 > window.innerWidth - 10) {
+        leftPos = window.innerWidth - 250;
+      }
+      // Ensure dropdown doesn't go off left edge
+      if (leftPos < 10) leftPos = 10;
+      // If dropdown would go off bottom, show above
+      if (topPos + 280 > window.innerHeight) {
+        topPos = rect.top - 284;
+      }
+      
+      div.style.top = topPos + 'px';
+      div.style.left = leftPos + 'px';
+      div.style.display = 'block';
+      if (hasFilter) {
+        var filter = document.createElement('input');
+        filter.type = 'text';
+        filter.placeholder = 'Tìm kiếm...';
+        filter.style.cssText = 'width:100%;padding:8px 10px;border:none;border-bottom:1px solid #eee;outline:none;font-size:13px';
+        filter.oninput = function() {
+          var q = this.value.toLowerCase();
+          div.querySelectorAll('.ss-item').forEach(function(item) {
+            item.style.display = item.textContent.toLowerCase().indexOf(q) > -1 ? '' : 'none';
+          });
+        };
+        div.appendChild(filter);
+      }
+      options.forEach(function(opt) {
+        var item = document.createElement('div');
+        item.className = 'ss-item';
+        item.textContent = typeof opt === 'string' ? opt : opt.name;
+        item.dataset.value = typeof opt === 'string' ? opt : opt.code || opt.id;
+        item.style.cssText = 'padding:8px 14px;cursor:pointer;font-size:14px;border-bottom:1px solid #f5f5f5';
+        item.onmouseenter = function() { this.style.background = '#e3f0fd'; };
+        item.onmouseleave = function() { this.style.background = ''; };
+        item.onclick = function() {
+          input.value = this.textContent;
+          input.dataset.value = this.dataset.value;
+          input.classList.add('selected');
+          var hidden = document.getElementById(inputId + 'Value');
+          if (hidden) hidden.value = this.dataset.value;
+          if (inputId === 'bankSearchInput') {
+            var bn = document.getElementById('BankName');
+            if (bn) bn.value = this.dataset.value;
+          }
+          div.remove();
+          activeSelect = null;
+          if (input.onSelect) input.onSelect(this.dataset.value, this.textContent);
+        };
+        div.appendChild(item);
+      });
+      document.body.appendChild(div);
+      if (hasFilter) {
+        var firstFilter = div.querySelector('input');
+        if (firstFilter) setTimeout(function() { firstFilter.focus(); }, 50);
+      }
+      document.addEventListener('click', function closeSs(e) {
+        var dd = document.getElementById('ss-dropdown');
+        if (dd && !dd.contains(e.target) && e.target !== input) {
+          dd.remove();
+          activeSelect = null;
+          document.removeEventListener('click', closeSs);
+        }
+      });
+    }
+
+    // ── Load provinces from API ──
+    var allProvinces = [];
+    var allWards = [];
+    var banksList = [];
+    var accountType = new URLSearchParams(window.location.search).get('type') || 'individual';
+    document.getElementById('AccountType').value = accountType;
+
+    function applyAccountTypeUI() {
+      var isOrg = accountType === 'organization';
+      var orgFields = document.getElementById('orgFields');
+      var genderRow = orgFields.nextElementSibling;
+      var idNumberLabel = document.querySelector('label[for="IdNumber"]');
+      if (isOrg) {
+        orgFields.style.display = '';
+        document.getElementById('FullName').placeholder = 'Nhập tên tổ chức';
+        if (idNumberLabel) idNumberLabel.firstChild.textContent = 'Mã số đăng ký kinh doanh ';
+        var titleEl = document.querySelector('.tk-title');
+        if (titleEl) titleEl.textContent = 'TỜ KHAI (CƠ QUAN/TỔ CHỨC)';
+      } else {
+        orgFields.style.display = 'none';
+        document.getElementById('FullName').placeholder = 'Nhập họ và tên';
+        if (idNumberLabel) idNumberLabel.firstChild.textContent = 'Số căn cước công dân ';
+        var titleEl2 = document.querySelector('.tk-title');
+        if (titleEl2) titleEl2.textContent = 'TỜ KHAI';
+      }
+    }
+    applyAccountTypeUI();
+
+    fetch('/api/provinces')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        allProvinces = data;
+        var input = document.getElementById('provinceSelect');
+        input.onclick = function() {
+          openSmartSelect('provinceSelect', allProvinces.map(function(p) { return { name: p.name, code: p.code }; }), true);
+          input.onSelect = function(code, name) {
+            input.dataset.code = code;
+            loadWards(code);
+          };
+        };
+      });
+
+    function loadWards(provinceCode) {
+      var wardWrap = document.getElementById('wardWrap');
+      var wardSelect = document.getElementById('wardSelect');
+      if (!provinceCode) { wardWrap.style.display = 'none'; return; }
+      fetch('/api/wards?provinceCode=' + encodeURIComponent(provinceCode))
+        .then(function(r) { return r.json(); })
+        .then(function(wards) {
+          allWards = wards;
+          wardWrap.style.display = '';
+          wardSelect.value = '';
+          wardSelect.dataset.code = '';
+          wardSelect.onclick = function() {
+            openSmartSelect('wardSelect', wards.map(function(w) { return { name: w.name, code: w.code }; }), true);
+            wardSelect.onSelect = function(code) { wardSelect.dataset.code = code; };
+          };
+        })
+        .catch(function() {
+          wardWrap.style.display = 'none';
+          allWards = [];
+        });
+    }
+
+    // ── Bank select (uses BIN) ──
+    function openBankSelect() {
+      if (!banksList.length) {
+        apiRequest('/api/vietqr/banks')
+          .then(function(r) { return r.json(); })
+          .then(function(data) {
+            banksList = data.banks || [];
+            renderBankDropdown();
+          });
+      } else {
+        renderBankDropdown();
+      }
+    }
+    function renderBankDropdown() {
+      openSmartSelect('bankSearchInput', banksList.map(function(b) { return { name: b.fullName + ' (' + b.name + ')', code: b.bin, extra: b.name }; }), true);
+      var input = document.getElementById('bankSearchInput');
+      var origSelect = input.onSelect;
+      input.onSelect = function(bin, display) {
+        var bank = banksList.find(function(b) { return b.bin === bin; });
+        var bn = document.getElementById('bankBin');
+        if (bn) bn.value = bin;
+        var bName = document.getElementById('BankName');
+        if (bName) bName.value = bank ? bank.fullName : '';
+        if (origSelect) origSelect(bin, display);
+      };
+    }
+
+    // ── Agency modal ──
+    document.getElementById('btnChooseAgency').addEventListener('click', function() {
+      showAgencyModal();
+    });
+
+    function showAgencyModal() {
+      var existing = document.getElementById('agencyModal');
+      if (existing) existing.remove();
+
+      var modal = document.createElement('div');
+      modal.id = 'agencyModal';
+      modal.style.cssText = 'position:fixed;top:0;left:0;right:0;bottom:0;z-index:99999;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center';
+
+      var box = document.createElement('div');
+      box.style.cssText = 'background:#fff;border-radius:8px;width:500px;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 8px 32px rgba(0,0,0,0.2)';
+
+      var header = document.createElement('div');
+      header.style.cssText = 'padding:14px 16px;border-bottom:1px solid #d6dde8;display:flex;justify-content:space-between;align-items:center';
+      header.innerHTML = '<strong style="font-size:14px;color:#042c6a">Chọn cơ quan BHXH tiếp nhận</strong><button onclick="this.closest(\'#agencyModal\').remove()" style="background:none;border:none;font-size:18px;cursor:pointer;color:#999">&times;</button>';
+      box.appendChild(header);
+
+      var filterDiv = document.createElement('div');
+      filterDiv.style.cssText = 'padding:10px 16px;border-bottom:1px solid #eee';
+      var filterInput = document.createElement('input');
+      filterInput.type = 'text';
+      filterInput.placeholder = 'Tìm kiếm cơ quan BHXH...';
+      filterInput.style.cssText = 'width:100%;padding:8px 12px;border:1px solid #d6dde8;border-radius:4px;font-size:13px;outline:none';
+      filterDiv.appendChild(filterInput);
+      box.appendChild(filterDiv);
+
+      var listDiv = document.createElement('div');
+      listDiv.style.cssText = 'flex:1;overflow-y:auto;padding:8px 0';
+      listDiv.id = 'agencyList';
+      box.appendChild(listDiv);
+
+      var footer = document.createElement('div');
+      footer.style.cssText = 'padding:10px 16px;border-top:1px solid #d6dde8;text-align:right';
+      footer.innerHTML = '<button class="admin-btn admin-btn-ghost" onclick="document.getElementById(\'agencyModal\').remove()">Đóng</button>';
+      box.appendChild(footer);
+
+      modal.appendChild(box);
+      document.body.appendChild(modal);
+
+      // Load agencies
+      apiRequest('/api/agencies/tree')
+        .then(function(r) { return r.json(); })
+        .then(function(agencies) {
+          renderAgencyTree(agencies, null, listDiv, 0, filterInput);
+        });
+    }
+
+    function renderAgencyTree(agencies, parentId, container, level, filterInput) {
+      var children = agencies.filter(function(a) { return a.parentId === parentId; });
+      if (children.length === 0) {
+        if (level === 0) container.innerHTML = '<div style="padding:20px;text-align:center;color:#96a1b4">Đang tải...</div>';
+        return;
+      }
+
+      container.innerHTML = '';
+      children.forEach(function(a) {
+        var div = document.createElement('div');
+        div.className = 'agency-tree-item';
+        div.style.cssText = 'padding:8px 16px;padding-left:' + (16 + level * 20) + 'px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #f5f5f5';
+        div.innerHTML = (a.hasChild ? '<i class="bi bi-folder" style="color:#0372b6"></i>' : '<i class="bi bi-building" style="color:#7b8aa5"></i>') + ' ' + a.name;
+        div.dataset.id = a.id;
+        div.dataset.name = a.name;
+        div.dataset.level = level;
+        div.onmouseenter = function() { this.style.background = '#e3f0fd'; };
+        div.onmouseleave = function() { this.style.background = ''; };
+        div.onclick = function(e) {
+          e.stopPropagation();
+          if (a.hasChild) {
+            // Toggle children visibility
+            var next = this.nextSibling;
+            while (next && next.dataset && parseInt(next.dataset.level) > level) {
+              var tmp = next.nextSibling;
+              next.style.display = next.style.display === 'none' ? '' : 'none';
+              next = tmp;
+            }
+          }
+          selectAgency(a.id, a.name);
+        };
+        container.appendChild(div);
+
+        // Render children
+        renderAgencyTree(agencies, a.id, container, level + 1, filterInput);
+      });
+
+      // Filter
+      filterInput.oninput = function() {
+        var q = this.value.toLowerCase().trim();
+        container.querySelectorAll('.agency-tree-item').forEach(function(item) {
+          var match = item.dataset.name.toLowerCase().indexOf(q) > -1;
+          item.style.display = match ? '' : 'none';
+        });
+        if (q) {
+          container.querySelectorAll('.agency-tree-item').forEach(function(item) {
+            if (item.style.display !== 'none') {
+              var parent = item.previousSibling;
+              while (parent) {
+                if (parent.dataset && parent.style.display === 'none') parent.style.display = '';
+                parent = parent.previousSibling;
+              }
+            }
+          });
+        }
+      };
+    }
+
+    function selectAgency(id, name) {
+      document.getElementById('ReceivingAgency').value = id;
+      document.getElementById('agencyDisplay').textContent = name;
+      document.getElementById('agencyModal').remove();
+      showToast('Đã chọn: ' + name, 'success');
+    }
+
+    // ── Payment method toggle ──
+    function toggleBankFields() {
+      var bankFields = document.getElementById('bankFields');
+      var isTransfer = document.getElementById('pmTransfer').checked;
+      bankFields.style.display = isTransfer ? '' : 'none';
+    }
+    document.getElementById('pmTransfer').addEventListener('change', toggleBankFields);
+    document.getElementById('pmCash').addEventListener('change', toggleBankFields);
+    toggleBankFields();
+
+    // ── Form submit ──
+    function readImageData(inputId) {
+      var input = document.getElementById(inputId);
+      if (!input || !input.files || !input.files[0]) return Promise.resolve('');
+      return new Promise(function(resolve) {
+        var reader = new FileReader();
+        reader.onload = function(e) { resolve(e.target.result); };
+        reader.onerror = function() { resolve(''); };
+        reader.readAsDataURL(input.files[0]);
+      });
+    }
+
+    function handleRegisterSubmit(e) {
+      e.preventDefault();
+      var btn = document.getElementById('btnSubmitRegister');
+      var overlay = document.getElementById('registerLoading');
+
+      readImageData('photoInput').then(function(photoData) {
+        readImageData('cccdFront').then(function(cccdFrontData) {
+          readImageData('cccdBack').then(function(cccdBackData) {
+            submitForm(photoData, cccdFrontData, cccdBackData, btn, overlay);
+          });
+        });
+      });
+      return false;
+    }
+
+    function submitForm(photoData, cccdFrontData, cccdBackData, btn, overlay) {
+      var password = getPinValue('Password');
+      var confirmPassword = getPinValue('ConfirmPassword');
+
+      var data = {
+        FullName: document.getElementById('FullName').value.trim(),
+        BhxhCode: document.getElementById('BhxhCode').value.trim(),
+        IdNumber: document.getElementById('IdNumber').value.trim(),
+        Gender: document.getElementById('genderValue').value,
+        Ethnicity: document.getElementById('ethnicityValue').value,
+        BirthDate: document.getElementById('BirthDate').value.trim(),
+        Province: document.getElementById('provinceSelect').dataset.code || '',
+        Ward: document.getElementById('wardSelect').dataset.code || '',
+        Street: document.getElementById('Street').value.trim(),
+        Phone: document.getElementById('Phone').value.trim(),
+        Email: document.getElementById('Email')?.value?.trim() || '',
+        PaymentMethod: document.querySelector('input[name="PaymentMethod"]:checked')?.value || 'transfer',
+        BankName: document.getElementById('BankName')?.value || '',
+        BankBin: document.getElementById('bankBin')?.value || '',
+        BankAccountName: document.getElementById('BankAccountName')?.value?.trim() || '',
+        BankAccountNumber: document.getElementById('BankAccountNumber')?.value?.trim() || '',
+        RegistrationLocation: document.querySelector('input[name="RegistrationLocation"]:checked')?.value || 'portal',
+        ReceivingAgency: document.getElementById('ReceivingAgency').value,
+        AccountType: new URLSearchParams(window.location.search).get('type') || 'individual',
+        Password: password,
+        ConfirmPassword: confirmPassword,
+        PhotoData: photoData,
+        CccdFrontData: cccdFrontData,
+        CccdBackData: cccdBackData,
+        TaxCode: document.getElementById('TaxCode')?.value?.trim() || '',
+        RepresentativeName: document.getElementById('RepresentativeName')?.value?.trim() || '',
+        RepresentativePosition: document.getElementById('RepresentativePosition')?.value?.trim() || '',
+        RepresentativePhone: document.getElementById('RepresentativePhone')?.value?.trim() || '',
+        RepresentativeEmail: document.getElementById('RepresentativeEmail')?.value?.trim() || '',
+      };
+      var isOrg = data.AccountType === 'organization';
+
+      if (!data.FullName) { showToast('Vui lòng nhập họ và tên!', 'error'); return; }
+      if (!data.BhxhCode) { showToast('Vui lòng nhập mã số BHXH!', 'error'); return; }
+      // Đã loại bỏ yêu cầu mã BHXH phải đủ 10 số
+      if (!data.IdNumber) { showToast(isOrg ? 'Vui lòng nhập mã số ĐKKD!' : 'Vui lòng nhập số CCCD!', 'error'); return; }
+      if (isOrg) {
+        if (!/^\d{10}(-\d{3})?$/.test(data.IdNumber)) { showToast('Mã số ĐKKD phải gồm 10 chữ số (hoặc 10-3)!', 'error'); return; }
+        if (!data.TaxCode) { showToast('Vui lòng nhập mã số thuế!', 'error'); return; }
+        if (!/^\d{10}(-\d{3})?$/.test(data.TaxCode)) { showToast('Mã số thuế không hợp lệ!', 'error'); return; }
+        if (!data.RepresentativeName) { showToast('Vui lòng nhập họ tên người đại diện!', 'error'); return; }
+        if (!data.RepresentativePosition) { showToast('Vui lòng nhập chức vụ!', 'error'); return; }
+        if (!data.RepresentativePhone) { showToast('Vui lòng nhập SĐT người đại diện!', 'error'); return; }
+        if (!/^(0|\+84)(3|5|7|8|9)\d{8}$/.test(data.RepresentativePhone)) { showToast('SĐT người đại diện không hợp lệ!', 'error'); return; }
+      } else {
+        // CCCD validation đã loại bỏ
+        // Giới tính không còn bắt buộc - đã loại bỏ validation
+        if (!data.BirthDate) { showToast('Vui lòng nhập ngày sinh!', 'error'); return; }
+        if (!/^\d{2}\/\d{2}\/\d{4}$/.test(data.BirthDate)) { showToast('Ngày sinh phải có định dạng dd/mm/yyyy!', 'error'); return; }
+      }
+      if (!data.Province) { showToast('Vui lòng chọn tỉnh/thành phố!', 'error'); return; }
+      if (!data.Street) { showToast('Vui lòng nhập địa chỉ liên hệ!', 'error'); return; }
+      if (!data.Phone) { showToast('Vui lòng nhập số điện thoại!', 'error'); return; }
+      if (!/^(0|\+84)(3|5|7|8|9)\d{8}$/.test(data.Phone)) { showToast('Số điện thoại không hợp lệ (VD: 0912345678)!', 'error'); return; }
+      if (!data.ReceivingAgency) { showToast('Vui lòng chọn cơ quan BHXH tiếp nhận!', 'error'); return; }
+      if (!password) { showToast('Vui lòng nhập mật khẩu!', 'error'); return; }
+      if (password.length !== 6) { showToast('Mật khẩu phải gồm đúng 6 ký tự số!', 'error'); return; }
+      if (!/^\d{6}$/.test(password)) { showToast('Mật khẩu chỉ được nhập ký tự số (0-9)!', 'error'); return; }
+      if (password !== confirmPassword) { showToast('Mật khẩu nhập lại không khớp!', 'error'); return; }
+      if (!photoData) { showToast('Vui lòng tải lên ảnh chân dung!', 'error'); return; }
+      if (!cccdFrontData) { showToast('Vui lòng tải lên ảnh CCCD mặt trước!', 'error'); return; }
+      if (data.PaymentMethod === 'transfer') {
+        if (!data.BankBin) { showToast('Vui lòng chọn ngân hàng!', 'error'); return; }
+        if (!data.BankAccountNumber) { showToast('Vui lòng nhập số tài khoản!', 'error'); return; }
+        if (!/^\d{6,19}$/.test(data.BankAccountNumber)) { showToast('Số tài khoản phải gồm 6-19 chữ số!', 'error'); return; }
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Đang gửi…';
+      overlay.style.display = 'flex';
+
+      apiRequest('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+        .then(function(r) { return r.json().then(function(d) { return { status: r.status, data: d }; }); })
+        .then(function(res) {
+          overlay.style.display = 'none';
+          if (res.status === 409) {
+            btn.disabled = false;
+            btn.textContent = 'Ghi nhận';
+            showToast(res.data.error || 'Thông tin đăng ký đã tồn tại!', 'error');
+            return;
+          }
+          if (res.data.success) {
+            showToast(res.data.message || 'Đăng ký thành công!', 'success');
+            btn.textContent = 'Đã ghi nhận';
+            setTimeout(function() { window.location.href = '/'; }, 2500);
+          } else {
+            btn.disabled = false;
+            btn.textContent = 'Ghi nhận';
+            showToast(res.data.error || 'Có lỗi xảy ra!', 'error');
+          }
+        })
+        .catch(function() {
+          overlay.style.display = 'none';
+          btn.disabled = false;
+          btn.textContent = 'Ghi nhận';
+          showToast('Không thể kết nối đến máy chủ!', 'error');
+        });
+    }
+
+    // ── PIN Input Logic ──
+    function setupPinInput(prefix) {
+        var digits = [];
+        for (var i = 1; i <= 6; i++) {
+            digits.push(document.getElementById(prefix + i));
+        }
+
+        digits.forEach(function(input, idx) {
+            if (!input) return;
+
+            input.addEventListener('input', function(e) {
+                var value = this.value.replace(/\D/g, '');
+                if (value.length > 1) value = value.charAt(0);
+                this.value = value;
+
+                if (value) {
+                    this.classList.add('filled');
+                    if (idx < 5) {
+                        digits[idx + 1].focus();
+                    }
+                } else {
+                    this.classList.remove('filled');
+                }
+                updateHiddenPassword(prefix);
+            });
+
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Backspace') {
+                    if (!this.value && idx > 0) {
+                        digits[idx - 1].focus();
+                        digits[idx - 1].value = '';
+                        digits[idx - 1].classList.remove('filled');
+                    }
+                } else if (e.key === 'ArrowLeft' && idx > 0) {
+                    digits[idx - 1].focus();
+                } else if (e.key === 'ArrowRight' && idx < 5) {
+                    digits[idx + 1].focus();
+                } else if (e.key === 'Enter') {
+                    this.blur();
+                }
+            });
+
+            input.addEventListener('paste', function(e) {
+                e.preventDefault();
+                var pastedData = (e.clipboardData || window.clipboardData).getData('text');
+                var digits_only = pastedData.replace(/\D/g, '').slice(0, 6);
+                for (var i = 0; i < digits_only.length && i < 6; i++) {
+                    digits[i].value = digits_only[i];
+                    digits[i].classList.add('filled');
+                }
+                if (digits_only.length >= 6) {
+                    digits[5].focus();
+                } else if (digits_only.length > 0) {
+                    digits[digits_only.length].focus();
+                }
+                updateHiddenPassword(prefix);
+            });
+        });
+    }
+
+    function updateHiddenPassword(prefix) {
+        var hidden = document.getElementById(prefix);
+        var password = '';
+        for (var i = 1; i <= 6; i++) {
+            var input = document.getElementById(prefix + i);
+            if (input) password += input.value;
+        }
+        hidden.value = password;
+    }
+
+    function getPinValue(prefix) {
+        var password = '';
+        for (var i = 1; i <= 6; i++) {
+            var input = document.getElementById(prefix + i);
+            if (input) password += input.value;
+        }
+        return password;
+    }
+
+    function clearPinInputs(prefix) {
+        for (var i = 1; i <= 6; i++) {
+            var input = document.getElementById(prefix + i);
+            if (input) {
+                input.value = '';
+                input.classList.remove('filled', 'error');
+            }
+        }
+    }
+
+    // Initialize PIN inputs
+    setupPinInput('Password');
+    setupPinInput('ConfirmPassword');
+
+    // ── Cleanup dropdowns on doc click ──
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.ss-wrap') && !e.target.closest('#ss-dropdown')) {
+        var dd = document.getElementById('ss-dropdown');
+        if (dd) dd.remove();
+      }
+    });
+
+    // ── Init ──
+  </script>
+</body>
+</html>

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Đặt lịch làm việc - CỔNG THÔNG TIN ĐIỆN TỬ BẢO HIỂM XÃ HỘI VIỆT NAM</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="top-strip"></div>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="/" class="brand">
+        <div class="brand-badge">
+          <img src="/images/bhxh_logo.svg" alt="BHXH" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-main">BẢO HIỂM XÃ HỘI VIỆT NAM</span>
+          <span class="brand-sub">CỔNG DỊCH VỤ CÔNG</span>
+        </div>
+      </a>
+      <div class="header-actions">
+        <button class="mobile-nav-toggle" id="mobileNavToggle" onclick="toggleMobileNav()" aria-label="Mở menu">
+          <i class="bi bi-list"></i>
+        </button>
+        <a href="#" data-open-login class="header-link">Đăng nhập</a>
+        <a href="/dang-ky" class="header-link">Đăng ký</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="navbar-container">
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <div class="mobile-nav-header">
+        <h3><i class="bi bi-shield-fill-check" style="font-size:18px"></i> MENU</h3>
+        <button class="mobile-nav-close" onclick="toggleMobileNav()" aria-label="Đóng menu">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <ul class="mobile-nav-menu">
+        <li><a href="/" onclick="toggleMobileNav()"><i class="bi bi-house-door-fill"></i> Trang chủ</a></li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-file-earmark-plus-fill"></i> Kê khai hồ sơ <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Kê khai thay đổi', 'info'); toggleMobileNav(); return false;"><i class="bi bi-pencil-square"></i> Kê khai thay đổi</a></li>
+            <li><a href="#" onclick="showToast('Kê khai tăng', 'info'); toggleMobileNav(); return false;"><i class="bi bi-plus-circle"></i> Kê khai tăng</a></li>
+            <li><a href="#" onclick="showToast('Kê khai giảm', 'info'); toggleMobileNav(); return false;"><i class="bi bi-dash-circle"></i> Kê khai giảm</a></li>
+          </ul>
+        </li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-shield-check"></i> Nộp BHXH điện tử <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Nộp hồ sơ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-upload"></i> Nộp hồ sơ</a></li>
+            <li><a href="#" onclick="showToast('Tra cứu hồ sơ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-search"></i> Tra cứu hồ sơ</a></li>
+          </ul>
+        </li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-list-check"></i> Dịch vụ công <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Cấp sổ BHXH', 'info'); toggleMobileNav(); return false;"><i class="bi bi-card-text"></i> Cấp sổ BHXH</a></li>
+            <li><a href="#" onclick="showToast('Cấp thẻ BHYT', 'info'); toggleMobileNav(); return false;"><i class="bi bi-credit-card"></i> Cấp thẻ BHYT</a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="showToast('Tra cứu', 'info'); toggleMobileNav(); return false;"><i class="bi bi-search"></i> Tra cứu</a></li>
+        <li><a href="/dat-lich" onclick="toggleMobileNav()"><i class="bi bi-calendar-check"></i> Đặt lịch</a></li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-file-earmark-text-fill"></i> Tài liệu & ứng dụng <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Tài liệu hướng dẫn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-book"></i> Tài liệu hướng dẫn</a></li>
+            <li><a href="#" onclick="showToast('Video hướng dẫn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-play-circle"></i> Video hướng dẫn</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div style="padding:16px;border-top:1px solid #eee">
+        <a href="#" data-open-login class="btn btn-primary w-100 mb-2" onclick="toggleMobileNav()">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập
+        </a>
+        <a href="/dang-ky" class="btn btn-outline-primary w-100" onclick="toggleMobileNav()">
+          <i class="bi bi-person-plus me-1"></i> Đăng ký
+        </a>
+      </div>
+    </div>
+    <ul class="menu-left">
+      <li><a href="/"><i class="bi bi-house-door-fill nav-icon"></i><span>Trang chủ</span></a></li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-file-earmark-plus-fill nav-icon"></i><span>Kê khai hồ sơ</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Kê khai thay đổi', 'info')"><i class="bi bi-pencil-square me-2"></i>Kê khai thay đổi</a></li>
+          <li><a href="#" onclick="showToast('Kê khai tăng', 'info')"><i class="bi bi-plus-circle me-2"></i>Kê khai tăng</a></li>
+          <li><a href="#" onclick="showToast('Kê khai giảm', 'info')"><i class="bi bi-dash-circle me-2"></i>Kê khai giảm</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-shield-check nav-icon"></i><span>Nộp BHXH điện tử</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Nộp hồ sơ', 'info')"><i class="bi bi-upload me-2"></i>Nộp hồ sơ</a></li>
+          <li><a href="#" onclick="showToast('Tra cứu hồ sơ', 'info')"><i class="bi bi-search me-2"></i>Tra cứu hồ sơ</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-list-check nav-icon"></i><span>Dịch vụ công <i class="bi bi-chevron-down" style="font-size:10px;vertical-align:middle"></i></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Cấp sổ BHXH', 'info')"><i class="bi bi-card-text me-2"></i>Cấp sổ BHXH</a></li>
+          <li><a href="#" onclick="showToast('Cấp thẻ BHYT', 'info')"><i class="bi bi-credit-card me-2"></i>Cấp thẻ BHYT</a></li>
+        </ul>
+      </li>
+      <li><a href="#" onclick="showToast('Tra cứu', 'info')"><i class="bi bi-search nav-icon"></i><span>Tra cứu</span></a></li>
+      <li class="active"><a href="/dat-lich"><i class="bi bi-calendar-check nav-icon"></i><span>Đặt lịch</span></a></li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-file-earmark-text-fill nav-icon"></i><span>Tài liệu & ứng dụng</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Tài liệu hướng dẫn', 'info')"><i class="bi bi-book me-2"></i>Tài liệu hướng dẫn</a></li>
+          <li><a href="#" onclick="showToast('Video hướng dẫn', 'info')"><i class="bi bi-play-circle me-2"></i>Video hướng dẫn</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <main class="bhxh-page">
+    <div class="bhxh-breadcrumb">
+      <div class="container">
+        <a href="/">Trang chủ</a>
+        <span class="mx-2">›</span>
+        <span>Đặt lịch làm việc</span>
+      </div>
+    </div>
+
+    <div class="bhxh-pagebar">
+      <div class="container">ĐẶT LỊCH LÀM VIỆC</div>
+    </div>
+
+    <div class="dl-wrap">
+      <div class="dl-container">
+
+        <div class="dl-card">
+          <h2><i class="bi bi-calendar-check text-primary me-2"></i>Thông tin đặt lịch</h2>
+          <div class="dl-info-box">
+            <i class="bi bi-info-circle-fill me-2"></i>
+            Quý khách vui lòng điền đầy đủ thông tin bên dưới để đặt lịch làm việc với cơ quan Bảo hiểm xã hội. Chúng tôi sẽ liên hệ xác nhận lịch hẹn qua số điện thoại hoặc email của quý khách.
+          </div>
+
+          <form onsubmit="return handleBooking(event)">
+            <div class="dl-grid-2">
+              <div class="dl-field">
+                <label>Họ và tên <span class="req">*</span></label>
+                <input type="text" id="dlFullName" placeholder="Nhập họ và tên" required>
+              </div>
+              <div class="dl-field">
+                <label>Số điện thoại <span class="req">*</span></label>
+                <input type="tel" id="dlPhone" placeholder="Nhập số điện thoại" required>
+              </div>
+            </div>
+
+            <div class="dl-grid-2">
+              <div class="dl-field">
+                <label>Email</label>
+                <input type="email" id="dlEmail" placeholder="Nhập địa chỉ email">
+              </div>
+              <div class="dl-field">
+                <label>Mã số BHXH</label>
+                <input type="text" id="dlBhxh" placeholder="Nhập mã số BHXH">
+              </div>
+            </div>
+
+            <div class="dl-grid-2">
+              <div class="dl-field">
+                <label>Ngày hẹn <span class="req">*</span></label>
+                <input type="text" id="dlDate" placeholder="Chọn ngày" required>
+              </div>
+              <div class="dl-field">
+                <label>Dịch vụ <span class="req">*</span></label>
+                <select id="dlService" required>
+                  <option value="">-- Chọn dịch vụ --</option>
+                  <option value="kekhai">Kê khai hồ sơ BHXH</option>
+                  <option value="nop">Nộp BHXH điện tử</option>
+                  <option value="tra-cuu">Tra cứu thông tin</option>
+                  <option value="cap-so">Cấp sổ BHXH, thẻ BHYT</option>
+                  <option value="huong-dan">Hướng dẫn thủ tục</option>
+                  <option value="khac">Dịch vụ khác</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="dl-field">
+              <label>Chọn khung giờ <span class="req">*</span></label>
+              <div class="dl-time-grid">
+                <div class="dl-time-slot" onclick="selectTimeSlot(this)">07:30 - 08:30</div>
+                <div class="dl-time-slot" onclick="selectTimeSlot(this)">08:30 - 09:30</div>
+                <div class="dl-time-slot" onclick="selectTimeSlot(this)">09:30 - 10:30</div>
+                <div class="dl-time-slot" onclick="selectTimeSlot(this)">10:30 - 11:30</div>
+                <div class="dl-time-slot" onclick="selectTimeSlot(this)">13:30 - 14:30</div>
+                <div class="dl-time-slot" onclick="selectTimeSlot(this)">14:30 - 15:30</div>
+                <div class="dl-time-slot" onclick="selectTimeSlot(this)">15:30 - 16:30</div>
+                <div class="dl-time-slot" onclick="selectTimeSlot(this)">16:30 - 17:00</div>
+              </div>
+              <input type="hidden" id="dlTimeSlot" value="">
+            </div>
+
+            <div class="dl-field">
+              <label>Nội dung công việc</label>
+              <textarea id="dlNote" rows="3" placeholder="Nhập nội dung công việc cần giải quyết..."></textarea>
+            </div>
+
+            <div class="dl-submit">
+              <button type="reset" class="dl-btn bhxh-btn bhxh-btn--secondary"><i class="bi bi-x-circle me-1"></i> HỦY</button>
+              <button type="submit" class="dl-btn bhxh-btn bhxh-btn--primary"><i class="bi bi-send-fill me-1"></i> GỬI YÊU CẦU</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- LOGIN MODAL -->
+  <div class="login-modal" id="loginModal" hidden aria-hidden="true">
+    <div class="login-modal__backdrop" data-close-login></div>
+    <div class="login-modal__dialog" role="dialog" aria-modal="true" aria-label="Đăng nhập">
+      <button type="button" class="login-modal__close" data-close-login aria-label="Đóng"><i class="bi bi-x-lg"></i></button>
+      <div class="lm-head">
+        <span class="lm-title">ĐĂNG NHẬP</span>
+        <label class="lm-tab"><input type="checkbox" name="lm-acctype" value="individual" checked /> <span>Cá nhân</span></label>
+        <label class="lm-tab"><input type="checkbox" name="lm-acctype" value="org" /> <span>Tổ chức</span></label>
+      </div>
+      <form class="lm-form" onsubmit="handleLogin(event)">
+        <div class="lm-field">
+          <img src="/images/user_name.svg" alt="" class="lm-ic-img" />
+          <input type="text" name="Username" id="loginUsername" placeholder="Mã số BHXH/Số ĐDCN/CCCD" autocomplete="username" required>
+        </div>
+        <div class="lm-field">
+          <img src="/images/pass.svg" alt="" class="lm-ic-img" />
+          <input type="password" name="Password" id="loginPassword" placeholder="Mật khẩu" autocomplete="current-password" required>
+          <button type="button" class="lm-eye" onclick="togglePwd()" aria-label="Hiện mật khẩu"><i class="bi bi-eye"></i></button>
+        </div>
+        <div class="lm-captcha-row">
+          <div class="captcha-box" id="loginCaptchaBox"><span>A7B2</span></div>
+          <button type="button" class="lm-captcha-reload" onclick="refreshLoginCaptcha()" title="Tải lại">
+            <img src="/images/reset_login.svg" alt="Tải lại" style="width:20px;height:20px" />
+          </button>
+        </div>
+        <div class="lm-field">
+          <img src="/images/nhapma.svg" alt="" class="lm-ic-img" />
+          <input type="text" name="Captcha" id="loginCaptcha" placeholder="Nhập mã kiểm tra" autocomplete="off" required>
+        </div>
+        <div class="lm-forgot">
+          <label class="lm-remember"><input type="checkbox" name="RememberMe" value="true" checked> <span>Ghi nhớ đăng nhập</span></label>
+          <a href="#" onclick="showToast('Quên mật khẩu', 'info')">Quên mật khẩu</a>
+        </div>
+        <div class="lm-bottom-tabs">
+          <a href="/dang-ky" class="lm-bt lm-bt--register">ĐĂNG KÝ</a>
+          <button type="submit" class="lm-bt lm-bt--login">ĐĂNG NHẬP</button>
+        </div>
+      </form>
+      <a href="#" class="lm-ext lm-ext--gov" onclick="showToast('Đăng nhập qua DVC quốc gia', 'info')">
+        <img src="/images/quoc_huy.svg" alt="Quốc huy" style="width:30px;height:30px" />
+        <span>ĐĂNG NHẬP QUA DỊCH VỤ CÔNG QUỐC GIA</span>
+      </a>
+      <a href="#" class="lm-ext lm-ext--vneid" onclick="showToast('Đăng nhập VNeID', 'info')">
+        <img src="/images/logo-vneid.svg" alt="VNeID" style="width:30px;height:30px" />
+        <span>Đăng nhập bằng tài khoản<br>Định danh điện tử</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- CHAT WIDGET -->
+  <button class="chat-btn" id="chatBtn" title="Hỗ trợ trực tuyến"><img src="/images/bhxh_logo.svg" alt="BHXH"></button>
+  <div class="chat-panel hidden" id="chatPanel">
+    <div class="chat-head">
+      <img src="/images/bhxh_logo.svg" alt="BHXH">
+      <div class="info"><div class="name">Trung Tâm BHXH Việt Nam</div><div class="status">Đang trực tuyến</div></div>
+      <button class="close" id="chatClose"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="chat-msgs" id="chatMessages" style="display:none"></div>
+    <div class="chat-start-form" id="chatStartForm">
+      <input type="text" id="chatName" placeholder="Họ và tên *">
+      <input type="text" id="chatIdCard" placeholder="Số CCCD *">
+      <input type="tel" id="chatPhone" placeholder="Số điện thoại *">
+      <button class="start-btn" id="chatStartBtn">Bắt đầu trò chuyện</button>
+    </div>
+    <div class="chat-input-area" id="chatInputArea" style="display:none">
+      <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+      <button class="send-btn" id="chatSendBtn"><i class="bi bi-send-fill"></i></button>
+    </div>
+  </div>
+
+  <div id="toast" class="toast-notification"></div>
+
+<footer class="site-footer">
+    <div class="footer-main">
+      <div class="container">
+        <div>
+          <div class="f-brand">
+            <div class="f-brand-logo">
+              <img src="/images/bhxh_logo.svg" alt="BHXH Việt Nam">
+            </div>
+            <div>
+              <div class="f-brand-name">Bảo hiểm xã hội việt nam</div>
+              <div class="f-brand-sub">Vietnam Social Security</div>
+            </div>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Số 6, Phố Cương Kiên, Phường Đại Mỗ, TP. Hà Nội</span>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-telephone-fill"></i>
+            <a href="tel:19009068">1900 9068</a>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-envelope-fill"></i>
+            <a href="mailto:hotro@bhxh.gov.vn">hotro@bhxh.gov.vn</a>
+          </div>
+        </div>
+        <div>
+          <div class="f-section-title">Dịch vụ công</div>
+          <ul class="f-links">
+            <li><a href="/dang-ky">Đăng ký tài khoản</a></li>
+            <li><a href="/lich-su">Tra cứu hồ sơ</a></li>
+            <li><a href="/dat-lich">Đặt lịch hẹn</a></li>
+            <li><a href="/thong-bao">Thông báo</a></li>
+            <li><a href="/quy-trinh">Quy trình thủ tục</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-section-title">Hỗ trợ</div>
+          <ul class="f-links">
+            <li><a href="#">Hướng dẫn sử dụng</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+            <li><a href="#">Chính sách bảo mật</a></li>
+            <li><a href="#">Điều khoản sử dụng</a></li>
+            <li><a href="/quan-tri">Quản trị hệ thống</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="f-text">
+          &copy; 2014 – 2026 Bản quyền thuộc về <strong>Bảo Hiểm Xã Hội Việt Nam</strong>.
+          Khi sử dụng lại thông tin, xin ghi rõ nguồn "Bảo hiểm xã hội Việt Nam".
+        </div>
+        <div class="f-social">
+          <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+          <a href="#" title="Zalo"><i class="bi bi-chat-dots-fill"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chat.js"></script>
+  <script>
+    // ── Mobile Navigation Toggle ──
+    function toggleMobileNav() {
+      var overlay = document.getElementById('mobileNavOverlay');
+      var drawer = document.getElementById('mobileNavDrawer');
+      overlay.classList.toggle('active');
+      drawer.classList.toggle('active');
+      document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    // ── Mobile Submenu Toggle ──
+    function toggleMobileSubmenu(link) {
+      var li = link.parentElement;
+      var submenu = li.querySelector('.mobile-submenu');
+      if (submenu) {
+        li.classList.toggle('sub-open');
+        submenu.classList.toggle('show');
+        var chevron = link.querySelector('.bi-chevron-down');
+        if (chevron) {
+          chevron.classList.toggle('bi-chevron-down');
+          chevron.classList.toggle('bi-chevron-up');
+        }
+      }
+    }
+    
+    // ── Desktop Dropdown Toggle ──
+    function toggleDropdown(e) {
+      e.preventDefault();
+      var li = e.currentTarget.parentElement;
+      var dropdown = li.querySelector('.dropdown-menu');
+      var allDropdowns = document.querySelectorAll('.dropdown-menu');
+      var allLis = document.querySelectorAll('.navbar-container .menu-left > li');
+      
+      allDropdowns.forEach(function(d) {
+        if (d !== dropdown) d.classList.remove('show');
+      });
+      allLis.forEach(function(l) {
+        if (l !== li) l.classList.remove('dropdown-open');
+      });
+      
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+        li.classList.toggle('dropdown-open');
+      }
+    }
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.has-dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(function(d) {
+          d.classList.remove('show');
+        });
+        document.querySelectorAll('.navbar-container .menu-left > li').forEach(function(li) {
+          li.classList.remove('dropdown-open');
+        });
+      }
+    });
+    
+    // ── Date picker ──
+    flatpickr("#dlDate", {
+      locale: "vn",
+      dateFormat: "d/m/Y",
+      minDate: "today",
+      allowInput: true
+    });
+
+    // ── Time slot selection ──
+    function selectTimeSlot(el) {
+      document.querySelectorAll('.dl-time-slot').forEach(function(s) { s.classList.remove('selected'); });
+      el.classList.add('selected');
+      document.getElementById('dlTimeSlot').value = el.textContent.trim();
+    }
+
+    // ── Booking submit ──
+    function handleBooking(e) {
+      e.preventDefault();
+      var name = document.getElementById('dlFullName').value.trim();
+      var phone = document.getElementById('dlPhone').value.trim();
+      var date = document.getElementById('dlDate').value.trim();
+      var time = document.getElementById('dlTimeSlot').value;
+      if (!name || !phone || !date) { showToast('Vui lòng điền đầy đủ thông tin bắt buộc!', 'error'); return; }
+      if (!time) { showToast('Vui lòng chọn khung giờ!', 'error'); return; }
+
+      var data = {
+        fullName: name,
+        phone: phone,
+        email: document.getElementById('dlEmail').value.trim(),
+        bhxhCode: document.getElementById('dlBhxh').value.trim(),
+        date: date,
+        timeSlot: time,
+        service: document.getElementById('dlService').value,
+        note: document.getElementById('dlNote').value.trim(),
+      };
+
+      var btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm me-1"></span> Đang gửi...';
+
+      var requestFn = typeof apiRequest !== 'undefined' ? apiRequest : fetch;
+      var requestPromise = typeof apiRequest !== 'undefined'
+        ? apiRequest('/api/appointments', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          })
+        : fetch('/api/appointments', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+
+      requestPromise
+        .then(function(r) { return r.json(); })
+        .then(function(result) {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-send-fill me-1"></i> GỬI YÊU CẦU';
+          if (result.success) {
+            showToast(result.message || 'Yêu cầu đặt lịch đã được ghi nhận!', 'success');
+            e.target.reset();
+            document.getElementById('dlTimeSlot').value = '';
+            document.querySelectorAll('.dl-time-slot').forEach(function(s) { s.classList.remove('selected'); });
+          } else {
+            showToast(result.error || 'Có lỗi xảy ra!', 'error');
+          }
+        })
+        .catch(function() {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-send-fill me-1"></i> GỬI YÊU CẦU';
+          showToast('Không thể kết nối máy chủ!', 'error');
+        });
+
+      return false;
+    }
+  </script>
+</body>
+</html>
