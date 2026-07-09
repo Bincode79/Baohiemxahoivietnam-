@@ -1,0 +1,9 @@
+﻿<svg width="66" height="66" viewBox="0 0 66 66" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect y="0.347656" width="65.9028" height="64.8898" fill="url(#pattern0)"/>
+<defs>
+<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0" transform="translate(-0.15642) scale(0.00187549)"/>
+</pattern>
+<image id="image0" width="700" height="525" xlink:href="quoc_huy.png"/>
+</defs>
+</svg>

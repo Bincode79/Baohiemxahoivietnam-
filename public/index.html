@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trang chủ - CỔNG THÔNG TIN ĐIỆN TỬ BẢO HIỂM XÃ HỘI VIỆT NAM</title>
+  <link rel="icon" type="image/png" href="/images/logonew.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+<style>
+/* Custom premium UI enhancements */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #212529;
+  --primary-gradient: linear-gradient(135deg, var(--blue), var(--cyan-2));
+}
+.dark-mode {
+  --bg-color: #212529;
+  --text-color: #f8f9fa;
+}
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Hero section enhancements */
+.hero-wrap {
+  background: linear-gradient(135deg, var(--blue) 0%, var(--cyan-2) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  opacity: 0.15; /* subtle background image */
+}
+.hero-content {
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  padding: 32px;
+}
+
+/* Icon cards hover effect with glassmorphism */
+.icon-card {
+  background: rgba(255,255,255,0.6);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(255,255,255,0.4);
+  backdrop-filter: blur(6px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.icon-card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(255,255,255,0.6);
+}
+
+/* Header links button style */
+.header-actions .header-link {
+  border-radius: var(--radius-sm);
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+.header-actions .header-link:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,0.3);
+}
+
+/* Navbar active link underline animation */
+.navbar-container .menu-left li a::after {
+  height: 3px;
+  background: var(--cyan);
+  transition: transform 0.3s ease;
+}
+
+/* Footer social icons hover */
+.footer-bottom .f-social a {
+  background: rgba(255,255,255,0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.footer-bottom .f-social a:hover {
+  background: var(--cyan);
+  transform: translateY(-2px);
+}
+
+/* Button primary with gradient */
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue), var(--cyan-2));
+  border: none;
+  color: #fff;
+  transition: background 0.3s ease, box-shadow 0.2s ease;
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--cyan-2), var(--blue));
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+</style>
+</head>
+<body>
+
+  <div class="top-strip"></div>
+
+  <header class="site-header">
+    <div class="header-bg-pattern" aria-hidden="true">
+      <svg viewBox="0 0 800 150" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <pattern id="hex-pattern" x="0" y="0" width="60" height="52" patternUnits="userSpaceOnUse">
+            <polygon points="30,2 56,17 56,47 30,62 4,47 4,17" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          </pattern>
+          <pattern id="dots-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+            <circle cx="20" cy="20" r="1.5" fill="rgba(255,255,255,0.12)"/>
+          </pattern>
+        </defs>
+        <rect width="800" height="150" fill="url(#hex-pattern)"/>
+        <rect width="800" height="150" fill="url(#dots-pattern)"/>
+        <circle cx="700" cy="30" r="80" fill="rgba(255,255,255,0.05)"/>
+        <circle cx="750" cy="80" r="50" fill="rgba(255,255,255,0.04)"/>
+        <path d="M0,120 Q200,100 400,120 T800,120" stroke="rgba(255,255,255,0.1)" stroke-width="1" fill="none"/>
+        <path d="M0,135 Q200,115 400,135 T800,135" stroke="rgba(255,255,255,0.07)" stroke-width="1" fill="none"/>
+      </svg>
+    </div>
+    <div class="header-decoration">
+      <svg viewBox="0 0 100 20" preserveAspectRatio="none">
+        <path d="M0,10 Q25,0 50,10 T100,10 V20 H0Z" fill="rgba(255,255,255,0.05)"/>
+        <circle cx="10" cy="5" r="2" fill="rgba(255,255,255,0.1)"/>
+        <circle cx="30" cy="8" r="1.5" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="50" cy="4" r="2" fill="rgba(255,255,255,0.1)"/>
+        <circle cx="70" cy="7" r="1.5" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="90" cy="5" r="2" fill="rgba(255,255,255,0.1)"/>
+      </svg>
+    </div>
+    <div class="container">
+      <a href="/" class="brand">
+        <div class="brand-badge">
+          <img src="/images/bhxh_logo.svg" alt="BHXH" />
+        </div>
+        <div class="brand-text">
+          <span class="brand-main">BẢO HIỂM XÃ HỘI VIỆT NAM</span>
+          <span class="brand-sub">CỔNG DỊCH VỤ CÔNG</span>
+        </div>
+      </a>
+      <div class="header-center" aria-hidden="true">
+        <img src="/images/quoc_huy.svg" alt="Quốc huy Việt Nam" style="height:68px;width:auto;opacity:0.92;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.3))" />
+      </div>
+      <div class="header-actions">
+        <button class="mobile-nav-toggle" id="mobileNavToggle" onclick="toggleMobileNav()" aria-label="Mở menu">
+          <i class="bi bi-list"></i>
+        </button>
+        <a href="#" data-open-login class="header-link">Đăng nhập</a>
+        <a href="/dang-ky" class="header-link">Đăng ký</a>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+  <i class="bi bi-moon"></i>
+</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="navbar-container">
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+      <div class="mobile-nav-header">
+        <h3><i class="bi bi-shield-fill-check" style="font-size:18px"></i> MENU</h3>
+        <button class="mobile-nav-close" onclick="toggleMobileNav()" aria-label="Đóng menu">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <ul class="mobile-nav-menu">
+        <li><a href="/" onclick="toggleMobileNav()"><i class="bi bi-house-door-fill"></i> Trang chủ</a></li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-file-earmark-plus-fill"></i> Kê khai hồ sơ <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Kê khai thay đổi', 'info'); toggleMobileNav(); return false;"><i class="bi bi-pencil-square"></i> Kê khai thay đổi</a></li>
+            <li><a href="#" onclick="showToast('Kê khai tăng', 'info'); toggleMobileNav(); return false;"><i class="bi bi-plus-circle"></i> Kê khai tăng</a></li>
+            <li><a href="#" onclick="showToast('Kê khai giảm', 'info'); toggleMobileNav(); return false;"><i class="bi bi-dash-circle"></i> Kê khai giảm</a></li>
+            <li><a href="#" onclick="showToast('Kê khai điều chỉnh', 'info'); toggleMobileNav(); return false;"><i class="bi bi-arrow-repeat"></i> Kê khai điều chỉnh</a></li>
+          </ul>
+        </li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-shield-check"></i> Nộp BHXH điện tử <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Nộp hồ sơ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-upload"></i> Nộp hồ sơ</a></li>
+            <li><a href="#" onclick="showToast('Tra cứu hồ sơ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-search"></i> Tra cứu hồ sơ</a></li>
+          </ul>
+        </li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-list-check"></i> Dịch vụ công <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('DVC cấp sổ BHXH', 'info'); toggleMobileNav(); return false;"><i class="bi bi-card-text"></i> Cấp sổ BHXH</a></li>
+            <li><a href="#" onclick="showToast('DVC cấp thẻ BHYT', 'info'); toggleMobileNav(); return false;"><i class="bi bi-credit-card"></i> Cấp thẻ BHYT</a></li>
+            <li><a href="#" onclick="showToast('DVC giải quyết chế độ', 'info'); toggleMobileNav(); return false;"><i class="bi bi-wallet2"></i> Giải quyết chế độ</a></li>
+          </ul>
+        </li>
+        <li><a href="#" onclick="showToast('Tra cứu', 'info'); toggleMobileNav(); return false;"><i class="bi bi-search"></i> Tra cứu</a></li>
+        <li><a href="/dat-lich" onclick="toggleMobileNav()"><i class="bi bi-calendar-check"></i> Đặt lịch</a></li>
+        <li class="mobile-has-sub">
+          <a href="javascript:void(0)" onclick="toggleMobileSubmenu(this)"><i class="bi bi-file-earmark-text-fill"></i> Tài liệu & ứng dụng <i class="bi bi-chevron-down float-end"></i></a>
+          <ul class="mobile-submenu">
+            <li><a href="#" onclick="showToast('Tài liệu hướng dẫn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-book"></i> Tài liệu hướng dẫn</a></li>
+            <li><a href="#" onclick="showToast('Phần mềm kê khai', 'info'); toggleMobileNav(); return false;"><i class="bi bi-download"></i> Phần mềm kê khai</a></li>
+            <li><a href="#" onclick="showToast('Video hướng dẫn', 'info'); toggleMobileNav(); return false;"><i class="bi bi-play-circle"></i> Video hướng dẫn</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div style="padding:16px;border-top:1px solid #eee">
+        <a href="#" data-open-login class="btn btn-primary w-100 mb-2" onclick="toggleMobileNav()">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Đăng nhập
+        </a>
+        <a href="/dang-ky" class="btn btn-outline-primary w-100" onclick="toggleMobileNav()">
+          <i class="bi bi-person-plus me-1"></i> Đăng ký
+        </a>
+      </div>
+    </div>
+    <ul class="menu-left">
+      <li class="active"><a href="/"><i class="bi bi-house-door-fill nav-icon"></i><span>Trang chủ</span></a></li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-file-earmark-plus-fill nav-icon"></i><span>Kê khai hồ sơ</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Kê khai thay đổi', 'info')"><i class="bi bi-pencil-square me-2"></i>Kê khai thay đổi</a></li>
+          <li><a href="#" onclick="showToast('Kê khai tăng', 'info')"><i class="bi bi-plus-circle me-2"></i>Kê khai tăng</a></li>
+          <li><a href="#" onclick="showToast('Kê khai giảm', 'info')"><i class="bi bi-dash-circle me-2"></i>Kê khai giảm</a></li>
+          <li><a href="#" onclick="showToast('Kê khai điều chỉnh', 'info')"><i class="bi bi-arrow-repeat me-2"></i>Kê khai điều chỉnh</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-shield-check nav-icon"></i><span>Nộp BHXH điện tử</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Nộp hồ sơ', 'info')"><i class="bi bi-upload me-2"></i>Nộp hồ sơ</a></li>
+          <li><a href="#" onclick="showToast('Tra cứu hồ sơ', 'info')"><i class="bi bi-search me-2"></i>Tra cứu hồ sơ</a></li>
+        </ul>
+      </li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-list-check nav-icon"></i><span>Dịch vụ công <i class="bi bi-chevron-down" style="font-size:10px;vertical-align:middle"></i></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Cấp sổ BHXH', 'info')"><i class="bi bi-card-text me-2"></i>Cấp sổ BHXH</a></li>
+          <li><a href="#" onclick="showToast('Cấp thẻ BHYT', 'info')"><i class="bi bi-credit-card me-2"></i>Cấp thẻ BHYT</a></li>
+          <li><a href="#" onclick="showToast('Giải quyết chế độ', 'info')"><i class="bi bi-wallet2 me-2"></i>Giải quyết chế độ</a></li>
+        </ul>
+      </li>
+      <li><a href="#" onclick="showToast('Tra cứu', 'info')"><i class="bi bi-search nav-icon"></i><span>Tra cứu</span></a></li>
+      <li><a href="/dat-lich"><i class="bi bi-calendar-check nav-icon"></i><span>Đặt lịch</span></a></li>
+      <li class="has-dropdown">
+        <a href="#" onclick="toggleDropdown(event)"><i class="bi bi-file-earmark-text-fill nav-icon"></i><span>Tài liệu & ứng dụng</span><i class="bi bi-chevron-down ms-1" style="font-size:10px"></i></a>
+        <ul class="dropdown-menu">
+          <li><a href="#" onclick="showToast('Tài liệu hướng dẫn', 'info')"><i class="bi bi-book me-2"></i>Tài liệu hướng dẫn</a></li>
+          <li><a href="#" onclick="showToast('Phần mềm kê khai', 'info')"><i class="bi bi-download me-2"></i>Phần mềm kê khai</a></li>
+          <li><a href="#" onclick="showToast('Video hướng dẫn', 'info')"><i class="bi bi-play-circle me-2"></i>Video hướng dẫn</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <main class="bhxh-page">
+    <div class="hero-wrap">
+      <img class="hero-bg" src="/images/bg_01.svg" alt="banner" onerror="this.style.display='none'" />
+      <div class="hero-dark"></div>
+      <div class="hero-content">
+        <div class="menu-overlay">
+          <div class="icon-grid">
+            <a class="icon-card" title="Kê khai hồ sơ" href="#" onclick="showToast('Kê khai hồ sơ', 'info')">
+              <span class="icon"><img src="/images/kekhai.svg" alt="Kê khai hồ sơ" /></span>
+            </a>
+            <a class="icon-card" title="Tra cứu thông tin người phụ thuộc" href="#" onclick="showToast('Tra cứu thông tin', 'info')">
+              <span class="icon"><img src="/images/thanhtoanbhxhdientu-01.png" alt="Tra cứu thông tin người phụ thuộc" /></span>
+            </a>
+            <a class="icon-card" title="Dịch vụ công trực tuyến" href="#" onclick="openDvcQrModal(); return false;">
+              <span class="icon"><img src="/images/dichvucong-01.svg" alt="Dịch vụ công trực tuyến" /></span>
+            </a>
+            <a class="icon-card" title="Tra cứu hồ sơ" href="#" onclick="openCccdScan(); return false;">
+              <span class="icon"><img src="/images/tracuu.svg" alt="Tra cứu hồ sơ" /></span>
+            </a>
+            <a class="icon-card" title="Tài liệu & ứng dụng" href="#" onclick="showToast('Tài liệu & ứng dụng', 'info')">
+              <span class="icon"><img src="/images/tailieu.svg" alt="Tài liệu & ứng dụng" /></span>
+            </a>
+            <a class="icon-card" title="Đặt lịch làm việc" href="/dat-lich">
+              <span class="icon"><img src="/images/datlich.svg" alt="Đặt lịch làm việc" /></span>
+            </a>
+            <a class="icon-card" title="Nộp hồ sơ giám định" href="#" onclick="showToast('Hồ sơ giám định', 'info')">
+              <span class="icon"><img src="/images/thanhtoanbhxhdientu-01.png" alt="Hồ sơ giám định" /></span>
+            </a>
+            <a class="icon-card" title="Chi trả các chế độ" href="#" onclick="showToast('Chi trả các chế độ', 'info')">
+              <span class="icon"><img src="/images/kekhai.svg" alt="Chi trả các chế độ" /></span>
+            </a>
+            <a class="icon-card" title="Hỗ trợ trực tuyến" href="#" onclick="toggleChat(); return false;">
+              <span class="icon"><i class="bi bi-headset" style="font-size:40px;color:#fff"></i></span>
+            </a>
+          </div>
+        </div>
+        <div class="stats-wrap">
+          <div class="stats-panel">
+            <h3>Tình hình xử lý hồ sơ năm 2026</h3>
+            <div class="stats-row">
+              <div class="stats-item">
+                <div class="label">Đã tiếp nhận</div>
+                <div class="value" id="statReceived">0</div>
+                <div class="unit">Hồ sơ</div>
+              </div>
+              <div class="stats-item">
+                <div class="label">Đã giải quyết</div>
+                <div class="value" id="statProcessed">0</div>
+                <div class="unit">Hồ sơ</div>
+              </div>
+            </div>
+            <div class="stats-percent">
+              <div class="value" id="statPercent">0%</div>
+              <div class="label">Đã giải quyết trong hạn</div>
+            </div>
+          </div>
+          <div class="stats-panel">
+            <h3>Thống kê hồ sơ theo lĩnh vực năm 2026</h3>
+            <div class="stats-pie">
+              <div class="chart"></div>
+              <div class="legend">
+<div><span class="dot" style="background:#0372b6"></span>Thu BHXH, BHYT, BHTN</div>
+      <div><span class="dot" style="background:#58a7f7"></span>Thực hiện chính sách BHYT</div>
+      <div><span class="dot" style="background:#5ed6fc"></span>Cấp sổ BHXH, thẻ BHYT</div>
+      <div><span class="dot" style="background:#0a7a2a"></span>Chi trả các chế độ BHXH</div>
+      <div><span class="dot" style="background:#1d70b7"></span>Thực hiện chính sách BHXH</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IVAN PROVIDERS -->
+    <section class="providers-section">
+      <h2>Tổ chức dịch vụ cung cấp IVAN</h2>
+      <div class="providers-grid">
+        <div class="provider-item" title="V1NBHXH"><img src="/images/vinbhxh_logo.svg" alt="V1NBHXH" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">V1NBHXH</span></div>
+        <div class="provider-item" title="VNPT-CA"><img src="/images/dv2.svg" alt="VNPT-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">VNPT-CA</span></div>
+        <div class="provider-item" title="ThaisonSoft"><img src="/images/dv3.svg" alt="ThaisonSoft" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">ThaisonSoft</span></div>
+        <div class="provider-item" title="EFY"><img src="/images/dv4.svg" alt="EFY" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">EFY</span></div>
+        <div class="provider-item" title="TS24 Corp"><img src="/images/ts24corp.svg" alt="TS24 Corp" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">TS24 Corp</span></div>
+        <div class="provider-item" title="Vietnam Post"><img src="/images/vnpost-01.svg" alt="Vietnam Post" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">Vietnam Post</span></div>
+        <div class="provider-item" title="Viettel-CA"><img src="/images/viettel%20ca-01.svg" alt="Viettel-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">Viettel-CA</span></div>
+        <div class="provider-item" title="BkavCA"><img src="/images/tc2.svg" alt="BkavCA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">BkavCA</span></div>
+        <div class="provider-item" title="MISA"><img src="/images/misa_logo.svg" alt="MISA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">MISA</span></div>
+        <div class="provider-item" title="CyberLotus"><img src="/images/CyberLotus.svg" alt="CyberLotus" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">CyberLotus</span></div>
+        <div class="provider-item" title="IBH Insurance"><img src="/images/ibh_logo.svg" alt="IBH Insurance" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">IBH Insurance</span></div>
+        <div class="provider-item" title="iCare"><img src="/images/ICARE.svg" alt="iCare" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">iCare</span></div>
+        <div class="provider-item" title="mBHXH"><img src="/images/mbhxh_logo.svg" alt="mBHXH" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">mBHXH</span></div>
+        <div class="provider-item" title="1Office"><img src="/images/1Office_logo.svg" alt="1Office" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">1Office</span></div>
+      </div>
+    </section>
+
+    <!-- CA PROVIDERS -->
+    <section class="providers-section" style="background:#f5f5f5">
+      <h2>Tổ chức cung cấp chứng thư số</h2>
+      <div class="providers-grid">
+        <div class="provider-item" title="EasyCA"><img src="/images/easyCA.svg" alt="EasyCA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">EasyCA</span></div>
+        <div class="provider-item" title="Newtel-CA"><img src="/images/LogoNewtel_CA.svg" alt="Newtel-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">Newtel-CA</span></div>
+        <div class="provider-item" title="BkavCA"><img src="/images/tc3.svg" alt="BkavCA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">BkavCA</span></div>
+        <div class="provider-item" title="Viettel-CA"><img src="/images/tc4.svg" alt="Viettel-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">Viettel-CA</span></div>
+        <div class="provider-item" title="SafeCert Corp"><img src="/images/safe-01.svg" alt="SafeCert Corp" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">SafeCert Corp</span></div>
+        <div class="provider-item" title="FPT"><img src="/images/fpt.svg" alt="FPT" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">FPT</span></div>
+        <div class="provider-item" title="SmartSign"><img src="/images/smart%20sign.svg" alt="SmartSign" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">SmartSign</span></div>
+        <div class="provider-item" title="EFY-CA"><img src="/images/efly%20ca.svg" alt="EFY-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">EFY-CA</span></div>
+        <div class="provider-item" title="MISA"><img src="/images/misa_logo.svg" alt="MISA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">MISA</span></div>
+        <div class="provider-item" title="FastCA"><img src="/images/fastca_logo.svg" alt="FastCA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">FastCA</span></div>
+        <div class="provider-item" title="TrustCA"><img src="/images/LogoTrustCA.svg" alt="TrustCA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">TrustCA</span></div>
+        <div class="provider-item" title="I-CA"><img src="/images/i-ca_logo.svg" alt="I-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">I-CA</span></div>
+        <div class="provider-item" title="Hilo-CA"><img src="/images/hilo_ca_logo.svg" alt="Hilo-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">Hilo-CA</span></div>
+        <div class="provider-item" title="One-CA"><img src="/images/OneCA_logo.svg" alt="One-CA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">One-CA</span></div>
+        <div class="provider-item" title="ECA"><img src="/images/ECA-logo.svg" alt="ECA" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='block'" /><span style="display:none">ECA</span></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- CCCD SCAN MODAL -->
+  <div class="cccd-overlay" id="cccdModal" style="display:none">
+    <div class="cccd-modal">
+      <div class="cccd-head">
+        <div class="cccd-head-left">
+          <span class="cccd-head-icon"><i class="bi bi-nfc"></i></span>
+          <h3>ĐỌC CCCD GẮN CHIP</h3>
+        </div>
+        <div class="cccd-head-actions">
+          <span class="cccd-head-badge">NFC</span>
+          <button onclick="closeCccdScan()" title="Đóng"><i class="bi bi-x-lg"></i></button>
+        </div>
+      </div>
+      <div class="cccd-body">
+        <div class="cccd-card-area">
+          <div class="cccd-card" id="cccdCardVisual">
+            <div class="card-ghost" id="cccdCardGhost">
+              <div class="card-ghost-inner">
+                <i class="bi bi-credit-card-2-front"></i>
+                <span>Đưa thẻ vào vùng quét</span>
+              </div>
+            </div>
+            <div class="cccd-scanner-line" id="cccdScannerLine"></div>
+            <div class="chip"></div>
+            <svg class="emblem" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#c62828"/><text x="20" y="24" text-anchor="middle" fill="#ffd700" font-size="12" font-weight="bold">★</text></svg>
+            <div class="card-type">CĂN CƯỚC CÔNG DÂN</div>
+            <div class="card-id" id="cccdCardId">•••••••••••</div>
+            <div class="card-name" id="cccdCardName">••••••••••</div>
+            <div class="card-dob-sex">
+              <span class="card-dob" id="cccdCardDob">••/••/••••</span>
+              <span class="card-sep">|</span>
+              <span class="card-sex" id="cccdCardSex">•••</span>
+            </div>
+            <div class="card-bg"></div>
+            <div class="card-flag"></div>
+          </div>
+          <button class="cccd-scan-btn" id="cccdScanBtn" onclick="startCccdScan()">
+            <i class="bi bi-qr-code-scan"></i> QUÉT CCCD
+          </button>
+          <div class="cccd-loader" id="cccdLoader">
+            <div class="spinner"></div> Đang đọc dữ liệu từ chip...
+          </div>
+          <div class="cccd-result-check" id="cccdResultCheck" style="display:none">
+            <i class="bi bi-check-circle"></i> Đã đọc thành công!
+          </div>
+          <p class="cccd-help-text">
+            <i class="bi bi-info-circle"></i> Đặt CCCD gắn chip lên màn hình điện thoại, sau đó ấn <strong>Quét CCCD</strong> để bắt đầu
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div class="login-modal" id="loginModal" hidden aria-hidden="true">
+    <div class="login-modal__backdrop" data-close-login></div>
+    <div class="login-modal__dialog" role="dialog" aria-modal="true" aria-label="Đăng nhập">
+      <button type="button" class="login-modal__close" data-close-login aria-label="Đóng"><i class="bi bi-x-lg"></i></button>
+      <div class="lm-head">
+        <span class="lm-title">ĐĂNG NHẬP</span>
+        <label class="lm-tab"><input type="checkbox" name="lm-acctype" value="individual" checked /> <span>Cá nhân</span></label>
+        <label class="lm-tab"><input type="checkbox" name="lm-acctype" value="org" /> <span>Tổ chức</span></label>
+      </div>
+      <form class="lm-form" onsubmit="handleLogin(event)">
+        <div class="lm-field">
+          <img src="/images/user_name.svg" alt="" class="lm-ic-img" />
+          <input type="text" name="Username" id="loginUsername" placeholder="Mã số BHXH/Số ĐDCN/CCCD" autocomplete="username" required>
+        </div>
+        <div class="lm-field">
+          <img src="/images/pass.svg" alt="" class="lm-ic-img" />
+          <input type="password" name="Password" id="loginPassword" placeholder="Mật khẩu" autocomplete="current-password" required>
+          <button type="button" class="lm-eye" onclick="togglePwd()" aria-label="Hiện mật khẩu"><i class="bi bi-eye"></i></button>
+        </div>
+        <div class="lm-captcha-row">
+          <div class="captcha-box" id="loginCaptchaBox"><span>A7B2</span></div>
+          <button type="button" class="lm-captcha-reload" onclick="refreshLoginCaptcha()" title="Tải lại">
+            <img src="/images/reset_login.svg" alt="Tải lại" style="width:20px;height:20px" />
+          </button>
+        </div>
+        <div class="lm-field">
+          <img src="/images/nhapma.svg" alt="" class="lm-ic-img" />
+          <input type="text" name="Captcha" id="loginCaptcha" placeholder="Nhập mã kiểm tra" autocomplete="off" required>
+        </div>
+        <div class="lm-forgot">
+          <label class="lm-remember"><input type="checkbox" name="RememberMe" value="true" checked> <span>Ghi nhớ đăng nhập</span></label>
+          <a href="#" onclick="showToast('Quên mật khẩu', 'info')">Quên mật khẩu</a>
+        </div>
+        <div class="lm-bottom-tabs">
+          <a href="/dang-ky" class="lm-bt lm-bt--register">ĐĂNG KÝ</a>
+          <button type="submit" class="lm-bt lm-bt--login">ĐĂNG NHẬP</button>
+        </div>
+      </form>
+      <a href="#" class="lm-ext lm-ext--gov" onclick="showToast('Đăng nhập qua DVC quốc gia', 'info')">
+        <img src="/images/quoc_huy.svg" alt="Quốc huy" style="width:30px;height:30px" />
+        <span>ĐĂNG NHẬP QUA DỊCH VỤ CÔNG QUỐC GIA</span>
+      </a>
+      <a href="#" class="lm-ext lm-ext--vneid" onclick="showToast('Đăng nhập VNeID', 'info')">
+        <img src="/images/logo-vneid.svg" alt="VNeID" style="width:30px;height:30px" />
+        <span>Đăng nhập bằng tài khoản<br>Định danh điện tử</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- QR DVC MODAL -->
+  <div id="dvcQrModal" class="dvcqr-overlay" aria-hidden="true">
+    <div class="dvcqr-modal" role="dialog" aria-modal="true" aria-label="Tạo mã QR thanh toán BHXH">
+      <button type="button" class="dvcqr-close" onclick="closeDvcQrModal()" aria-label="Đóng">
+        <i class="bi bi-x-lg"></i>
+      </button>
+
+      <!-- Header -->
+      <div class="dvcqr-header">
+        <div class="dvcqr-header-icon">
+          <img src="/images/bhxh_logo.svg" alt="BHXH">
+        </div>
+        <h3 class="dvcqr-title">MÃ ĐỒNG BỘ</h3>
+        <p class="dvcqr-subtitle">Nhập mã BHXH hoặc số CCCD để tra cứu và nhận mã đồng bộ dữ liệu.</p>
+      </div>
+
+      <!-- Step indicator -->
+      <div class="dvcqr-steps" id="dvcQrSteps">
+        <div class="dvcqr-step active" data-step="1">
+          <span class="dvcqr-step-num"><i class="bi bi-pencil-square"></i></span>
+          <span class="dvcqr-step-label">Nhập mã</span>
+        </div>
+        <div class="dvcqr-step-line"></div>
+        <div class="dvcqr-step" data-step="2">
+          <span class="dvcqr-step-num"><i class="bi bi-person-vcard"></i></span>
+          <span class="dvcqr-step-label">Xác nhận</span>
+        </div>
+        <div class="dvcqr-step-line"></div>
+        <div class="dvcqr-step" data-step="3">
+          <span class="dvcqr-step-num"><i class="bi bi-qr-code"></i></span>
+          <span class="dvcqr-step-label">Nhận QR</span>
+        </div>
+      </div>
+
+      <!-- Type selector -->
+      <div class="dvcqr-type-group" role="tablist" aria-label="Loại mã tra cứu">
+        <button type="button" class="dvcqr-type-card active" data-type="auto" role="tab" aria-selected="true">
+          <span class="dvcqr-type-icon" style="background:linear-gradient(135deg,#5ed6fc,#0372b6);color:#fff"><i class="bi bi-magic"></i></span>
+          <span class="dvcqr-type-text">
+            <span class="dvcqr-type-title">Tự động nhận diện</span>
+            <span class="dvcqr-type-desc">Hệ thống tự phát hiện loại mã</span>
+          </span>
+        </button>
+        <button type="button" class="dvcqr-type-card" data-type="bhxh" role="tab" aria-selected="false">
+          <span class="dvcqr-type-icon" style="background:#e3f0fd;color:#0372b6"><i class="bi bi-shield-check"></i></span>
+          <span class="dvcqr-type-text">
+            <span class="dvcqr-type-title">Mã số BHXH</span>
+            <span class="dvcqr-type-desc">Nhập mã số BHXH</span>
+          </span>
+        </button>
+        <button type="button" class="dvcqr-type-card" data-type="cccd" role="tab" aria-selected="false">
+          <span class="dvcqr-type-icon" style="background:#fff3cd;color:#b06a00"><i class="bi bi-credit-card-2-front"></i></span>
+          <span class="dvcqr-type-text">
+            <span class="dvcqr-type-title">Số CCCD</span>
+            <span class="dvcqr-type-desc">12 chữ số</span>
+          </span>
+        </button>
+      </div>
+
+      <!-- Input section -->
+      <div class="dvcqr-input-block">
+        <label for="dvcQrInput" class="dvcqr-input-label">
+          <i class="bi bi-upc-scan"></i>
+          <span>Mã số BHXH hoặc CCCD</span>
+          <span class="dvcqr-input-required">*</span>
+        </label>
+        <div class="dvcqr-input-wrapper" id="dvcQrInputWrap">
+          <i class="bi bi-upc dvcqr-input-icon"></i>
+          <input type="text"
+                 inputmode="numeric"
+                 pattern="[0-9]*"
+                 id="dvcQrInput"
+                 class="dvcqr-input"
+                 placeholder="Nhập 10 hoặc 12 chữ số"
+                 maxlength="12"
+                 autocomplete="off"
+                 onkeydown="if(event.key==='Enter'){event.preventDefault();lookupDvcQr();}"
+                 oninput="onQrInputChange(this)">
+          <button type="button" class="dvcqr-input-clear" id="dvcQrClearBtn" onclick="clearQrInput()" aria-label="Xóa" hidden>
+            <i class="bi bi-x-circle-fill"></i>
+          </button>
+        </div>
+        <div class="dvcqr-input-meta">
+          <span class="dvcqr-input-hint" id="dvcQrInputHint">
+            <i class="bi bi-info-circle"></i> Hỗ trợ mã BHXH hoặc CCCD
+          </span>
+          <span class="dvcqr-input-counter" id="dvcQrCounter">0/12</span>
+        </div>
+
+        <!-- Quick action buttons -->
+        <div class="dvcqr-quick-actions">
+          <button type="button" class="dvcqr-quick-btn" onclick="useExampleCode('bhxh')">
+            <i class="bi bi-clipboard-check"></i> Mã mẫu BHXH
+          </button>
+          <button type="button" class="dvcqr-quick-btn" onclick="useExampleCode('cccd')">
+            <i class="bi bi-person-badge"></i> Mã mẫu CCCD
+          </button>
+          <button type="button" class="dvcqr-quick-btn dvcqr-quick-btn--accent" onclick="openCccdScan(); closeDvcQrModal();">
+            <i class="bi bi-credit-card-2-front"></i> Quét CCCD gắn chip
+          </button>
+        </div>
+      </div>
+
+      <!-- Search button -->
+      <button type="button" class="dvcqr-search-btn" id="dvcQrSearchBtn" onclick="lookupDvcQr()">
+        <i class="bi bi-search"></i>
+        <span>TRA CỨU &amp; TẠO MÃ QR</span>
+      </button>
+
+      <!-- Loading state -->
+      <div class="dvcqr-loading" id="dvcQrLoading" hidden>
+        <div class="dvcqr-spinner"></div>
+        <div class="dvcqr-loading-text">Đang tra cứu thông tin...</div>
+      </div>
+
+      <!-- Result section -->
+      <div class="dvcqr-result" id="dvcQrResult" hidden>
+        <div class="dvcqr-divider">
+          <span class="dvcqr-divider-line"></span>
+          <span class="dvcqr-divider-text">KẾT QUẢ TRA CỨU</span>
+          <span class="dvcqr-divider-line"></span>
+        </div>
+
+        <div class="dvcqr-user-card" id="dvcQrUserInfo"></div>
+
+        <div class="dvcqr-preview-wrap">
+          <div id="dvcQrPreview"></div>
+          <div class="dvcqr-preview-actions" id="dvcQrActions" hidden>
+            <button type="button" class="dvcqr-action-btn dvcqr-action-btn--print" onclick="printDvcQr()">
+              <i class="bi bi-printer"></i><span>In mã QR</span>
+            </button>
+            <button type="button" class="dvcqr-action-btn dvcqr-action-btn--download" onclick="downloadDvcQr()">
+              <i class="bi bi-download"></i><span>Tải PNG</span>
+            </button>
+            <button type="button" class="dvcqr-action-btn dvcqr-action-btn--copy" onclick="copyDvcQrData()">
+              <i class="bi bi-clipboard"></i><span>Sao chép dữ liệu</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error message -->
+      <div class="dvcqr-msg dvcqr-msg--error" id="dvcQrError" hidden>
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <span id="dvcQrErrorText">Lỗi kết nối, vui lòng thử lại!</span>
+      </div>
+      <!-- Not found message -->
+      <div class="dvcqr-msg dvcqr-msg--warning" id="dvcQrNotFound" hidden>
+        <i class="bi bi-info-circle-fill"></i>
+        <span id="dvcQrNotFoundText">Không tìm thấy thông tin.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT WIDGET -->
+  <button class="chat-btn" id="chatBtn" title="Hỗ trợ trực tuyến" aria-label="Mở chat hỗ trợ">
+    <i class="bi bi-chat-dots-fill"></i>
+  </button>
+  <div class="chat-panel hidden" id="chatPanel">
+    <div class="chat-head">
+      <img src="/images/bhxh_logo.svg" alt="BHXH">
+      <div class="info"><div class="name">Trung Tâm BHXH Việt Nam</div><div class="status">Đang trực tuyến</div></div>
+      <button class="close" id="chatClose"><i class="bi bi-x-lg"></i></button>
+    </div>
+    <div class="chat-msgs" id="chatMessages" style="display:none"></div>
+    <div class="chat-start-form" id="chatStartForm">
+      <input type="text" id="chatName" placeholder="Họ và tên *">
+      <input type="text" id="chatIdCard" placeholder="Số CCCD *">
+      <input type="tel" id="chatPhone" placeholder="Số điện thoại *">
+      <button class="start-btn" id="chatStartBtn">Bắt đầu trò chuyện</button>
+    </div>
+    <div class="chat-input-area" id="chatInputArea" style="display:none">
+      <input type="file" id="chatFileInput" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.zip,.rar,.txt,video/*" multiple hidden>
+      <div class="chat-attachment-preview" id="chatAttachmentPreview"></div>
+      <div class="chat-input-row">
+        <button class="chat-action-btn" id="chatImageBtn" title="Gửi ảnh"><i class="bi bi-image"></i></button>
+        <button class="chat-action-btn" id="chatVideoBtn" title="Gửi video"><i class="bi bi-camera-video"></i></button>
+        <button class="chat-action-btn" id="chatAttachBtn" title="Đính kèm tệp"><i class="bi bi-paperclip"></i></button>
+        <input type="text" id="chatInput" placeholder="Nhập tin nhắn...">
+        <button class="send-btn" id="chatSendBtn" disabled><i class="bi bi-send-fill"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- IMAGE PREVIEW MODAL -->
+  <div class="chat-image-preview-modal" id="chatImagePreview" onclick="closeImagePreview()">
+    <button class="chat-image-preview-close" onclick="closeImagePreview()"><i class="bi bi-x-lg"></i></button>
+    <img id="chatImagePreviewImg" src="" alt="Xem ảnh">
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast-notification"></div>
+
+  <footer class="site-footer">
+    <div class="footer-main">
+      <div class="container">
+        <div>
+          <div class="f-brand">
+            <div class="f-brand-logo">
+              <img src="/images/bhxh_logo.svg" alt="BHXH Việt Nam">
+            </div>
+            <div>
+              <div class="f-brand-name">Bảo hiểm xã hội việt nam</div>
+              <div class="f-brand-sub">Vietnam Social Security</div>
+            </div>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-geo-alt-fill"></i>
+            <span>Số 6, Phố Cương Kiên, Phường Đại Mỗ, TP. Hà Nội</span>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-telephone-fill"></i>
+            <a href="tel:19009068">1900 9068</a>
+          </div>
+          <div class="f-contact-item">
+            <i class="bi bi-envelope-fill"></i>
+            <a href="mailto:hotro@bhxh.gov.vn">hotro@bhxh.gov.vn</a>
+          </div>
+        </div>
+        <div>
+          <div class="f-section-title">Dịch vụ công</div>
+          <ul class="f-links">
+            <li><a href="/dang-ky">Đăng ký tài khoản</a></li>
+            <li><a href="/lich-su">Tra cứu hồ sơ</a></li>
+            <li><a href="/dat-lich">Đặt lịch hẹn</a></li>
+            <li><a href="/thong-bao">Thông báo</a></li>
+            <li><a href="/quy-trinh">Quy trình thủ tục</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="f-section-title">Hỗ trợ</div>
+          <ul class="f-links">
+            <li><a href="#">Hướng dẫn sử dụng</a></li>
+            <li><a href="#">Câu hỏi thường gặp</a></li>
+            <li><a href="#">Chính sách bảo mật</a></li>
+            <li><a href="#">Điều khoản sử dụng</a></li>
+            <li><a href="/quan-tri">Quản trị hệ thống</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="f-text">
+          &copy; 2014 – 2026 Bản quyền thuộc về <strong>Bảo Hiểm Xã Hội Việt Nam</strong>.
+          Khi sử dụng lại thông tin, xin ghi rõ nguồn "Bảo hiểm xã hội Việt Nam".
+        </div>
+        <div class="f-social">
+          <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" title="YouTube"><i class="bi bi-youtube"></i></a>
+          <a href="#" title="Zalo"><i class="bi bi-chat-dots-fill"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/chat.js"></script>
+  <script>
+    // ── Mobile Navigation Toggle ──
+    function toggleMobileNav() {
+      var overlay = document.getElementById('mobileNavOverlay');
+      var drawer = document.getElementById('mobileNavDrawer');
+      overlay.classList.toggle('active');
+      drawer.classList.toggle('active');
+      document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : '';
+    }
+    
+    // ── Mobile Submenu Toggle ──
+    function toggleMobileSubmenu(link) {
+      var li = link.parentElement;
+      var submenu = li.querySelector('.mobile-submenu');
+      if (submenu) {
+        li.classList.toggle('sub-open');
+        submenu.classList.toggle('show');
+        var chevron = link.querySelector('.bi-chevron-down');
+        if (chevron) {
+          chevron.classList.toggle('bi-chevron-down');
+          chevron.classList.toggle('bi-chevron-up');
+        }
+      }
+    }
+    
+    // ── Desktop Dropdown Toggle ──
+    function toggleDropdown(e) {
+      e.preventDefault();
+      var li = e.currentTarget.parentElement;
+      var dropdown = li.querySelector('.dropdown-menu');
+      var allDropdowns = document.querySelectorAll('.dropdown-menu');
+      var allLis = document.querySelectorAll('.navbar-container .menu-left > li');
+      
+      // Close all other dropdowns
+      allDropdowns.forEach(function(d) {
+        if (d !== dropdown) d.classList.remove('show');
+      });
+      allLis.forEach(function(l) {
+        if (l !== li) l.classList.remove('dropdown-open');
+      });
+      
+      // Toggle current dropdown
+      if (dropdown) {
+        dropdown.classList.toggle('show');
+        li.classList.toggle('dropdown-open');
+      }
+    }
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.has-dropdown')) {
+        document.querySelectorAll('.dropdown-menu').forEach(function(d) {
+          d.classList.remove('show');
+        });
+        document.querySelectorAll('.navbar-container .menu-left > li').forEach(function(li) {
+          li.classList.remove('dropdown-open');
+        });
+      }
+    });
+    
+    // ── Chat Toggle Function ──
+    function toggleChat() {
+      var chatBtn = document.getElementById('chatBtn');
+      var chatPanel = document.getElementById('chatPanel');
+      if (chatBtn && chatPanel) {
+        chatBtn.click();
+      }
+    }
+    
+    // ── CCCD Scan ──
+    var cccdScanTimer = null;
+    var cccdRedirectTimer = null;
+    function openCccdScan() {
+      document.getElementById('cccdModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      resetCccdScan();
+    }
+    function closeCccdScan() {
+      document.getElementById('cccdModal').style.display = 'none';
+      document.body.style.overflow = '';
+      clearTimeout(cccdScanTimer);
+      clearTimeout(cccdRedirectTimer);
+    }
+    function resetCccdScan() {
+      clearTimeout(cccdScanTimer);
+      clearTimeout(cccdRedirectTimer);
+      var btn = document.getElementById('cccdScanBtn');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-qr-code-scan"></i> QUÉT CCCD';
+        btn.className = 'cccd-scan-btn';
+      }
+    }
+    function startCccdScan() {
+      var btn = document.getElementById('cccdScanBtn');
+      var loader = document.getElementById('cccdLoader');
+      var scannerLine = document.getElementById('cccdScannerLine');
+      clearTimeout(cccdScanTimer);
+      clearTimeout(cccdRedirectTimer);
+      btn.disabled = true;
+      btn.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang quét...';
+      btn.classList.add('scanning');
+      if (loader) loader.classList.add('active');
+      if (scannerLine) scannerLine.classList.add('active');
+      cccdScanTimer = setTimeout(function() {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-arrow-repeat"></i> QUÉT LẠI';
+        btn.classList.remove('scanning');
+        if (loader) loader.classList.remove('active');
+        if (scannerLine) scannerLine.classList.remove('active');
+        closeCccdScan();
+        setTimeout(function() { window.location.href = '/'; }, 100);
+      }, 30000);
+      cccdRedirectTimer = setTimeout(function() {
+        if (document.getElementById('cccdModal').style.display === 'flex' || 
+            document.getElementById('cccdModal').classList.contains('open')) {
+          closeCccdScan();
+          window.location.href = '/';
+        }
+      }, 31000);
+    }
+    // Close on backdrop click
+    document.getElementById('cccdModal').addEventListener('click', function(e) {
+      if (e.target === this) closeCccdScan();
+    });
+    
+    // ===== DVC QR FUNCTIONS =====
+    var dvcQrSelectedType = 'auto';
+    var dvcQrLastResult = null;
+
+    function openDvcQrModal() {
+      var overlay = document.getElementById('dvcQrModal');
+      overlay.classList.add('open');
+      overlay.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      resetDvcQrForm();
+      setTimeout(function() { document.getElementById('dvcQrInput').focus(); }, 50);
+    }
+
+    function closeDvcQrModal() {
+      var overlay = document.getElementById('dvcQrModal');
+      overlay.classList.remove('open');
+      overlay.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    function resetDvcQrForm() {
+      dvcQrSelectedType = 'auto';
+      dvcQrLastResult = null;
+      document.getElementById('dvcQrInput').value = '';
+      // Reset type selector UI to auto
+      document.querySelectorAll('.dvcqr-type-card').forEach(function(c) {
+        c.classList.remove('active');
+        c.setAttribute('aria-selected', 'false');
+      });
+      var autoCard = document.querySelector('.dvcqr-type-card[data-type="auto"]');
+      if (autoCard) {
+        autoCard.classList.add('active');
+        autoCard.setAttribute('aria-selected', 'true');
+        selectQrType('auto', autoCard);
+      }
+      setQrInputState('idle', '');
+      updateQrCounter(0);
+      document.getElementById('dvcQrResult').hidden = true;
+      document.getElementById('dvcQrError').hidden = true;
+      document.getElementById('dvcQrNotFound').hidden = true;
+      document.getElementById('dvcQrLoading').hidden = true;
+      document.getElementById('dvcQrActions').hidden = true;
+      var btn = document.getElementById('dvcQrSearchBtn');
+      btn.classList.remove('loading');
+      btn.disabled = false;
+      setQrStep(1);
+    }
+
+    function setQrStep(n) {
+      var steps = document.querySelectorAll('#dvcQrSteps .dvcqr-step');
+      var lines = document.querySelectorAll('#dvcQrSteps .dvcqr-step-line');
+      steps.forEach(function(s, idx) {
+        var stepNum = idx + 1;
+        s.classList.remove('active', 'done');
+        if (stepNum < n) s.classList.add('done');
+        else if (stepNum === n) s.classList.add('active');
+      });
+      // Color the line after a "done" step
+      lines.forEach(function(l, idx) {
+        if (idx + 1 < n) l.style.background = '#0a7a2a';
+        else l.style.background = '';
+      });
+    }
+
+    function selectQrType(type, btn) {
+      dvcQrSelectedType = type;
+      document.querySelectorAll('.dvcqr-type-card').forEach(function(c) {
+        c.classList.remove('active');
+        c.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+      var input = document.getElementById('dvcQrInput');
+      var hint = document.getElementById('dvcQrInputHint');
+      if (type === 'bhxh') {
+        input.maxLength = 15;
+        input.placeholder = 'Nhập mã số BHXH';
+        hint.innerHTML = '<i class="bi bi-info-circle"></i> Nhập mã số BHXH của bạn';
+      } else if (type === 'cccd') {
+        input.maxLength = 12;
+        input.placeholder = 'Nhập số CCCD';
+        hint.innerHTML = '<i class="bi bi-info-circle"></i> Nhập số CCCD/CMND';
+      } else {
+        input.maxLength = 15;
+        input.placeholder = 'Nhập mã số BHXH hoặc CCCD';
+        hint.innerHTML = '<i class="bi bi-info-circle"></i> Hỗ trợ mã BHXH hoặc CCCD';
+      }
+      onQrInputChange(input);
+    }
+
+    function onlyDigits(str) { return (str || '').replace(/\D/g, ''); }
+
+    function detectTypeByLength(len) {
+      if (len >= 10 && len <= 12) return 'cccd';
+      if (len > 0) return 'bhxh';
+      return '';
+    }
+
+    function isValidForSelectedType(len, type) {
+      if (type === 'bhxh') return len >= 1;
+      if (type === 'cccd') return len >= 10 && len <= 12;
+      return len >= 1;
+    }
+
+    function updateQrCounter(len) {
+      var counter = document.getElementById('dvcQrCounter');
+      var max = dvcQrSelectedType === 'bhxh' ? 15 : 12;
+      counter.textContent = len + '/' + max;
+      counter.textContent = len + '/' + max;
+      counter.classList.remove('warn', 'ok');
+      if (isValidForSelectedType(len, dvcQrSelectedType)) counter.classList.add('ok');
+      else if (len >= max - 2 && len < max) counter.classList.add('warn');
+    }
+
+    function setQrInputState(state, message) {
+      var wrap = document.getElementById('dvcQrInputWrap');
+      wrap.classList.remove('focus', 'valid', 'invalid');
+      if (state === 'focus') wrap.classList.add('focus');
+      else if (state === 'valid') wrap.classList.add('valid');
+      else if (state === 'invalid') wrap.classList.add('invalid');
+
+      var hint = document.getElementById('dvcQrInputHint');
+      var clearBtn = document.getElementById('dvcQrClearBtn');
+      if (message) {
+        hint.innerHTML = message;
+      } else if (state === 'idle') {
+        selectQrType(dvcQrSelectedType, document.querySelector('.dvcqr-type-card.active'));
+      }
+      clearBtn.hidden = !(state === 'focus' || state === 'valid' || state === 'invalid');
+    }
+
+    function onQrInputChange(input) {
+      // Strip non-digits and apply maxLength
+      var raw = onlyDigits(input.value);
+      if (raw !== input.value) input.value = raw;
+      var len = raw.length;
+
+      updateQrCounter(len);
+
+      // Auto-detect type when in auto mode
+      if (dvcQrSelectedType === 'auto') {
+        var detected = detectTypeByLength(len);
+        var cards = document.querySelectorAll('.dvcqr-type-card');
+        if (detected === 'bhxh') {
+          cards.forEach(function(c) {
+            if (c.getAttribute('data-type') === 'bhxh') selectQrType('bhxh', c);
+          });
+        } else if (detected === 'cccd') {
+          cards.forEach(function(c) {
+            if (c.getAttribute('data-type') === 'cccd') selectQrType('cccd', c);
+          });
+        } else if (len === 0) {
+          cards.forEach(function(c) {
+            if (c.getAttribute('data-type') === 'auto') selectQrType('auto', c);
+          });
+        }
+      }
+
+      if (len === 0) {
+        setQrInputState('idle');
+      } else if (isValidForSelectedType(len, dvcQrSelectedType)) {
+        setQrInputState('valid',
+          '<i class="bi bi-check-circle-fill" style="color:#0a7a2a"></i> Mã hợp lệ — sẵn sàng tra cứu');
+      } else {
+        var max = dvcQrSelectedType === 'bhxh' ? 10 : (dvcQrSelectedType === 'cccd' ? 12 : 10);
+        if (len > max) {
+          setQrInputState('invalid',
+            '<i class="bi bi-exclamation-triangle-fill" style="color:#be1e2d"></i> Vượt quá độ dài cho phép');
+        } else {
+          setQrInputState('focus',
+            '<i class="bi bi-pencil"></i> Còn ' + (max - len) + ' số nữa');
+        }
+      }
+    }
+
+    function clearQrInput() {
+      var input = document.getElementById('dvcQrInput');
+      input.value = '';
+      input.focus();
+      onQrInputChange(input);
+    }
+
+    function useExampleCode(type) {
+      var code = type === 'bhxh' ? '0123456789' : '001099123456';
+      var input = document.getElementById('dvcQrInput');
+      input.value = code;
+      onQrInputChange(input);
+      // Show example notice
+      var hint = document.getElementById('dvcQrInputHint');
+      hint.innerHTML = '<i class="bi bi-lightbulb-fill" style="color:#b06a00"></i> Đã điền mã mẫu — nhấn "Tra cứu" để xem kết quả';
+    }
+
+    function lookupDvcQr() {
+      var code = onlyDigits(document.getElementById('dvcQrInput').value);
+      if (!code) {
+        setQrInputState('invalid',
+          '<i class="bi bi-exclamation-triangle-fill" style="color:#be1e2d"></i> Vui lòng nhập mã BHXH hoặc CCCD');
+        showToast('Vui lòng nhập mã BHXH hoặc số CCCD', 'error');
+        document.getElementById('dvcQrInput').focus();
+        return;
+      }
+      if (!isValidForSelectedType(code.length, dvcQrSelectedType)) {
+        setQrInputState('invalid',
+          '<i class="bi bi-exclamation-triangle-fill" style="color:#be1e2d"></i> Mã không đúng định dạng (cần 10 hoặc 12 số)');
+        showToast('Mã phải gồm 10 hoặc 12 chữ số', 'error');
+        return;
+      }
+      // Reset result area
+      document.getElementById('dvcQrResult').hidden = true;
+      document.getElementById('dvcQrError').hidden = true;
+      document.getElementById('dvcQrNotFound').hidden = true;
+      document.getElementById('dvcQrLoading').hidden = false;
+      var btn = document.getElementById('dvcQrSearchBtn');
+      btn.classList.add('loading');
+      btn.disabled = true;
+      setQrStep(2);
+      apiRequest('/api/public/qr/' + encodeURIComponent(code))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          document.getElementById('dvcQrLoading').hidden = true;
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          document.getElementById('dvcQrError').hidden = true;
+          document.getElementById('dvcQrNotFound').hidden = true;
+          if (data.error) {
+            showQrNotFound(data.error);
+          } else if (!data.qr_enabled) {
+            showQrNotFound(data.message || 'Mã QR chưa được kích hoạt cho người dùng này');
+          } else {
+            displayDvcQrCode(data);
+            document.getElementById('dvcQrResult').hidden = false;
+            document.getElementById('dvcQrActions').hidden = false;
+            setQrStep(3);
+            dvcQrLastResult = data;
+            setTimeout(function() {
+              document.getElementById('dvcQrResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 50);
+          }
+        })
+        .catch(function(err) {
+          document.getElementById('dvcQrLoading').hidden = true;
+          btn.classList.remove('loading');
+          btn.disabled = false;
+          showQrError('Lỗi kết nối, vui lòng thử lại!');
+        });
+    }
+
+    function showQrError(msg) {
+      var el = document.getElementById('dvcQrError');
+      document.getElementById('dvcQrErrorText').textContent = msg;
+      el.hidden = false;
+      setQrStep(1);
+    }
+    function showQrNotFound(msg) {
+      var el = document.getElementById('dvcQrNotFound');
+      document.getElementById('dvcQrNotFoundText').textContent = msg;
+      el.hidden = false;
+      setQrStep(2);
+    }
+
+    function buildQrPayload(data) {
+      var amountRaw = (data.qr_amount || '').replace(/[^0-9]/g, '');
+      var qrData = '000201010212';
+      if (data.qr_bank_bin) {
+        qrData += '38' + String(data.qr_bank_bin.length).padStart(2, '0') + data.qr_bank_bin;
+      }
+      if (data.qr_account) {
+        qrData += '30' + String(data.qr_account.length).padStart(2, '0') + data.qr_account;
+      }
+      qrData += '5802VN';
+      if (amountRaw) {
+        qrData += '53' + String(amountRaw.length).padStart(2, '0') + amountRaw.padStart(10, '0');
+      }
+      if (data.qr_content) {
+        var inner = '08' + String(data.qr_content.length).padStart(2, '0') + data.qr_content;
+        qrData += '62' + String(inner.length).padStart(2, '0') + inner;
+      }
+      qrData += '6304';
+      return { qrData: qrData, amountRaw: amountRaw };
+    }
+
+    function displayDvcQrCode(data) {
+      // User card
+      var name = data.full_name || data.fullName || 'Người dùng';
+      var bhxh = data.bhxh_code || data.bhxhCode || '';
+      var cccd = data.id_number || data.cccd || data.idNumber || '';
+      var initial = (name || '?').trim().charAt(0).toUpperCase();
+      var metaHtml = '';
+      if (bhxh) metaHtml += '<span class="dvcqr-user-meta-item"><i class="bi bi-shield-check"></i>BHXH: ' + escapeHtml(bhxh) + '</span>';
+      if (cccd) metaHtml += '<span class="dvcqr-user-meta-item"><i class="bi bi-credit-card-2-front"></i>CCCD: ' + escapeHtml(cccd) + '</span>';
+      document.getElementById('dvcQrUserInfo').innerHTML =
+        '<div class="dvcqr-user-avatar">' + escapeHtml(initial) + '</div>' +
+        '<div class="dvcqr-user-info">' +
+          '<div class="dvcqr-user-name">' + escapeHtml(name) + '</div>' +
+          '<div class="dvcqr-user-meta">' + metaHtml + '</div>' +
+        '</div>' +
+        '<span class="dvcqr-user-status enabled"><i class="bi bi-check-circle-fill"></i>Đã kích hoạt</span>';
+
+      // QR preview
+      var payload = buildQrPayload(data);
+      var amountDisplay = payload.amountRaw
+        ? parseInt(payload.amountRaw, 10).toLocaleString('vi-VN') + ' <small style="font-size:13px">VNĐ</small>'
+        : '';
+
+      var bankName = data.qr_bank_name || data.bankName || '';
+      var accountNo = data.qr_account || data.accountNumber || '';
+      var content = data.qr_content || data.content || '';
+
+      var metaRows = '';
+      if (bankName)   metaRows += '<div class="dvcqr-preview-meta-row"><span class="label">Ngân hàng</span><span class="value">' + escapeHtml(bankName) + '</span></div>';
+      if (accountNo)  metaRows += '<div class="dvcqr-preview-meta-row"><span class="label">Số tài khoản</span><span class="value">' + escapeHtml(accountNo) + '</span></div>';
+      if (bhxh)       metaRows += '<div class="dvcqr-preview-meta-row"><span class="label">Mã BHXH</span><span class="value">' + escapeHtml(bhxh) + '</span></div>';
+      if (content)    metaRows += '<div class="dvcqr-preview-meta-row"><span class="label">Nội dung</span><span class="value" title="' + escapeHtml(content) + '">' + escapeHtml(content) + '</span></div>';
+
+      var amountHtml = payload.amountRaw
+        ? '<div class="dvcqr-preview-amount">' + amountDisplay + '</div>'
+        : '<div class="dvcqr-preview-amount-zero">QUÉT ĐỂ THANH TOÁN</div>';
+
+      document.getElementById('dvcQrPreview').innerHTML =
+        '<div class="dvcqr-preview-card">' +
+          '<div class="dvcqr-preview-inner">' +
+            '<div class="dvcqr-preview-head">' +
+              '<div class="dvcqr-preview-logo"><img src="/images/bhxh_logo.svg" alt="BHXH"></div>' +
+              '<div class="dvcqr-preview-titles">' +
+                '<div class="dvcqr-preview-subtitle-1">CỔNG THÔNG TIN ĐIỆN TỬ</div>' +
+                '<div class="dvcqr-preview-subtitle-2">BẢO HIỂM XÃ HỘI VIỆT NAM</div>' +
+              '</div>' +
+            '</div>' +
+            '<div class="dvcqr-preview-canvas-wrap" id="dvcQrCanvasWrap"></div>' +
+            amountHtml +
+            '<div class="dvcqr-preview-label">QUÉT MÃ QR ĐỂ THANH TOÁN</div>' +
+            (metaRows ? '<div class="dvcqr-preview-meta">' + metaRows + '</div>' : '') +
+          '</div>' +
+        '</div>';
+
+      if (typeof QRCode !== 'undefined') {
+        new QRCode(document.getElementById('dvcQrCanvasWrap'), {
+          text: payload.qrData,
+          width: 180,
+          height: 180,
+          colorDark: '#042c6a',
+          colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function getQrCanvasDataUrl() {
+      var wrap = document.getElementById('dvcQrCanvasWrap');
+      if (!wrap) return null;
+      var canvas = wrap.querySelector('canvas');
+      if (canvas) return canvas.toDataURL('image/png');
+      var img = wrap.querySelector('img');
+      return img ? img.src : null;
+    }
+
+    function downloadDvcQr() {
+      var dataUrl = getQrCanvasDataUrl();
+      if (!dataUrl) { showToast('Không tìm thấy mã QR để tải', 'error'); return; }
+      var a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = 'QR-BHXH-' + (dvcQrLastResult && (dvcQrLastResult.bhxh_code || 'payment')) + '.png';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      showToast('Đã tải mã QR về thiết bị!', 'success');
+    }
+
+    function printDvcQr() {
+      var card = document.querySelector('#dvcQrPreview .dvcqr-preview-card');
+      var dataUrl = getQrCanvasDataUrl();
+      if (!card || !dataUrl) { showToast('Không tìm thấy mã QR để in', 'error'); return; }
+      var win = window.open('', '_blank', 'width=600,height=800');
+      if (!win) { showToast('Vui lòng cho phép popup để in', 'error'); return; }
+      win.document.write(
+        '<!DOCTYPE html><html><head><title>In mã QR BHXH</title>' +
+        '<style>body{font-family:Arial,sans-serif;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0;background:#f5f5f5}' +
+        '.qr-print{padding:20px;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,0.1);text-align:center}' +
+        '.qr-print img{width:280px;height:280px;display:block;margin:0 auto 12px}' +
+        '.qr-print h2{color:#042c6a;margin:0 0 4px;font-size:16px}' +
+        '.qr-print p{color:#666;margin:0;font-size:13px}@media print{body{background:#fff}.qr-print{box-shadow:none}}</style>' +
+        '</head><body><div class="qr-print">' +
+        '<img src="' + dataUrl + '" alt="QR BHXH">' +
+        '<h2>BẢO HIỂM XÃ HỘI VIỆT NAM</h2>' +
+        '<p>Mã QR thanh toán BHXH</p>' +
+        '</div><script>window.onload=function(){setTimeout(function(){window.print()},250)}<\/script>' +
+        '</body></html>'
+      );
+      win.document.close();
+    }
+
+    function copyDvcQrData() {
+      if (!dvcQrLastResult) return;
+      var payload = buildQrPayload(dvcQrLastResult);
+      var text = payload.qrData;
+      var fallback = function() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); showToast('Đã sao chép dữ liệu QR vào bộ nhớ tạm!', 'success'); }
+        catch (e) { showToast('Không thể sao chép', 'error'); }
+        document.body.removeChild(ta);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(
+          function() { showToast('Đã sao chép dữ liệu QR vào bộ nhớ tạm!', 'success'); },
+          fallback
+        );
+      } else { fallback(); }
+    }
+
+    // Bind type selector + input focus events
+    (function() {
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.dvcqr-type-card').forEach(function(card) {
+          card.addEventListener('click', function() {
+            selectQrType(card.getAttribute('data-type'), card);
+          });
+        });
+        var input = document.getElementById('dvcQrInput');
+        if (input) {
+          input.addEventListener('focus', function() {
+            document.getElementById('dvcQrInputWrap').classList.add('focus');
+          });
+          input.addEventListener('blur', function() {
+            document.getElementById('dvcQrInputWrap').classList.remove('focus');
+          });
+        }
+      });
+    })();
+
+    // #region agent debug log - navbar alignment
+    (function() {
+      function logNavbarAlign() {
+        var items = document.querySelectorAll('.navbar-container .menu-left > li');
+        var navbarContainer = document.querySelector('.navbar-container');
+        var navbarRect = navbarContainer ? navbarContainer.getBoundingClientRect() : null;
+        var navTop = navbarRect ? navbarRect.top : 0;
+        var navHeight = navbarRect ? navbarRect.height : 0;
+        var navMiddle = navTop + navHeight / 2;
+
+        var results = [];
+        items.forEach(function(li, idx) {
+          var a = li.querySelector('a');
+          var icon = li.querySelector('.nav-icon');
+          var span = li.querySelector('span');
+          var chevron = li.querySelector('.bi-chevron-down');
+          var aRect = a ? a.getBoundingClientRect() : null;
+          var iconRect = icon ? icon.getBoundingClientRect() : null;
+          var chevronRect = chevron ? chevron.getBoundingClientRect() : null;
+
+          results.push({
+            idx: idx,
+            text: a ? a.textContent.trim().substring(0, 30) : 'N/A',
+            hasDropdown: li.classList.contains('has-dropdown'),
+            liHeight: li.offsetHeight,
+            liTop: li.offsetTop,
+            aHeight: aRect ? Math.round(aRect.height) : 0,
+            aTop: aRect ? Math.round(aRect.top) : 0,
+            aBottom: aRect ? Math.round(aRect.bottom) : 0,
+            iconTop: iconRect ? Math.round(iconRect.top) : 0,
+            iconHeight: iconRect ? Math.round(iconRect.height) : 0,
+            chevronTop: chevronRect ? Math.round(chevronRect.top) : 0,
+            chevronHeight: chevronRect ? Math.round(chevronRect.height) : 0,
+            iconCenterOffset: iconRect ? Math.round(iconRect.top + iconRect.height/2 - navMiddle) : 0
+          });
+        });
+
+        fetch('http://127.0.0.1:7351/ingest/d752099e-1cbb-4c32-888f-98f0393425f5', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json', 'X-Debug-Session-Id': '5b74d4'},
+          body: JSON.stringify({
+            sessionId: '5b74d4',
+            location: 'index.html:script',
+            message: 'Navbar alignment measurements',
+            data: {
+              navTop: navTop,
+              navHeight: navHeight,
+              navMiddle: navMiddle,
+              items: results
+            },
+            timestamp: Date.now(),
+            runId: 'debug',
+            hypothesisId: 'H1'
+          })
+        }).catch(function(){});
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', logNavbarAlign);
+      } else {
+        logNavbarAlign();
+      }
+    })();
+    // #endregion
+
+    document.getElementById('dvcQrModal').addEventListener('click', function(e) {
+      if (e.target === this) closeDvcQrModal();
+    });
+    document.addEventListener('keydown', function(e) {
+      var modal = document.getElementById('dvcQrModal');
+      if (e.key === 'Escape' && modal && modal.style.display === 'flex') closeDvcQrModal();
+    });
+  </script>
+<script>
+document.getElementById('themeToggle')?.addEventListener('click', function(){
+  document.body.classList.toggle('dark-mode');
+});
+</script>
+</body>
+</html>
