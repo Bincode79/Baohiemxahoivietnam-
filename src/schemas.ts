@@ -42,13 +42,6 @@ const maxBytes = (n: number) =>
 
 const MAX_PHOTO_BYTES = 2 * 1024 * 1024; // 2 MB
 
-const ImageSchema = z.string()
-  .refine((v) => v.length > 0, "Ảnh bắt buộc")
-  .refine(
-    (v) => v.length <= MAX_PHOTO_BYTES * 2,
-    "Kích thước ảnh quá lớn"
-  );
-
 // ─── Register ─────────────────────────────────────────────────────────────────
 
 const BankInfoSchema = z.object({
